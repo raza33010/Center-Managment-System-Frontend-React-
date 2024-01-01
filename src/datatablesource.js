@@ -68,41 +68,41 @@ export const studentrecordRows = [];
  */
 export const accountColumns = [
   { field: "id", headerName: "ID", width: 70 },
+  // {
+  //   field: "center_id",
+  //   headerName: "Center Id",
+  //   width: 230,
+  // },
   {
-    field: "center_id",
-    headerName: "Center Id",
+    field: "name",
+    headerName: "Account Name",
     width: 230,
   },
   {
-    field: "user_id",
-    headerName: "User Id",
+    field: "balance",
+    headerName: "Account Balance",
     width: 230,
   },
-  {
-    field: "description",
-    headerName: "Description",
-    width: 230,
-  },
-  {
-    field: "bank_id",
-    headerName: "Bank Id",
-    width: 230,
-  },
-  {
-    field: "amount",
-    headerName: "Amount",
-    width: 230,
-  },
-  {
-    field: "transaction_id",
-    headerName: "Transaction Id",
-    width: 230,
-  },
-  {
-    field: "transaction_type",
-    headerName: "Transaction Type",
-    width: 230,
-  },
+  // {
+  //   field: "bank_id",
+  //   headerName: "Bank Id",
+  //   width: 230,
+  // },
+  // {
+  //   field: "amount",
+  //   headerName: "Amount",
+  //   width: 230,
+  // },
+  // {
+  //   field: "transaction_id",
+  //   headerName: "Transaction Id",
+  //   width: 230,
+  // },
+  // {
+  //   field: "transaction_type",
+  //   headerName: "Transaction Type",
+  //   width: 230,
+  // },
   {
     field: "status",
     headerName: "Status",
@@ -632,6 +632,7 @@ export const fetchStudentRows = async () => {
 
 // Export an empty array to be used until the API data is loaded
 export const studentRows = [];
+
 
 
 /**

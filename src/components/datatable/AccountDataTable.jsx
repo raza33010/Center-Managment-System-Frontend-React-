@@ -1,17 +1,17 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { studentColumns, studentRows, fetchStudentRows } from "../../datatablesource";
+import { accountColumns, accountRows, fetchAccountRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const StudentDataTable = () => {
-    const [data, setData] = useState(studentRows);
+const AccountDataTable = () => {
+    const [data, setData] = useState(accountRows);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
-            const rows = await fetchStudentRows();
+            const rows = await fetchAccountRows();
             console.log("jawad",rows)
             setLoading(false);
             setData(Array.from(rows.data));
@@ -21,7 +21,7 @@ const StudentDataTable = () => {
 
     const handleDelete = (id) => {
         // Make a DELETE request to the Flask API endpoint
-        fetch(`http://127.0.0.1:5000/del_student/${id}`, {
+        fetch(`http://127.0.0.1:5000/del_account/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ const StudentDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to={`/student/${params.row.id}`} style={{ textDecoration: "none" }}>
+                        <Link to={`/account/${params.row.id}`} style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
                         </Link>
                         <div
@@ -64,8 +64,8 @@ const StudentDataTable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New student
-                <Link to="/student/new" className="link">
+                Add New account
+                <Link to="/account/new" className="link">
                     Add New
                 </Link>
             </div>
@@ -73,7 +73,7 @@ const StudentDataTable = () => {
                 <DataGrid
                     className="datagrid"
                     rows={data}
-                    columns={studentColumns.concat(actionColumn)}
+                    columns={accountColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
                     // checkboxSelection
@@ -82,4 +82,4 @@ const StudentDataTable = () => {
     );
 };
 
-export default StudentDataTable;
+export default AccountDataTable;
