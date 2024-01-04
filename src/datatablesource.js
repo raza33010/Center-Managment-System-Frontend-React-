@@ -103,26 +103,57 @@ export const accountColumns = [
   //   headerName: "Transaction Type",
   //   width: 230,
   // },
-  {
-    field: "status",
-    headerName: "Status",
-    width: 160,
-    renderCell: (params) => {
-      return (
-        <div className={`cellWithStatus ${params.row.status}`}>
-          {params.row.status}
-        </div>
-      );
-    },
-  },
+  // {
+  //   field: "status",
+  //   headerName: "Status",
+  //   width: 160,
+  //   renderCell: (params) => {
+  //     return (
+  //       <div className={`cellWithStatus ${params.row.status}`}>
+  //         {params.row.status}
+  //       </div>
+  //     );
+  //   },
+  // },
 ];
 // Fetch the data from the API and format it for the DataGrid
 export const fetchAccountRows = async () => {
+  const formData = {
+    center_id: localStorage.getItem("center_id"),
+    role: 'user',
+    role_id: localStorage.getItem("role_id"),
+  };
+  console.log("abbas",formData);
+  const formDataString = JSON.stringify(formData);
   try {
-    const apiUrl = "http://127.0.0.1:5000/account";
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    return data;
+     const response = await fetch('http://127.0.0.1:5000/account', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: formDataString,
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .then((data) => {
+        const userdata = data;
+        console.log("abbas",userdata);
+        return userdata
+     
+      })
+      .catch((error) => {
+        console.log(error)
+        // setError('Invalid username or password!');
+        // setUsername('');
+        // setPassword('');
+      }
+      );
+    return response
   } catch (error) {
     console.error(error);
   }
