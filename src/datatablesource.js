@@ -1043,19 +1043,24 @@ export const rolescreenRows = [];
  */
 export const examinationColumns = [
   { field: "id", headerName: "ID", width: 70 },
-  {
-    field: "center_id",
-    headerName: "Center Id",
+  // {
+  //   field: "center_id",
+  //   headerName: "Center Id",
+  //   width: 230,
+  // },
+    {
+    field: "file",
+    headerName: "Paper",
     width: 230,
   },
   {
-    field: "name",
-    headerName: "Name",
+    field: "class_names",
+    headerName: "Class",
     width: 230,
   },
   {
-    field: "subject_id",
-    headerName: "Subject Id",
+    field: "subject_names",
+    headerName: "Subject",
     width: 230,
   },
   {
@@ -1079,7 +1084,7 @@ export const examinationColumns = [
     width: 230,
   },
   {
-    field: "invigilator",
+    field: "user_names",
     headerName: "Invigilator",
     width: 230,
   },
@@ -1123,11 +1128,42 @@ export const examinationColumns = [
 ];
 // Fetch the data from the API and format it for the DataGrid
 export const fetchExaminationRows = async () => {
+  const formData = {
+    center_id: localStorage.getItem("center_id"),
+    role: 'user',
+    role_id: localStorage.getItem("role_id"),
+  };
+  console.log("abbas",formData);
+  const formDataString = JSON.stringify(formData);
   try {
-    const apiUrl = "http://127.0.0.1:5000/examination";
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    return data;
+     const response = await fetch('http://127.0.0.1:5000/examination', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: formDataString,
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .then((data) => {
+        const userdata = data;
+        console.log("abbas",userdata);
+        return userdata
+     
+      })
+      .catch((error) => {
+        console.log(error)
+        // setError('Invalid username or password!');
+        // setUsername('');
+        // setPassword('');
+      }
+      );
+    return response
   } catch (error) {
     console.error(error);
   }

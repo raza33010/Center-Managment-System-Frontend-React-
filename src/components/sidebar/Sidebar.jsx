@@ -1,5 +1,6 @@
 import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import { WalletOutlined } from "@mui/icons-material";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -70,6 +71,12 @@ const Sidebar = () => {
             <li>
               <AccountCircleOutlinedIcon className="icon" />
               <span>Account</span>
+            </li> 
+          </Link>
+          <Link to="/expense" style={{ textDecoration: "none" }}>
+            <li>
+              <WalletOutlined className="icon" />
+              <span>Expense</span>
             </li> 
           </Link>
           <Link to="/batch" style={{ textDecoration: "none" }}>

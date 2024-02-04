@@ -1,14 +1,17 @@
 import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
+import Select from 'react-select';
 import Navbar from "../../components/navbar/Navbar";
+import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
 import { examinationInputs } from "../../formSource";
 
 
 const ExaminationNew = ({ title }) => {
-    // const [file, setFile] = useState("");
+    const [file, setFile] = useState("");
     const [inputValues, setInputValues] = useState({});
     const [notification, setNotification] = useState("");
+    const [options, setOptions] = useState([]);
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 
     let [token] = useState(localStorage.getItem("token"));
@@ -17,6 +20,14 @@ const ExaminationNew = ({ title }) => {
         alert("Plaese Login first then you can access this page...");
         window.location.href = '/'; // Replace "/login" with the actual login page path
     };
+
+    const handleCenterSelectChange = (selectedOption) => {
+        setInputValues({
+          ...inputValues,
+          class_id: selectedOption.value
+        });
+      };
+    
 
     const handleInputChange = (e) => {
         console.log(e.target.name);
@@ -31,8 +42,8 @@ const ExaminationNew = ({ title }) => {
         e.preventDefault();
     
         const formData = new FormData();
-        formData.append("center_id", inputValues.center_id);
-        formData.append("name", inputValues.name);
+        formData.append("center_id", localStorage.getItem('center_id'));
+        formData.append("class_id", inputValues.class_id);
         formData.append("subject_id", inputValues.subject_id);
         formData.append("type", inputValues.type);
         formData.append("month", inputValues.month);
@@ -45,7 +56,7 @@ const ExaminationNew = ({ title }) => {
         formData.append("end_time", inputValues.end_time);
         formData.append("checking_status", inputValues.checking_status);
         formData.append("status", inputValues.status);
-        // formData.append("logo", file); // Append the file to FormData
+        formData.append("logo", file); // Append the file to FormData
     
         try {
             // Send formData to the server using an HTTP request with multipart/form-data
@@ -92,17 +103,17 @@ const ExaminationNew = ({ title }) => {
                             <h1>{title}</h1>
                         </div>
                         <div className="bottom">
-                            {/* <div className="left">
+                            <div className="left">
                                 <img
                                     src={
                                         file
                                     }
                                     alt=""
                                 />
-                            </div> */}
+                            </div>
                             <div className="right">
                                 <form onSubmit={handleSubmit}>
-                                    {/* <div className="formInput">
+                                    <div className="formInput">
                                         <label htmlFor="file">
                                             Image: <DriveFolderUploadOutlinedIcon className="icon" />
                                         </label>
@@ -112,30 +123,25 @@ const ExaminationNew = ({ title }) => {
                                             onChange={(e) => setFile(e.target.files[0])}
                                             style={{ display: "none" }}
                                         />
-                                    </div> */}
+                                    </div>
                                     {examinationInputs.map((input) => (
                                         <div className="formInput" key={input.id}>
                                             <label>{input.label}</label>
-                                            {input.type === "dropdown" ? (
-                                                <select
-                                                    name={input.fieldName}
-                                                    onChange={handleInputChange}
-                                                    required
-                                                >
-                                                    {input.options.map((option) => (
-                                                        <option key={option} value={option}>
-                                                            {option}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            ) : (
-                                                <input
-                                                    type={input.type}
-                                                    placeholder={input.placeholder}
-                                                    name={input.fieldName}
-                                                    onChange={handleInputChange}
-                                                    required
+                                            { input.fieldName === "class_id" ? (
+                                                <Select
+                                                options={options}
+                                                name={input.fieldName}
+                                                onChange={handleCenterSelectChange}
+                                                required
                                                 />
+                                            ) : (
+                                            <input
+                                                type={input.type}
+                                                placeholder={input.placeholder}
+                                                name={input.fieldName}
+                                                onChange={handleInputChange}
+                                                required={input.fieldName !== "status"}
+                                            />
                                             )}
                                         </div>
                                     ))}

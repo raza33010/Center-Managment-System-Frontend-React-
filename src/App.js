@@ -133,6 +133,16 @@ function App() {
               />
             </Route>
 
+            <Route path="expense">
+              <Route index element={<AccountList />} />
+              <Route path=":accountId" element={<AccountSingle />} />
+              <Route path="upd_account/:accountId" element={<AccountUpdate inputs={accountInputs} title="Update Account" />} />
+              <Route
+                path="new"
+                element={<AccountNew inputs={accountInputs} title="Add New Account" />}
+              />
+            </Route>
+
             <Route path="user">
               <Route index element={<UserList />} />
               <Route path=":userId" element={<UserSingle />} />
