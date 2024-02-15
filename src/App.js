@@ -17,6 +17,7 @@ import DutyList from "./pages/list/DutyList";
 import CenterList from "./pages/list/CenterList";
 import StudentrecordList from "./pages/list/StudentrecordList";
 import AccountList from "./pages/list/AccountList";
+import ExpenseList from "./pages/list/ExpenseList";
 import BatchList from "./pages/list/BatchList";
 import RoleList from "./pages/list/RoleList";
 import List from "./pages/list/List";
@@ -38,6 +39,7 @@ import QuestionSingle from "./pages/single/QuestionSingle";
 import CenterSingle from "./pages/single/CenterSingle";
 import StudentrecordSingle from "./pages/single/StudentrecordSingle";
 import AccountSingle from "./pages/single/AccountSingle";
+import ExpenseSingle from "./pages/single/ExpenseSingle";
 import BatchSingle from "./pages/single/BatchSingle";
 import RoleSingle from "./pages/single/RoleSingle";
 import ClassSingle from "./pages/single/ClassSingle";
@@ -53,6 +55,7 @@ import QuestionNew from "./pages/new/QuestionNew";
 import CenterNew from "./pages/new/CenterNew";
 import StudentrecordNew from "./pages/new/StudentrecordNew";
 import AccountNew from "./pages/new/AccountNew";
+import ExpenseNew from "./pages/new/ExpenseNew";
 import UserNew from "./pages/new/UserNew";
 import COONew from "./pages/new/COONew";
 import RolescreenNew from "./pages/new/RolescreenNew";
@@ -72,6 +75,7 @@ import QuestionUpdate from "./components/update/QuestionUpdate";
 import CenterUpdate from "./components/update/CenterUpdate";
 import StudentrecordUpdate from "./components/update/StudentrecordUpdate";
 import AccountUpdate from "./components/update/AccountUpdate";
+import ExpenseUpdate from "./components/update/ExpenseUpdate";
 import UserUpdate from "./components/update/UserUpdates";
 import COOUpdate from "./components/update/COOUpdate";
 import RolescreenUpdate from "./components/update/RolescreenUpdate";
@@ -86,7 +90,7 @@ import TeacherUpdate from "./components/update/TeacherUpdate";
 import ResultUpdate from "./components/update/ResultUpdate";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { quizInputs, studentInputs, resultInputs, roleInputs, teacherInputsn, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, classInputs, dutyInputs } from "./formSource";
+import { expenseInputs, quizInputs, studentInputs, resultInputs, roleInputs, teacherInputsn, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, classInputs, dutyInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -134,12 +138,12 @@ function App() {
             </Route>
 
             <Route path="expense">
-              <Route index element={<AccountList />} />
-              <Route path=":accountId" element={<AccountSingle />} />
-              <Route path="upd_account/:accountId" element={<AccountUpdate inputs={accountInputs} title="Update Account" />} />
+              <Route index element={<ExpenseList />} />
+              <Route path=":expenseId" element={<ExpenseSingle />} />
+              <Route path="upd_expense/:expenseId" element={<ExpenseUpdate inputs={expenseInputs} title="Update Expense" />} />
               <Route
                 path="new"
-                element={<AccountNew inputs={accountInputs} title="Add New Account" />}
+                element={<ExpenseNew inputs={expenseInputs} title="Add New Expense" />}
               />
             </Route>
 
@@ -276,10 +280,10 @@ function App() {
             <Route path="examination">
               <Route index element={<ExaminationList />} />
               <Route path=":examinationId" element={<ExaminationSingle />} />
-              <Route path="upd_examination/:examinationId" element={<ExaminationUpdate inputs={examinationInputs} title="Update Examination" />} />
+              <Route path="upd_examination/:examinationId" element={<ExaminationUpdate inputs={examinationInputs} title="Update Exam" />} />
               <Route
                 path="new"
-                element={<ExaminationNew inputs={examinationInputs} title="Add New Examination" />}
+                element={<ExaminationNew inputs={examinationInputs} title="Add New Exam" />}
               />
             </Route>
 

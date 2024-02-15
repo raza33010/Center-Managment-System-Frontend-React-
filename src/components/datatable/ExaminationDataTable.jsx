@@ -64,9 +64,9 @@ const ExaminationDataTable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New Examination
+                Examination Details
                 <Link to="/examination/new" className="link">
-                    Add New
+                    Add New Exam
                 </Link>
             </div>
             {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :

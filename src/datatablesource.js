@@ -162,6 +162,106 @@ export const fetchAccountRows = async () => {
 // Export an empty array to be used until the API data is loaded
 export const accountRows = [];
 
+/**
+ * Expense
+ */
+export const expenseColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  // {
+  //   field: "center_id",
+  //   headerName: "Center Id",
+  //   width: 230,
+  // },
+  {
+    field: "user_names",
+    headerName: "User",
+    width: 230,
+  },
+  {
+    field: "account_names", 
+    headerName: "Account Name",
+    width: 230,
+  },
+  {
+    field: "transaction_names",
+    headerName: "Transaction",
+    width: 230,
+  },
+  {
+    field: "description",
+    headerName: "Description",
+    width: 230,
+  },
+  {
+    field: "amount",
+    headerName: "Amount",
+    width: 230,
+  },
+  {
+    field: "balances",
+    headerName: "Balance",
+    width: 230,
+  },
+  // {
+  //   field: "status",
+  //   headerName: "Status",
+  //   width: 160,
+  //   renderCell: (params) => {
+  //     return (
+  //       <div className={`cellWithStatus ${params.row.status}`}>
+  //         {params.row.status}
+  //       </div>
+  //     );
+  //   },
+  // },
+];
+// Fetch the data from the API and format it for the DataGrid
+export const fetchExpenseRows = async () => {
+  const formData = {
+    center_id: localStorage.getItem("center_id"),
+    role: 'user',
+    role_id: localStorage.getItem("role_id"),
+  };
+  console.log("abbas",formData);
+  const formDataString = JSON.stringify(formData);
+  try {
+     const response = await fetch('http://127.0.0.1:5000/expense', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: formDataString,
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .then((data) => {
+        const userdata = data;
+        console.log("abbas",userdata);
+        return userdata
+     
+      })
+      .catch((error) => {
+        console.log(error)
+        // setError('Invalid username or password!');
+        // setUsername('');
+        // setPassword('');
+      }
+      );
+    return response
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// Export an empty array to be used until the API data is loaded
+export const expenseRows = [];
+
+
 
 /**
  * Users
@@ -1076,6 +1176,7 @@ export const examinationColumns = [
   {
     field: "date",
     headerName: "Date",
+    type:'date',
     width: 230,
   },
   {
@@ -1113,18 +1214,18 @@ export const examinationColumns = [
     headerName: "Checking Status",
     width: 230,
   },
-  {
-    field: "status",
-    headerName: "Status",
-    width: 160,
-    renderCell: (params) => {
-      return (
-        <div className={`cellWithStatus ${params.row.status}`}>
-          {params.row.status}
-        </div>
-      );
-    },
-  },
+  // {
+  //   field: "status",
+  //   headerName: "Status",
+  //   width: 160,
+  //   renderCell: (params) => {
+  //     return (
+  //       <div className={`cellWithStatus ${params.row.status}`}>
+  //         {params.row.status}
+  //       </div>
+  //     );
+  //   },
+  // },
 ];
 // Fetch the data from the API and format it for the DataGrid
 export const fetchExaminationRows = async () => {

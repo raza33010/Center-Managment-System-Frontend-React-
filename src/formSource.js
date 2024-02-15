@@ -176,6 +176,59 @@ export const categoryInputs = [
     },
   ];
 
+  export const expenseInputs = [
+    // {
+    //   fieldName: "center_id",
+    //   id: 1,
+    //   label: "Center Id",
+    //   type: "text",
+    //   placeholder: "E.g: 1",
+    // },
+    {
+      fieldName: "user_id",
+      id: 2,
+      label: "User",
+      type: "text",
+      placeholder: "E.g: 1",
+    },
+    {
+      fieldName: "description",
+      id: 3,
+      label: "Description",
+      type: "text",
+      placeholder: "Info about amount",
+    },
+    {
+      fieldName: "account_id",
+      id: 4,
+      label: "Account",
+      type: "text",
+      placeholder: "E.g: 1",
+    },
+    {
+      fieldName: "amount",
+      id: 5,
+      label: "Amount",
+      type: "text",
+      placeholder: "E.g: 200",
+    },
+    {
+      fieldName: "transaction_id",
+      id: 6,
+      label: "Transaction",
+      type: "text",
+      placeholder: "E.g: raza33010",
+    },
+    {
+      fieldName: "status",
+      id: 8,
+      label: "Status",
+      type: "number",
+      placeholder: "E.g: 1 or 0",
+    },
+  ];
+
+
   export const userInputs = [
     // {
     //   fieldName: "center_id",
@@ -954,7 +1007,7 @@ export const categoryInputs = [
       placeholder: "E.g: 60",
     },
     {
-      fieldName: "invigilator",
+      fieldName: "user_id",
       id: 8,
       label: "Invigilator",
       type: "text",

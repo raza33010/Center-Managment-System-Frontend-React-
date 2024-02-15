@@ -4,7 +4,7 @@ import Select from 'react-select';
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState,useEffect } from "react";
-import { examinationInputs } from "../../formSource";
+import { expenseInputs } from "../../formSource";
 
 const PaperOptions = [
     { value: 'Monthly', label: 'Monthly' },
@@ -20,12 +20,12 @@ const PaperOptions = [
     { value: 'Not Done', label: 'Not Done' },
   ];
 
-const ExaminationNew = ({ title }) => {
-    const [file, setFile] = useState("");
+const ExpenseNew = ({ title }) => {
+    // const [file, setFile] = useState("");
     const [inputValues, setInputValues] = useState({});
     const [notification, setNotification] = useState("");
-    const [classoptions, setClassoptions] = useState([]);
-    const [subjectoptions, setSubjectoptions] = useState([]);
+    const [accountoptions, setAccountoptions] = useState([]);
+    const [transactionoptions, setTransactionoptions] = useState([]);
     const [useroptions, setUseroptions] = useState([]);
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
     const center_id = localStorage.getItem('center_id');
@@ -50,19 +50,19 @@ const ExaminationNew = ({ title }) => {
         });
       };
 
-    const handleClassSelectChange = (selectedOption) => {
+    const handleAccountSelectChange = (selectedOption) => {
         setInputValues({
           ...inputValues,
-          class_id: selectedOption.value
+          account_id: selectedOption.value
         });
       };
       useEffect(() => {
-        class_name();
+        account_name();
       }, []); // Empty dependency array means it runs once when the component mounts
 
-      const class_name = async () => {
+      const account_name = async () => {
         try {
-          const response = await fetch(`http://127.0.0.1:5000/class_ids/${center_id}`);
+          const response = await fetch(`http://127.0.0.1:5000/account_ids/${center_id}`);
           if (!response.ok) {
             throw new Error("Failed to fetch data from the API");
           }
@@ -76,26 +76,26 @@ const ExaminationNew = ({ title }) => {
             namelist.push({ value: id, label: name });
           }
           console.log(namelist);
-          setClassoptions(namelist);
+          setAccountoptions(namelist);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
       }
     
 
-      const handleSubjectSelectChange = (selectedOption) => {
+      const handleTransactionSelectChange = (selectedOption) => {
         setInputValues({
           ...inputValues,
-          subject_id: selectedOption.value
+          transaction_id: selectedOption.value
         });
       };
       useEffect(() => {
-        subject_name();
+        transaction_name();
       }, []); // Empty dependency array means it runs once when the component mounts
 
-      const subject_name = async () => {
+      const transaction_name = async () => {
         try {
-          const response = await fetch(`http://127.0.0.1:5000/subject_ids/${center_id}`);
+          const response = await fetch(`http://127.0.0.1:5000/transaction_ids`);
           if (!response.ok) {
             throw new Error("Failed to fetch data from the API");
           }
@@ -109,7 +109,7 @@ const ExaminationNew = ({ title }) => {
             namelist.push({ value: id, label: name });
           }
           console.log(namelist);
-          setSubjectoptions(namelist);
+          setTransactionoptions(namelist);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
@@ -162,24 +162,17 @@ const ExaminationNew = ({ title }) => {
     
         const formData = new FormData();
         formData.append("center_id", localStorage.getItem('center_id'));
-        formData.append("class_id", inputValues.class_id);
-        formData.append("subject_id", inputValues.subject_id);
-        formData.append("type", inputValues.type);
-        formData.append("month", inputValues.month);
-        formData.append("date", inputValues.date);
-        formData.append("total_marks", inputValues.total_marks);
+        formData.append("account_id", inputValues.account_id);
+        formData.append("transaction_id", inputValues.transaction_id);
+        formData.append("description", inputValues.description);
+        formData.append("amount", inputValues.amount);
         formData.append("user_id", inputValues.user_id);
-        formData.append("schedule_start_time", inputValues.schedule_start_time);
-        formData.append("schedule_end_time", inputValues.schedule_end_time);
-        formData.append("start_time", inputValues.start_time);
-        formData.append("end_time", inputValues.end_time);
-        formData.append("checking_status", inputValues.checking_status);
         formData.append("status", inputValues.status || 1);
-        formData.append("logo", file); // Append the file to FormData
+        // formData.append("logo", file); // Append the file to FormData
     
         try {
             // Send formData to the server using an HTTP request with multipart/form-data
-            const response = await fetch("http://127.0.0.1:5000/add_examination", {
+            const response = await fetch("http://127.0.0.1:5000/add_expense", {
                 method: "POST",
                 body: formData, // Use formData here with multipart/form-data
             });
@@ -222,17 +215,17 @@ const ExaminationNew = ({ title }) => {
                             <h1>{title}</h1>
                         </div>
                         <div className="bottom">
-                            <div className="left">
+                            {/* <div className="left">
                                 <img
                                     src={
                                         file
                                     }
                                     alt=""
                                 />
-                            </div>
+                            </div> */}
                             <div className="right">
                                 <form onSubmit={handleSubmit}>
-                                    <div className="formInput">
+                                    {/* <div className="formInput">
                                         <label htmlFor="file">
                                             Image: <DriveFolderUploadOutlinedIcon className="icon" />
                                         </label>
@@ -242,24 +235,24 @@ const ExaminationNew = ({ title }) => {
                                             onChange={(e) => setFile(e.target.files[0])}
                                             style={{ display: "none" }}
                                         />
-                                    </div>
-                                    {examinationInputs.map((input) => (
+                                    </div> */}
+                                    {expenseInputs.map((input) => (
                                         <div className="formInput" key={input.id}>
                                            {input.fieldName === "status" ? null : (
             <>
                                             <label>{input.label}</label>
-                                            { input.fieldName === "class_id" ? (
+                                            { input.fieldName === "account_id" ? (
                                                 <Select
-                                                options={classoptions}
+                                                options={accountoptions}
                                                 name={input.fieldName}
-                                                onChange={handleClassSelectChange}
+                                                onChange={handleAccountSelectChange}
                                                 required
                                                 />
-                                            ) : input.fieldName === "subject_id" ? (
+                                            ) : input.fieldName === "transaction_id" ? (
                                                 <Select
-                                                options={subjectoptions}
+                                                options={transactionoptions}
                                                 name={input.fieldName}
-                                                onChange={handleSubjectSelectChange}
+                                                onChange={handleTransactionSelectChange}
                                                 required
                                                 />
                                             ) : input.fieldName === "user_id" ? (
@@ -315,4 +308,4 @@ const ExaminationNew = ({ title }) => {
     );
 };
 
-export default ExaminationNew;
+export default ExpenseNew;

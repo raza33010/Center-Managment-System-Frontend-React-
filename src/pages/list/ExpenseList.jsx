@@ -1,7 +1,7 @@
 import "./list.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
-import AccountDataTable from "../../components/datatable/AccountDataTable"
+import ExpenseDataTable from "../../components/datatable/ExpenseDataTable"
 import { useState } from "react"
 
 const ExpenseList = () => {
@@ -20,7 +20,7 @@ const ExpenseList = () => {
                     <Sidebar />
                     <div className="listContainer">
                         <Navbar />
-                        <AccountDataTable />
+                        <ExpenseDataTable />
                     </div>
                 </div>
                 )

@@ -55,24 +55,31 @@ const ExaminationSingle = () => {
                                         Edit
                                     </Link>
                                 </div>
-                                <h1 className="title">Examination Information</h1>
+                                <h1 className="title">Exam Information</h1>
+                                <div className="item">
+                                    <img src={
+                                        examination?.data.file
+                                    }
+                                        alt=""
+                                        className="itemImg"
+                                    />
                                     <div className="details">
                                         {/* <h1 className="itemTitle">{examination?.data.name}</h1> */}
                                         <div className="detailItem">
-                                            <span className="itemKey">Id: </span>
-                                            <span className="itemValue">{examination?.data.id}</span>
+                                            <span className="itemKey">Paper: </span>
+                                            <span className="itemValue">{examination?.data.file}</span>
                                         </div>
-                                        <div className="detailItem">
+                                        {/* <div className="detailItem">
                                             <span className="itemKey">Center Id: </span>
                                             <span className="itemValue">{examination?.data.center_id}</span>
+                                        </div> */}
+                                        <div className="detailItem">
+                                            <span className="itemKey">Class: </span>
+                                            <span className="itemValue">{examination?.data.class_names}</span>
                                         </div>
                                         <div className="detailItem">
-                                            <span className="itemKey">Name: </span>
-                                            <span className="itemValue">{examination?.data.name}</span>
-                                        </div>
-                                        <div className="detailItem">
-                                            <span className="itemKey">Subject Id: </span>
-                                            <span className="itemValue">{examination?.data.subject_id}</span>
+                                            <span className="itemKey">Subject: </span>
+                                            <span className="itemValue">{examination?.data.subject_names}</span>
                                         </div>
                                         <div className="detailItem">
                                             <span className="itemKey">Paper Type: </span>
@@ -92,7 +99,7 @@ const ExaminationSingle = () => {
                                         </div>
                                         <div className="detailItem">
                                             <span className="itemKey">Invigilator: </span>
-                                            <span className="itemValue">{examination?.data.invigilator}</span>
+                                            <span className="itemValue">{examination?.data.user_names}</span>
                                         </div>
                                         <div className="detailItem">
                                             <span className="itemKey">Scheduled Start Time: </span>
@@ -114,10 +121,11 @@ const ExaminationSingle = () => {
                                             <span className="itemKey">Checking Status: </span>
                                             <span className="itemValue">{examination?.data.checking_status}</span>
                                         </div>
-                                        <div className="detailItem">
+                                        {/* <div className="detailItem">
                                             <span className="itemKey">Status: </span>
                                             <span className="itemValue">{examination?.data.status}</span>
-                                        </div>
+                                        </div> */}
+                                    </div>
                                     </div>
                                 </div>
                             </div>

@@ -1,17 +1,17 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { accountColumns, accountRows, fetchAccountRows } from "../../datatablesource";
+import { expenseColumns, expenseRows, fetchExpenseRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const ExpenseDataTable = () => {
-    const [data, setData] = useState(accountRows);
+    const [data, setData] = useState(expenseRows);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
-            const rows = await fetchAccountRows();
+            const rows = await fetchExpenseRows();
             console.log("jawad",rows)
             setLoading(false);
             setData(Array.from(rows.data));
@@ -21,7 +21,7 @@ const ExpenseDataTable = () => {
 
     const handleDelete = (id) => {
         // Make a DELETE request to the Flask API endpoint
-        fetch(`http://127.0.0.1:5000/del_account/${id}`, {
+        fetch(`http://127.0.0.1:5000/del_examination/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ const ExpenseDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to={`/account/${params.row.id}`} style={{ textDecoration: "none" }}>
+                        <Link to={`/expense/${params.row.id}`} style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
                         </Link>
                         <div
@@ -64,16 +64,16 @@ const ExpenseDataTable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New account
-                <Link to="/account/new" className="link">
-                    Add New
+                Expense
+                <Link to="/expense/new" className="link">
+                    Add New Expense
                 </Link>
             </div>
             {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
                     className="datagrid"
                     rows={data}
-                    columns={accountColumns.concat(actionColumn)}
+                    columns={expenseColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
                     // checkboxSelection
