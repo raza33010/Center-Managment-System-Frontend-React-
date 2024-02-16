@@ -1,7 +1,9 @@
 import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
+import Select from 'react-select';
 import Navbar from "../../components/navbar/Navbar";
-import { useState } from "react";
+import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
+import { useState,useEffect } from "react";
 import { dutyInputs } from "../../formSource";
 
 
@@ -9,6 +11,8 @@ const DutyNew = ({ title }) => {
     // const [file, setFile] = useState("");
     const [inputValues, setInputValues] = useState({});
     const [notification, setNotification] = useState("");
+    const [useroptions, setUseroptions] = useState([]);
+    const center_id = localStorage.getItem('center_id');
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 
     let [token] = useState(localStorage.getItem("token"));
@@ -27,17 +31,49 @@ const DutyNew = ({ title }) => {
         console.log("inputValues",inputValues)
     };
 
+    const handleUserSelectChange = (selectedOption) => {
+        setInputValues({
+          ...inputValues,
+          user_id: selectedOption.value
+        });
+      };
+      useEffect(() => {
+        user_name();
+      }, []); // Empty dependency array means it runs once when the component mounts
+
+      const user_name = async () => {
+        try {
+          const response = await fetch(`http://127.0.0.1:5000/user_ids/${center_id}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch data from the API");
+          }
+          const data = await response.json();
+          console.log(data.data.length);
+          const namelist = [];
+          for (let i = 0; i < data.data.length; i++) {
+            const name = data.data[i].name;
+            console.log(name);
+            const id = data.data[i].id; // Access the "name" property
+            namelist.push({ value: id, label: name });
+          }
+          console.log(namelist);
+          setUseroptions(namelist);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
     
         const formData = new FormData();
-        formData.append("center_id", inputValues.center_id);
+        formData.append("center_id", localStorage.getItem('center_id'));
         formData.append("user_id", inputValues.user_id);
         formData.append("job", inputValues.job);
         formData.append("date", inputValues.date);
         formData.append("duty_time", inputValues.duty_time);
-        formData.append("assigned_by", inputValues.assigned_by);
-        formData.append("status", inputValues.status);
+        formData.append("description", inputValues.description);
+        formData.append("status", inputValues.status || 1);
         // formData.append("logo", file); // Append the file to FormData
     
         try {
@@ -108,28 +144,27 @@ const DutyNew = ({ title }) => {
                                     </div> */}
                                     {dutyInputs.map((input) => (
                                         <div className="formInput" key={input.id}>
+                                           {input.fieldName === "status" ? null : (
+            <>
                                             <label>{input.label}</label>
-                                            {input.type === "dropdown" ? (
-                                                <select
-                                                    name={input.fieldName}
-                                                    onChange={handleInputChange}
-                                                    required
-                                                >
-                                                    {input.options.map((option) => (
-                                                        <option key={option} value={option}>
-                                                            {option}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            ) : (
-                                                <input
-                                                    type={input.type}
-                                                    placeholder={input.placeholder}
-                                                    name={input.fieldName}
-                                                    onChange={handleInputChange}
-                                                    required
+                                            { input.fieldName === "user_id" ? (
+                                                <Select
+                                                options={useroptions}
+                                                name={input.fieldName}
+                                                onChange={handleUserSelectChange}
+                                                required
                                                 />
+                                            ) : (
+                                            <input
+                                                type={input.type}
+                                                placeholder={input.placeholder}
+                                                name={input.fieldName}
+                                                onChange={handleInputChange}
+                                                required={input.fieldName !== "status"}
+                                            />
                                             )}
+                                            </>
+                                           )}
                                         </div>
                                     ))}
                                     <div style={{ clear: "both" }} className="formSubmit">

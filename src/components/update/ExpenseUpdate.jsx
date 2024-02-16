@@ -73,7 +73,7 @@ const  ExpenseUpdate = ({ title }) => {
                     const aid = data.data.account_id
                     // console.log("abbas1",abbas);
                     const namelist_a = [];
-                      namelist_t.push({ value: aid, label: account },);
+                      namelist_a.push({ value: aid, label: account },);
                 const status = data.data.status
                 if (status == 1){
                     setSelectedStatus({ value: status, label: 'Active' });
@@ -181,8 +181,40 @@ const  ExpenseUpdate = ({ title }) => {
         }
       }
 
+      const handleAccountSelectChange = (selectedOption) => {
+        setSelectedAccount(selectedOption);
+        setInputValues({
+          ...inputValues,
+          account_id: selectedOption.value,
+        });
+      };
+      useEffect(() => {
+        account_name();
+      }, []); // Empty dependency array means it runs once when the component mounts
 
+      const account_name = async () => {
+        try {
+          const response = await fetch(`http://127.0.0.1:5000/account_ids/${center_id}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch data from the API");
+          }
+          const data = await response.json();
+          console.log(data.data.length);
+          const namelist = [];
+          for (let i = 0; i < data.data.length; i++) {
+            const name = data.data[i].name;
+            console.log(name);
+            const id = data.data[i].id; // Access the "name" property
+            namelist.push({ value: id, label: name });
+          }
+          console.log(namelist);
+          setAccountoptions(namelist);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
 
+console.log(selectedAccount);
     const handleUpdate = async (e) => {
         e.preventDefault();
 
@@ -191,6 +223,7 @@ const  ExpenseUpdate = ({ title }) => {
         formData.append('center_id', localStorage.getItem('center_id'));
         formData.append('expense_id', inputValues.expense_id);
         formData.append('transaction_id', inputValues.transaction_id);
+        formData.append('account_id', inputValues.account_id);
         formData.append('amount', inputValues.amount);
         formData.append('description', inputValues.description);
         formData.append('user_id', inputValues.user_id);
@@ -199,7 +232,7 @@ const  ExpenseUpdate = ({ title }) => {
 
 
         // Send formData to the server using an HTTP request to update
-        fetch(`http://127.0.0.1:5000/upd_examination/${expenseId}`, {
+        fetch(`http://127.0.0.1:5000/upd_expense/${expenseId}`, {
             method: "PUT",
             body: formData, // Pass the object as the body
         })
@@ -261,10 +294,10 @@ const  ExpenseUpdate = ({ title }) => {
                                                 />
                                             ):input.fieldName === "account_id" ? (
                                                 <Select
-                                                options={useroptions}
+                                                options={accountoptions}
                                                 name={input.fieldName}
-                                                value={selectedUser}
-                                                onChange={handleUserSelectChange}
+                                                value={selectedAccount}
+                                                onChange={handleAccountSelectChange}
                                                 required
                                                 />
                                             ):input.fieldName === "status" ? (
@@ -299,7 +332,7 @@ const  ExpenseUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/class/${expenseId}`)}
+                                            onClick={() => navigate(`/expense/${expenseId}`)}
                                         >
                                             Cancel
                                         </button>

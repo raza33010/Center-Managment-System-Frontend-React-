@@ -64,9 +64,9 @@ const DutyDataTable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New Duty
+                Duties
                 <Link to="/duty/new" className="link">
-                    Add New
+                    Add New Duty
                 </Link>
             </div>
             {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :

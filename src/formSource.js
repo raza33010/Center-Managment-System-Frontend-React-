@@ -523,13 +523,13 @@ export const categoryInputs = [
   ]; 
 
   export const dutyInputs = [
-    {
-      fieldName: "center_id",
-      id: 1,
-      label: "Center Id",
-      type: "text",
-      placeholder: "E.g: 1",
-    },
+    // {
+    //   fieldName: "center_id",
+    //   id: 1,
+    //   label: "Center Id",
+    //   type: "text",
+    //   placeholder: "E.g: 1",
+    // },
     {
       fieldName: "user_id",
       id: 2,
@@ -548,20 +548,20 @@ export const categoryInputs = [
       fieldName: "date",
       id: 4,
       label: "Date",
-      type: "text",
+      type: "date",
       placeholder: "E.g: YYYY-MM-DD",
     },
     {
       fieldName: "duty_time",
       id: 5,
       label: "Time",
-      type: "text",
-      placeholder: "E.g: HH:MM",
+      type: "time",
+      placeholder: "E.g: HH:MM:SS",
     },
     {
-      fieldName: "assigned_by",
+      fieldName: "description",
       id: 6,
-      label: "Assigned By",
+      label: "Description",
       type: "text",
       placeholder: "E.g: John",
     },

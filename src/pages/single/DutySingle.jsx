@@ -55,20 +55,20 @@ const DutySingle = () => {
                                         Edit
                                     </Link>
                                 </div>
-                                <h1 className="title">Duty Information</h1>
+                                <h1 className="title">Duty Details</h1>
                                     <div className="details">
                                         {/* <h1 className="itemTitle">{class?.data.name}</h1> */}
-                                        <div className="detailItem">
+                                        {/* <div className="detailItem">
                                             <span className="itemKey">Id: </span>
                                             <span className="itemValue">{duty?.data.id}</span>
-                                        </div>
-                                        <div className="detailItem">
+                                        </div> */}
+                                        {/* <div className="detailItem">
                                             <span className="itemKey">Center Id: </span>
                                             <span className="itemValue">{duty?.data.center_id}</span>
-                                        </div>
+                                        </div> */}
                                         <div className="detailItem">
-                                            <span className="itemKey">User Id: </span>
-                                            <span className="itemValue">{duty?.data.user_id}</span>
+                                            <span className="itemKey">User: </span>
+                                            <span className="itemValue">{duty?.data.user_names}</span>
                                         </div>
                                         <div className="detailItem">
                                             <span className="itemKey">Job: </span>
@@ -83,13 +83,13 @@ const DutySingle = () => {
                                             <span className="itemValue">{duty?.data.duty_time}</span>
                                         </div>
                                         <div className="detailItem">
-                                            <span className="itemKey">Assigned By: </span>
-                                            <span className="itemValue">{duty?.data.assigned_by}</span>
+                                            <span className="itemKey">Description: </span>
+                                            <span className="itemValue">{duty?.data.description}</span>
                                         </div>
-                                        <div className="detailItem">
+                                        {/* <div className="detailItem">
                                             <span className="itemKey">Status: </span>
                                             <span className="itemValue">{duty?.data.status}</span>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

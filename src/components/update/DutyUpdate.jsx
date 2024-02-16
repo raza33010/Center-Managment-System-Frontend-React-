@@ -1,4 +1,5 @@
 import "./update.scss";
+import Select from 'react-select';
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
@@ -6,16 +7,23 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { dutyInputs } from "../../formSource";
 
+const statusOptions = [
+  { value: 1, label: 'Active' },
+  { value: 0, label: 'Inactive' },
+];
 
 const  DutyUpdate = ({ title }) => {
 
     // Extracting dutyId using regular expressions
     const location = useLocation();
     const dutyId = location.pathname.match(/\/upd_duty\/(\d+)/)?.[1];
-
+    const center_id = localStorage.getItem('center_id');
     // Initializing state
     // const [file, setFile] = useState(null);
     const [inputValues, setInputValues] = useState("");
+    const [selectedStatus, setSelectedStatus] = useState(null);
+    const [selectedUser, setSelectedUser] = useState([]);
+    const [useroptions, setUseroptions] = useState([]);
     let [token] = useState(localStorage.getItem("token"));
     
     const redirectToLogin = () => {
@@ -36,6 +44,23 @@ const  DutyUpdate = ({ title }) => {
                 }
                 const data = await response.json();
                 console.log("abbas",data)
+                const snames = data.data.user_names
+                const sid = data.data.user_id
+                const status = data.data.status
+                // console.log("abbas1",abbas);
+                const namelist = [];
+                  const name = snames;
+                  console.log(name);
+                  const id = sid; // Access the "name" property
+                  namelist.push({ value: id, label: name },);
+  
+                if (status == 1){
+                    setSelectedStatus({ value: status, label: 'Active' });
+                }
+                else{
+                    setSelectedStatus({ value: status, label: 'Inactive' });
+                }
+                setSelectedUser(namelist);
                 setInputValues(data.data);
                 // setFile(data.data.logo);
                 localStorage.setItem("quizData", JSON.stringify(data));
@@ -51,35 +76,75 @@ const  DutyUpdate = ({ title }) => {
     }, [dutyId]);
     // console.log("quiz in a state:", data);
 
-    const handleInputChange = (e) => {
+    const handleStatusSelectChange = (selectedOption) => {
+        setSelectedStatus(selectedOption);
+        setInputValues({
+          ...inputValues,
+          status: selectedOption.value,
+        });
+      };
+      
+    
+         const handleInputChange = (e) => {
         setInputValues({
             ...inputValues,
             [e.target.name]: e.target.value
         });
     };
 
+    const handleUserSelectChange = (selectedOption) => {
+        setSelectedUser(selectedOption);
+        setInputValues({
+          ...inputValues,
+          user_id: selectedOption.value,
+        });
+      };
+      useEffect(() => {
+        user_name();
+      }, []); // Empty dependency array means it runs once when the component mounts
+
+      const user_name = async () => {
+        try {
+          const response = await fetch(`http://127.0.0.1:5000/user_ids/${center_id}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch data from the API");
+          }
+          const data = await response.json();
+          console.log(data.data.length);
+          const namelist = [];
+          for (let i = 0; i < data.data.length; i++) {
+            const name = data.data[i].name;
+            console.log(name);
+            const id = data.data[i].id; // Access the "name" property
+            namelist.push({ value: id, label: name });
+          }
+          console.log(namelist);
+          setUseroptions(namelist);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+
+
     const handleUpdate = async (e) => {
         e.preventDefault();
 
-        const formData = {
-            id: dutyId,
-            center_id: inputValues.center_id,
-            user_id: inputValues.user_id,
-            job: inputValues.job,
-            date: inputValues.date,
-            duty_time: inputValues.duty_time,
-            assigned_by: inputValues.assigned_by,
-            status: parseInt(inputValues.status),
-        };
-        console.log("Abbas",formData)
+        const formData = new FormData();
+        formData.append('id', dutyId);
+        formData.append("center_id", localStorage.getItem('center_id'));
+        formData.append("user_id", inputValues.user_id);
+        formData.append("job", inputValues.job);
+        formData.append("date", inputValues.date);
+        formData.append("duty_time", inputValues.duty_time);
+        formData.append("description", inputValues.description);
+        formData.append('status', parseInt(inputValues.status));
+        console.log(formData);
+
 
         // Send formData to the server using an HTTP request to update
-        fetch('http://127.0.0.1:5000/upd_duty/', {
+        fetch(`http://127.0.0.1:5000/upd_duty/${dutyId}`, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData), // Pass the object as the body
+            body: formData, // Pass the object as the body
         })
             .then((response) => {
                 return response.json();
@@ -93,7 +158,7 @@ const  DutyUpdate = ({ title }) => {
                 console.log(error);
             });
     };
-
+        
 
     return (
         <>
@@ -121,7 +186,23 @@ const  DutyUpdate = ({ title }) => {
                                     {dutyInputs.map((input) => (
                                         <div className="formInput" key={input.id}>
                                             <label>{input.label}</label>
-                                            <input
+                                            {input.fieldName === "user_id" ? (
+                                                <Select
+                                                options={useroptions}
+                                                name={input.fieldName}
+                                                value={selectedUser}
+                                                onChange={handleUserSelectChange}
+                                                required
+                                                />
+                                            ):input.fieldName === "status" ? (
+                                                <Select
+                                                options={statusOptions}
+                                                name={input.fieldName}
+                                                value={selectedStatus}
+                                                onChange={handleStatusSelectChange}
+                                                required
+                                                />
+                                            ) : (<input
                                                 type={input.type}
                                                 placeholder={input.placeholder}
                                                 name={input.fieldName}
@@ -130,12 +211,13 @@ const  DutyUpdate = ({ title }) => {
                                                 required
                                                 // inputMode={input.fieldName === 'no_of_quiz' ? 'numeric' : undefined}
                                             />
+                                            )}
                                         </div>
                                     ))}
                                     <div style={{ clear: "both" }} className="formUpdate">
                                         <button
                                             style={{ float: "right" }}
-                                        // onClick={() => navigate(`/categories/${dutyId}`)}
+                                        // onClick={() => navigate(`/class/${dutyId}`)}
                                         >
                                             Update
                                         </button>

@@ -599,13 +599,13 @@ export const batchRows = [];
  */
 export const dutyColumns = [
   { field: "id", headerName: "ID", width: 70 },
+  // {
+  //   field: "center_id",
+  //   headerName: "Center Id",
+  //   width: 230,
+  // },
   {
-    field: "center_id",
-    headerName: "Center Id",
-    width: 230,
-  },
-  {
-    field: "user_id",
+    field: "user_names",
     headerName: "User Id",
     width: 230,
   },
@@ -616,44 +616,74 @@ export const dutyColumns = [
   },
   {
     field: "date",
-    headerName: "Date",
+    headerName: "date",
     width: 230,
   },
   {
     field: "duty_time",
-    headerName: "Time",
+    headerName: "time",
     width: 230,
   },
   {
-    field: "assigned_by",
-    headerName: "Assigned By",
+    field: "description",
+    headerName: "Description",
     width: 230,
   },
-  {
-    field: "status",
-    headerName: "Status",
-    width: 160,
-    renderCell: (params) => {
-      return (
-        <div className={`cellWithStatus ${params.row.status}`}>
-          {params.row.status}
-        </div>
-      );
-    },
-  },
+  // {
+  //   field: "status",
+  //   headerName: "Status",
+  //   width: 160,
+  //   renderCell: (params) => {
+  //     return (
+  //       <div className={`cellWithStatus ${params.row.status}`}>
+  //         {params.row.status}
+  //       </div>
+  //     );
+  //   },
+  // },
 ];
 // Fetch the data from the API and format it for the DataGrid
-export const fetchDutyRows = async () => {
+export const fetchDutyRows =  async () => {
+  const formData = {
+    center_id: localStorage.getItem("center_id"),
+    // role: 'coo',
+    // role_id: '2',
+  };
+  console.log("abbas",formData);
+  const formDataString = JSON.stringify(formData);
   try {
-    const apiUrl = "http://127.0.0.1:5000/duty";
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    return data;
+     const response = await fetch('http://127.0.0.1:5000/duty', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: formDataString,
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .then((data) => {
+        const userdata = data;
+        console.log("abbas",userdata);
+        return userdata
+     
+      })
+      .catch((error) => {
+        console.log(error)
+        // setError('Invalid username or password!');
+        // setUsername('');
+        // setPassword('');
+      }
+      );
+    return response
   } catch (error) {
     console.error(error);
   }
 };
-
 // Export an empty array to be used until the API data is loaded
 export const dutyRows = [];
 
