@@ -19,6 +19,12 @@ const PaperOptions = [
     { value: 'Done', label: 'Done' },
     { value: 'Not Done', label: 'Not Done' },
   ];
+  const DurationOptions = [
+    { value: '3hr', label: '3hr' },
+    { value: '2hr', label: '2hr' },
+    { value: '1hr', label: '1hr' },
+  ];
+
 
 const ExaminationNew = ({ title }) => {
     const [file, setFile] = useState("");
@@ -47,6 +53,13 @@ const ExaminationNew = ({ title }) => {
         setInputValues({
           ...inputValues,
           checking_status: selectedOption.value
+        });
+      };
+
+      const handleDurationSelectChange = (selectedOption) => {
+        setInputValues({
+          ...inputValues,
+          duration: selectedOption.value
         });
       };
 
@@ -173,6 +186,7 @@ const ExaminationNew = ({ title }) => {
         formData.append("schedule_end_time", inputValues.schedule_end_time);
         formData.append("start_time", inputValues.start_time);
         formData.append("end_time", inputValues.end_time);
+        formData.append("duration", inputValues.duration);
         formData.append("checking_status", inputValues.checking_status);
         formData.append("status", inputValues.status || 1);
         formData.append("logo", file); // Append the file to FormData
@@ -283,7 +297,14 @@ const ExaminationNew = ({ title }) => {
                                                 onChange={handlePaperSelectChange}
                                                 required
                                                 />
-                                            ) : (
+                                            ) :input.fieldName === "duration" ? (
+                                              <Select
+                                              options={DurationOptions}
+                                              name={input.fieldName}
+                                              onChange={handleDurationSelectChange}
+                                              required
+                                              />
+                                          ) : (
                                             <input
                                                 type={input.type}
                                                 placeholder={input.placeholder}

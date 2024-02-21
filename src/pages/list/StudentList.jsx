@@ -1,7 +1,7 @@
 import "./list.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
-import StudentDataTable from "../../components/datatable/AccountDataTable"
+import StudentDataTable from "../../components/datatable/StudentDataTable"
 import { useState } from "react"
 
 const StudentList = () => {

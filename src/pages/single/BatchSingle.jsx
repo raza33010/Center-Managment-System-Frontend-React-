@@ -58,10 +58,10 @@ const BatchSingle = () => {
                                 <h1 className="title">batch Information</h1>
                                     <div className="details">
                                         {/* <h1 className="itemTitle">{batch?.data.name}</h1> */}
-                                        <div className="detailItem">
+                                        {/* <div className="detailItem">
                                             <span className="itemKey">Id: </span>
                                             <span className="itemValue">{batch?.data.id}</span>
-                                        </div>
+                                        </div> */}
                                         {/* <div className="detailItem">
                                             <span className="itemKey">Center Id: </span>
                                             <span className="itemValue">{batch?.data.center_id}</span>
@@ -70,10 +70,10 @@ const BatchSingle = () => {
                                             <span className="itemKey">Name: </span>
                                             <span className="itemValue">{batch?.data.name}</span>
                                         </div>
-                                        {/* <div className="detailItem">
-                                            <span className="itemKey">Status: </span>
-                                            <span className="itemValue">{batch?.data.status}</span>
-                                        </div> */}
+                                        <div className="detailItem">
+                                            <span className="itemKey">Year: </span>
+                                            <span className="itemValue">{batch?.data.year}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

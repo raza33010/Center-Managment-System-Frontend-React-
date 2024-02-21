@@ -536,6 +536,11 @@ export const batchColumns = [
     headerName: "Name",
     width: 230,
   },
+  {
+    field: "year",
+    headerName: "Year",
+    width: 230,
+  },
   // {
   //   field: "status",
   //   headerName: "Status",
@@ -751,21 +756,69 @@ export const studentColumns = [
     headerName: "Roll No",
     width: 230,
   },
+  // {
+  //   field: "center_id",
+  //   headerName: "Center Id",
+  //   width: 230,
+  // },
   {
-    field: "center_id",
-    headerName: "Center Id",
-    width: 230,
-  },
-  {
-    field: "batch_id",
-    headerName: "Batch Id",
+    field: "batch_names",
+    headerName: "Batch",
     width: 230,
   },  
   {
-    field: "class_id",
-    headerName: "Class Id",
+    field: "class_names",
+    headerName: "Class",
     width: 230,
   },
+  {
+    field: "group_names",
+    headerName: "Group",
+    width: 230,
+  },
+    {
+    field: "description",
+    headerName: "About Student",
+    width: 230,
+  },
+    {
+    field: "ref_name",
+    headerName: "Reference Name",
+    width: 230,
+  },
+    {
+    field: "ref_phone_no",
+    headerName: "Reference Phone Number",
+    width: 230,
+  },
+    {
+    field: "last_class",
+    headerName: "Last Class Attended",
+    width: 230,
+  },
+    {
+    field: "last_grade",
+    headerName: "Last Grade",
+    width: 230,
+  },
+  {
+    field: "percentage",
+    headerName: "Last Percentage",
+    width: 230,
+  },
+  {
+    field: "marksheet",
+    headerName: "Last Result Marksheet",
+    width: 230,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img src={params.value} alt="Profile" className="cellImg" />
+        </div>
+      );
+    },
+  },
+
   {
     field: "status",
     headerName: "Status",
@@ -781,11 +834,42 @@ export const studentColumns = [
 ];
 // Fetch the data from the API and format it for the DataGrid
 export const fetchStudentRows = async () => {
+  const formData = {
+    center_id: localStorage.getItem("center_id"),
+    // role: 'coo',
+    // role_id: '2',
+  };
+  console.log("abbas",formData);
+  const formDataString = JSON.stringify(formData);
   try {
-    const apiUrl = "http://127.0.0.1:5000/student";
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    return data;
+     const response = await fetch('http://127.0.0.1:5000/student', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: formDataString,
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .then((data) => {
+        const userdata = data;
+        console.log("abbas",userdata);
+        return userdata
+     
+      })
+      .catch((error) => {
+        console.log(error)
+        // setError('Invalid username or password!');
+        // setUsername('');
+        // setPassword('');
+      }
+      );
+    return response
   } catch (error) {
     console.error(error);
   }
@@ -1237,6 +1321,11 @@ export const examinationColumns = [
   {
     field: "end_time",
     headerName: "End Time",
+    width: 230,
+  },
+  {
+    field: "duration",
+    headerName: "Duration",
     width: 230,
   },
   {

@@ -7,6 +7,12 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { examinationInputs } from "../../formSource";
 
+const DurationOptions = [
+  { value: '3hr', label: '3hr' },
+  { value: '2hr', label: '2hr' },
+  { value: '1hr', label: '1hr' },
+];
+
 const statusOptions = [
     { value: 1, label: 'Active' },
     { value: 0, label: 'Inactive' },
@@ -33,6 +39,7 @@ const  ExaminationUpdate = ({ title }) => {
     // Initializing state
     const [file, setFile] = useState(null);
     const [selectedStatus, setSelectedStatus] = useState(null);
+    const [selectedDuration, setSelectedDuration] = useState(null);
     const [selectedCstatus, setSelectedCstatus] = useState(null);
     const [selectedPtype, setSelectedPtype] = useState(null);
     const [selectedClass, setSelectedClass] = useState(null);
@@ -75,6 +82,16 @@ const  ExaminationUpdate = ({ title }) => {
                 }
                 else{
                     setSelectedStatus({ value: status, label: 'Inactive' });
+                }
+                const duration = data.data.duration
+                if (duration == '3hr'){
+                    setSelectedDuration({ value: duration, label: '3hr' });
+                }
+                else if (duration == '2hr'){
+                  setSelectedDuration({ value: duration, label: '2hr' });
+                }
+                else{
+                    setSelectedDuration({ value: duration, label: '1hr' });
                 }
                 const checking_status = data.data.checking_status
                 if (checking_status == 'Done'){
@@ -258,6 +275,14 @@ const  ExaminationUpdate = ({ title }) => {
         });
       };
 
+      const handleDurationSelectChange = (selectedOption) => {
+        setSelectedDuration(selectedOption);
+        setInputValues({
+          ...inputValues,
+            duration: selectedOption.value,
+        });
+      };
+
 
     const handleUpdate = async (e) => {
         e.preventDefault();
@@ -296,6 +321,7 @@ const  ExaminationUpdate = ({ title }) => {
         formData.append('schedule_end_time', inputValues.schedule_end_time);
         formData.append('start_time', inputValues.start_time);
         formData.append('end_time', inputValues.end_time);
+        formData.append('duration', inputValues.duration);
         formData.append('checking_status', inputValues.checking_status);
         formData.append('file', file || "");
         formData.append('status', parseInt(inputValues.status));
@@ -406,7 +432,15 @@ const  ExaminationUpdate = ({ title }) => {
                                                 onChange={handlePtypeSelectChange}
                                                 required
                                                 />
-                                            ) :<input
+                                            ) :input.fieldName === "duration" ? (
+                                              <Select
+                                              options={DurationOptions}
+                                              name={input.fieldName}
+                                              value={selectedDuration}
+                                              onChange={handleDurationSelectChange}
+                                              required
+                                              />
+                                          ) :<input
                                                 type={input.type}
                                                 placeholder={input.placeholder}
                                                 name={input.fieldName}

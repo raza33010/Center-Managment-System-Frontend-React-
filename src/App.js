@@ -219,7 +219,7 @@ function App() {
 
             <Route path="subject">
               <Route index element={<SubjectList />} />
-              <Route path=":batchId" element={<SubjectSingle />} />
+              <Route path=":studentId" element={<SubjectSingle />} />
               <Route path="upd_subject/:subjectId" element={<SubjectUpdate inputs={subjectInputs} title="Update Subject" />} />
               <Route
                 path="new"

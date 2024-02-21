@@ -6,12 +6,19 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import { useState,useEffect } from "react";
 import { dutyInputs } from "../../formSource";
 
+const JobOptions = [
+    { value: 'Invagilation', label: 'Invagilation' },
+    { value: 'Conduction Head', label: 'Conduction Head' },
+    { value: 'Cleaner', label: 'Cleaner' },
+  ];
+
 
 const DutyNew = ({ title }) => {
     // const [file, setFile] = useState("");
     const [inputValues, setInputValues] = useState({});
     const [notification, setNotification] = useState("");
     const [useroptions, setUseroptions] = useState([]);
+    const [selectedUser, setSelectedUser] = useState([ ]);
     const center_id = localStorage.getItem('center_id');
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 
@@ -31,12 +38,17 @@ const DutyNew = ({ title }) => {
         console.log("inputValues",inputValues)
     };
 
-    const handleUserSelectChange = (selectedOption) => {
+    const handleJobSelectChange = (selectedOption) => {
         setInputValues({
           ...inputValues,
-          user_id: selectedOption.value
+          job: selectedOption.value
         });
       };
+
+      const handleUserSelectChange = (selectedOptions) => {
+        setSelectedUser(selectedOptions);
+      };
+
       useEffect(() => {
         user_name();
       }, []); // Empty dependency array means it runs once when the component mounts
@@ -67,8 +79,9 @@ const DutyNew = ({ title }) => {
         e.preventDefault();
     
         const formData = new FormData();
+        const UserValues = selectedUser.map((option) => option.value);
         formData.append("center_id", localStorage.getItem('center_id'));
-        formData.append("user_id", inputValues.user_id);
+        formData.append("user_id", UserValues);
         formData.append("job", inputValues.job);
         formData.append("date", inputValues.date);
         formData.append("duty_time", inputValues.duty_time);
@@ -147,11 +160,20 @@ const DutyNew = ({ title }) => {
                                            {input.fieldName === "status" ? null : (
             <>
                                             <label>{input.label}</label>
-                                            { input.fieldName === "user_id" ? (
+                                            {input.fieldName === "user_id" ? (
                                                 <Select
                                                 options={useroptions}
                                                 name={input.fieldName}
+                                                isMulti // Enable multiple selection
+                                                value={selectedUser}
                                                 onChange={handleUserSelectChange}
+                                                required
+                                                />
+                                            )  : input.fieldName === "job" ? (
+                                                <Select
+                                                options={JobOptions}
+                                                name={input.fieldName}
+                                                onChange={handleJobSelectChange}
                                                 required
                                                 />
                                             ) : (

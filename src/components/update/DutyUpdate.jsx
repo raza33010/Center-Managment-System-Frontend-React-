@@ -44,16 +44,17 @@ const  DutyUpdate = ({ title }) => {
                 }
                 const data = await response.json();
                 console.log("abbas",data)
-                const snames = data.data.user_names
-                const sid = data.data.user_id
-                const status = data.data.status
+                const snames = data.data.user_names.split(',');
+                const sid = data.data.user_id.split(',');
                 // console.log("abbas1",abbas);
                 const namelist = [];
-                  const name = snames;
+                for (let i = 0; i < snames.length; i++) {
+                  const name = snames[i];
                   console.log(name);
-                  const id = sid; // Access the "name" property
+                  const id = sid[i]; // Access the "name" property
                   namelist.push({ value: id, label: name },);
-  
+                }
+                const status = data.data.status
                 if (status == 1){
                     setSelectedStatus({ value: status, label: 'Active' });
                 }
@@ -92,13 +93,15 @@ const  DutyUpdate = ({ title }) => {
         });
     };
 
-    const handleUserSelectChange = (selectedOption) => {
-        setSelectedUser(selectedOption);
+    const handleUserSelectChange = (selectedOptions) => {
+        setSelectedUser(selectedOptions);
+        // Update the role_id in the inputValues
+        const roleIds = selectedOptions.map((option) => option.value);
         setInputValues({
-          ...inputValues,
-          user_id: selectedOption.value,
+            ...inputValues,
+            user_id: roleIds,
         });
-      };
+    };
       useEffect(() => {
         user_name();
       }, []); // Empty dependency array means it runs once when the component mounts
@@ -190,6 +193,7 @@ const  DutyUpdate = ({ title }) => {
                                                 <Select
                                                 options={useroptions}
                                                 name={input.fieldName}
+                                                isMulti // Enable multiple selection
                                                 value={selectedUser}
                                                 onChange={handleUserSelectChange}
                                                 required

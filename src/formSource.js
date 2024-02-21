@@ -413,6 +413,13 @@ export const categoryInputs = [
       type: "text",
       placeholder: "E.g: C-12",
     },
+    {
+      fieldName: "year",
+      id: 3,
+      label: "Year",
+      type: "text",
+      placeholder: "E.g: 20--",
+    },
     // {
     //   fieldName: "status",
     //   id: 3,
@@ -533,7 +540,7 @@ export const categoryInputs = [
     {
       fieldName: "user_id",
       id: 2,
-      label: "User Id",
+      label: "Users",
       type: "text",
       placeholder: "E.g: 1",
     },
@@ -1012,6 +1019,13 @@ export const categoryInputs = [
       label: "Invigilator",
       type: "text",
       placeholder: "E.g: Abbas",
+    },
+    {
+      fieldName: "duration",
+      id: 15,
+      label: "Duration",
+      type: "text",
+      placeholder: "E.g: how many hours???",
     },
     {
       fieldName: "schedule_start_time",

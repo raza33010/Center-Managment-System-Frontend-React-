@@ -102,6 +102,10 @@ const ExaminationSingle = () => {
                                             <span className="itemValue">{examination?.data.user_names}</span>
                                         </div>
                                         <div className="detailItem">
+                                            <span className="itemKey">Duration: </span>
+                                            <span className="itemValue">{examination?.data.duration}</span>
+                                        </div>
+                                        <div className="detailItem">
                                             <span className="itemKey">Scheduled Start Time: </span>
                                             <span className="itemValue">{examination?.data.schedule_start_time}</span>
                                         </div>
