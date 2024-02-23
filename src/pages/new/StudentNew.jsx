@@ -9,6 +9,7 @@ import { studentInputs } from "../../formSource";
 const StudentNew = ({ title }) => {
     const [file, setFile] = useState("");
     const [file_1, setFile_1] = useState("");
+    const [file_2, setFile_2] = useState("");
     const [inputValues, setInputValues] = useState({});
     const [notification, setNotification] = useState("");
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
@@ -43,10 +44,18 @@ const StudentNew = ({ title }) => {
         formData.append("address", inputValues.address);
         formData.append("bform", file_1);
         formData.append("roll_no", inputValues.roll_no);
-        formData.append("center_id", inputValues.center_id);
+        formData.append("center_id", localStorage.getItem('center_id'));
         formData.append("batch_id", inputValues.batch_id);
         formData.append("class_id", inputValues.class_id);
-        formData.append("status", inputValues.status);
+        formData.append("group_id", inputValues.group_id);
+        formData.append("description", inputValues.description);
+        formData.append("ref_name", inputValues.ref_name);
+        formData.append("marksheet", file_2);
+        formData.append("ref_phone_no", inputValues.ref_phone_no);
+        formData.append("last_class", inputValues.last_class);
+        formData.append("last_grade", inputValues.last_grade);
+        formData.append("percentage", inputValues.percentage);
+        formData.append("status", inputValues.status || 1);
         // formData.append("logo", file); // Append the file to FormData
     
         try {
@@ -65,6 +74,7 @@ const StudentNew = ({ title }) => {
             // Reset the form
             setFile(""); // Clear the file
             setFile_1(""); // Clear the file
+            setFile_2("")
             setInputValues({});
             showNotification("Student has been added successfully!");
         } catch (error) {
@@ -111,6 +121,14 @@ const StudentNew = ({ title }) => {
                                     alt=""
                                 />
                             </div>
+                            <div className="left">
+                                <img
+                                    src={
+                                        file_2
+                                    }
+                                    alt=""
+                                />
+                            </div>
                             <div className="right">
                                 <form onSubmit={handleSubmit}>
                                     <div className="formInput">
@@ -132,6 +150,17 @@ const StudentNew = ({ title }) => {
                                             type="file"
                                             id="Bformfile"
                                             onChange={(e) => setFile_1(e.target.files[0])}
+                                            style={{ display: "none" }}
+                                        />
+                                    </div>
+                                    <div className="formInput">
+                                        <label htmlFor="marksheetfile">
+                                            Marksheet: <DriveFolderUploadOutlinedIcon className="icon" />
+                                        </label>
+                                        <input
+                                            type="file"
+                                            id="marksheetfile"
+                                            onChange={(e) => setFile_2(e.target.files[0])}
                                             style={{ display: "none" }}
                                         />
                                     </div>

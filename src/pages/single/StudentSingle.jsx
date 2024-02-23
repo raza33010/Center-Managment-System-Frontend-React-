@@ -55,7 +55,7 @@ const StudentSingle = () => {
                                         Edit
                                     </Link>
                                 </div>
-                                <h1 className="title">student Information</h1>
+                                <h1 className="title">Student Info</h1>
                                 <div className="item">
                                     <img src={
                                         student?.data.image
@@ -70,16 +70,23 @@ const StudentSingle = () => {
                                         alt=""
                                         className="itemImg"
                                     />
+                                <div className="item">
+                                    <img src={
+                                        student?.data.marksheet
+                                    }
+                                        alt=""
+                                        className="itemImg"
+                                    />
                                     <div className="details">
                                         <h1 className="itemTitle">{student?.data.name}</h1>
-                                        <div className="detailItem">
+                                        {/* <div className="detailItem">
                                             <span className="itemKey">Id: </span>
                                             <span className="itemValue">{student?.data.id}</span>
-                                        </div>
-                                        <div className="detailItem">
+                                        </div> */}
+                                        {/* <div className="detailItem">
                                             <span className="itemKey">Name: </span>
                                             <span className="itemValue">{student?.data.name}</span>
-                                        </div>
+                                        </div> */}
                                         <div className="detailItem">
                                             <span className="itemKey">Phone Number: </span>
                                             <span className="itemValue">{student?.data.phone}</span>
@@ -104,22 +111,51 @@ const StudentSingle = () => {
                                             <span className="itemKey">Roll Number: </span>
                                             <span className="itemValue">{student?.data.roll_no}</span>
                                         </div>
-                                        <div className="detailItem">
+                                        {/* <div className="detailItem">
                                             <span className="itemKey">Center Id: </span>
                                             <span className="itemValue">{student?.data.center_id}</span>
+                                        </div> */}
+                                        <div className="detailItem">
+                                            <span className="itemKey">Batch: </span>
+                                            <span className="itemValue">{student?.data.batch_names}</span>
                                         </div>
                                         <div className="detailItem">
-                                            <span className="itemKey">Batch Id: </span>
-                                            <span className="itemValue">{student?.data.batch_id}</span>
+                                            <span className="itemKey">Class: </span>
+                                            <span className="itemValue">{student?.data.class_names}</span>
                                         </div>
                                         <div className="detailItem">
-                                            <span className="itemKey">Class Id: </span>
-                                            <span className="itemValue">{student?.data.class_id}</span>
+                                            <span className="itemKey">Group: </span>
+                                            <span className="itemValue">{student?.data.group_names}</span>
                                         </div>
                                         <div className="detailItem">
+                                            <span className="itemKey">About Student: </span>
+                                            <span className="itemValue">{student?.data.description}</span>
+                                        </div>
+                                        <div className="detailItem">
+                                            <span className="itemKey">Reference Name: </span>
+                                            <span className="itemValue">{student?.data.ref_name}</span>
+                                        </div>
+                                        <div className="detailItem">
+                                            <span className="itemKey">Reference Phone Number: </span>
+                                            <span className="itemValue">{student?.data.ref_phone_no}</span>
+                                        </div>
+                                        <div className="detailItem">
+                                            <span className="itemKey">Last Class Attended: </span>
+                                            <span className="itemValue">{student?.data.last_class}</span>
+                                        </div>
+                                        <div className="detailItem">
+                                            <span className="itemKey">Last Grade: </span>
+                                            <span className="itemValue">{student?.data.last_grade}</span>
+                                        </div>
+                                        <div className="detailItem">
+                                            <span className="itemKey">Last Percentage: </span>
+                                            <span className="itemValue">{student?.data.percentage}</span>
+                                        </div>
+                                        {/* <div className="detailItem">
                                             <span className="itemKey">Status: </span>
                                             <span className="itemValue">{student?.data.status}</span>
-                                        </div>
+                                        </div> */}
+                                        </div>    
                                     </div>
                                 </div>
                             </div>
