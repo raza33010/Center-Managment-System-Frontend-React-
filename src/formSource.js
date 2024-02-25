@@ -625,13 +625,6 @@ export const categoryInputs = [
       placeholder: "E.g H.NO .... S.NO",
     },
     {
-      fieldName: "roll_no",
-      id: 7,
-      label: "Roll Number",
-      type: "text",
-      placeholder: "E.g E15-015",
-    },
-    {
       fieldName: "batch_id",
       id: 9,
       label: "Batch",

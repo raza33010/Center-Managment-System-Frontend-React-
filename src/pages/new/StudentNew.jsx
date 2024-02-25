@@ -1,9 +1,25 @@
 import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
+import Select from 'react-select';
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { studentInputs } from "../../formSource";
+
+const PaperOptions = [
+    { value: 'A+', label: 'A+' },
+    { value: 'A', label: 'A' },
+    { value: 'B', label: 'B' },
+    { value: 'C', label: 'C' },
+    { value: 'D', label: 'D' },
+  ];
+
+  const CheckingOptions = [
+    { value: 'VIII', label: 'VIII' },
+    { value: 'IX', label: 'IX' },
+    { value: 'X', label: 'X' },
+    { value: 'XI', label: 'XI' },
+  ];
 
 
 const StudentNew = ({ title }) => {
@@ -13,13 +29,130 @@ const StudentNew = ({ title }) => {
     const [inputValues, setInputValues] = useState({});
     const [notification, setNotification] = useState("");
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
-
+    const [classoptions, setClassoptions] = useState([]);
+    const [batchoptions, setBatchoptions] = useState([]);
+    const [groupoptions, setGroupoptions] = useState([]);
+    const center_id = localStorage.getItem('center_id');
     let [token] = useState(localStorage.getItem("token"));
 
     const redirectToLogin = () => {
         alert("Plaese Login first then you can access this page...");
         window.location.href = '/'; // Replace "/login" with the actual login page path
     };
+
+    const handlePaperSelectChange = (selectedOption) => {
+        setInputValues({
+          ...inputValues,
+          type: selectedOption.value
+        });
+      };
+
+      const handleCheckSelectChange = (selectedOption) => {
+        setInputValues({
+          ...inputValues,
+          checking_status: selectedOption.value
+        });
+      };
+
+    const handleClassSelectChange = (selectedOption) => {
+        setInputValues({
+          ...inputValues,
+          class_id: selectedOption.value
+        });
+      };
+      useEffect(() => {
+        class_name();
+      }, []); // Empty dependency array means it runs once when the component mounts
+
+      const class_name = async () => {
+        try {
+          const response = await fetch(`http://127.0.0.1:5000/class_ids/${center_id}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch data from the API");
+          }
+          const data = await response.json();
+          console.log(data.data.length);
+          const namelist = [];
+          for (let i = 0; i < data.data.length; i++) {
+            const name = data.data[i].name;
+            console.log(name);
+            const id = data.data[i].id; // Access the "name" property
+            namelist.push({ value: id, label: name });
+          }
+          console.log(namelist);
+          setClassoptions(namelist);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+    
+
+      const handleBatchSelectChange = (selectedOption) => {
+        setInputValues({
+          ...inputValues,
+          batch_id: selectedOption.value
+        });
+      };
+      useEffect(() => {
+        batch_name();
+      }, []); // Empty dependency array means it runs once when the component mounts
+
+      const batch_name = async () => {
+        try {
+          const response = await fetch(`http://127.0.0.1:5000/batch_ids`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch data from the API");
+          }
+          const data = await response.json();
+          console.log(data.data.length);
+          const namelist = [];
+          for (let i = 0; i < data.data.length; i++) {
+            const name = data.data[i].name;
+            console.log(name);
+            const id = data.data[i].id; // Access the "name" property
+            namelist.push({ value: id, label: name });
+          }
+          console.log(namelist);
+          setBatchoptions(namelist);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+
+      const handleGroupSelectChange = (selectedOption) => {
+        setInputValues({
+          ...inputValues,
+          group_id: selectedOption.value
+        });
+      };
+      useEffect(() => {
+        group_name();
+      }, []); // Empty dependency array means it runs once when the component mounts
+
+      const group_name = async () => {
+        try {
+          const response = await fetch(`http://127.0.0.1:5000/group_ids/${center_id}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch data from the API");
+          }
+          const data = await response.json();
+          console.log(data.data.length);
+          const namelist = [];
+          for (let i = 0; i < data.data.length; i++) {
+            const name = data.data[i].name;
+            const class_names = data.data[i].class_names
+            const abbas = name + class_names
+            console.log(data.data[i].class_names);
+            const id = data.data[i].id; // Access the "name" property
+            namelist.push({ value: id, label: abbas });
+          }
+          console.log(namelist);
+          setGroupoptions(namelist);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+
 
     const handleInputChange = (e) => {
         console.log(e.target.name);
@@ -43,7 +176,6 @@ const StudentNew = ({ title }) => {
         formData.append("email", inputValues.email);
         formData.append("address", inputValues.address);
         formData.append("bform", file_1);
-        formData.append("roll_no", inputValues.roll_no);
         formData.append("center_id", localStorage.getItem('center_id'));
         formData.append("batch_id", inputValues.batch_id);
         formData.append("class_id", inputValues.class_id);
@@ -166,29 +298,57 @@ const StudentNew = ({ title }) => {
                                     </div>
                                     {studentInputs.map((input) => (
                                         <div className="formInput" key={input.id}>
-                                            <label>{input.label}</label>
-                                            {input.type === "dropdown" ? (
-                                                <select
-                                                    name={input.fieldName}
-                                                    onChange={handleInputChange}
-                                                    required
-                                                >
-                                                    {input.options.map((option) => (
-                                                        <option key={option} value={option}>
-                                                            {option}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            ) : (
-                                                <input
-                                                    type={input.type}
-                                                    placeholder={input.placeholder}
-                                                    name={input.fieldName}
-                                                    onChange={handleInputChange}
-                                                    required
-                                                />
-                                            )}
-                                        </div>
+                                        {input.fieldName === "status" ? null : (
+         <>
+                                         <label>{input.label}</label>
+                                         { input.fieldName === "class_id" ? (
+                                             <Select
+                                             options={classoptions}
+                                             name={input.fieldName}
+                                             onChange={handleClassSelectChange}
+                                             required
+                                             />
+                                         ) : input.fieldName === "batch_id" ? (
+                                             <Select
+                                             options={batchoptions}
+                                             name={input.fieldName}
+                                             onChange={handleBatchSelectChange}
+                                             required
+                                             />
+                                         ) : input.fieldName === "group_id" ? (
+                                             <Select
+                                             options={groupoptions}
+                                             name={input.fieldName}
+                                             onChange={handleGroupSelectChange}
+                                             required
+                                             />
+                                         ) : input.fieldName === "last_class" ? (
+                                             <Select
+                                             options={CheckingOptions}
+                                             name={input.fieldName}
+                                             onChange={handleCheckSelectChange}
+                                             required
+                                             />
+                                         ) :input.fieldName === "last_grade" ? (
+                                             <Select
+                                             options={PaperOptions}
+                                             name={input.fieldName}
+                                             onChange={handlePaperSelectChange}
+                                             required
+                                             />
+                                         ) : (
+                                         <input
+                                             type={input.type}
+                                             placeholder={input.placeholder}
+                                             name={input.fieldName}
+                                             onChange={handleInputChange}
+                                             required={input.fieldName !== "status"}
+                                         />
+                                         )}
+                                         </>
+                                        )}
+                                     </div>
+
                                     ))}
                                     <div style={{ clear: "both" }} className="formSubmit">
                                         <button type="submit" style={{ float: "right" }} >Send</button>
