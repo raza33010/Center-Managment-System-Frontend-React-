@@ -581,6 +581,51 @@ export const categoryInputs = [
     },
   ];
 
+  export const groupInputs = [
+    // {
+    //   fieldName: "center_id",
+    //   id: 1,
+    //   label: "Center Id",
+    //   type: "text",
+    //   placeholder: "E.g: 1",
+    // },
+    {
+      fieldName: "class_id",
+      id: 2,
+      label: "Class",
+      type: "text",
+      placeholder: "E.g:X",
+    },
+    {
+      fieldName: "batch_id",
+      id: 3,
+      label: "Batch",
+      type: "text",
+      placeholder: "E.g C-?",
+    },
+    {
+      fieldName: "subject_id",
+      id: 4,
+      label: "Subjects",
+      type: "text",
+      placeholder: "E.g: maths,physics....",
+    },
+    {
+      fieldName: "name",
+      id: 5,
+      label: "Group Name",
+      type: "text",
+      placeholder: "E.g: ",
+    },
+    {
+      fieldName: "status",
+      id: 7,
+      label: "Status",
+      type: "number",
+      placeholder: "E.g: 1 or 0",
+    },
+  ]; 
+
   export const studentInputs = [
     {
       fieldName: "name",

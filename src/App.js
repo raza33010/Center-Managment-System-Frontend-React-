@@ -14,6 +14,7 @@ import TeacherList from "./pages/list/TeacherList";
 import SubjectList from "./pages/list/SubjectList";
 import StudentList from "./pages/list/StudentList";
 import DutyList from "./pages/list/DutyList";
+import GroupList from "./pages/list/GroupList";
 import CenterList from "./pages/list/CenterList";
 import StudentrecordList from "./pages/list/StudentrecordList";
 import AccountList from "./pages/list/AccountList";
@@ -44,6 +45,7 @@ import BatchSingle from "./pages/single/BatchSingle";
 import RoleSingle from "./pages/single/RoleSingle";
 import ClassSingle from "./pages/single/ClassSingle";
 import DutySingle from "./pages/single/DutySingle";
+import GroupSingle from "./pages/single/GroupSingle";
 import StudentSingle from "./pages/single/StudentSingle";
 import SubjectSingle from "./pages/single/SubjectSingle";
 import TeacherSingle from "./pages/single/TeacherSingle";
@@ -64,6 +66,7 @@ import BatchNew from "./pages/new/BatchNew";
 import RoleNew from "./pages/new/RoleNew";
 import ClassNew from "./pages/new/ClassNew";
 import DutyNew from "./pages/new/DutyNew";
+import GroupNew from "./pages/new/GroupNew";
 import StudentNew from "./pages/new/StudentNew";
 import SubjectNew from "./pages/new/SubjectNew";
 import TeacherNew from "./pages/new/TeacherNew";
@@ -84,13 +87,14 @@ import BatchUpdate from "./components/update/BatchUpdate";
 import RoleUpdate from "./components/update/RoleUpdate";
 import ClassUpdate from "./components/update/ClassUpdate";
 import DutyUpdate from "./components/update/DutyUpdate";
+import GroupUpdate from "./components/update/GroupUpdate";
 import StudentUpdate from "./components/update/StudentUpdate";
 import SubjectUpdate from "./components/update/SubjectUpdate";
 import TeacherUpdate from "./components/update/TeacherUpdate";
 import ResultUpdate from "./components/update/ResultUpdate";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { expenseInputs, quizInputs, studentInputs, resultInputs, roleInputs, teacherInputsn, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, classInputs, dutyInputs } from "./formSource";
+import { expenseInputs, quizInputs, studentInputs, resultInputs, roleInputs, teacherInputsn, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -194,6 +198,15 @@ function App() {
               <Route
                 path="new"
                 element={<DutyNew inputs={dutyInputs} title="Add New Duty" />}
+              />
+            </Route>
+            <Route path="group">
+              <Route index element={<GroupList />} />
+              <Route path=":groupId" element={<GroupSingle />} />
+              <Route path="upd_group/:groupId" element={<GroupUpdate inputs={groupInputs} title="Update Group" />} />
+              <Route
+                path="new"
+                element={<GroupNew inputs={groupInputs} title="Add New Group" />}
               />
             </Route>
 

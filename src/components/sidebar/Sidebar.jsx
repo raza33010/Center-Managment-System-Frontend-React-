@@ -4,6 +4,7 @@ import { WalletOutlined } from "@mui/icons-material";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import GroupIcon from '@mui/icons-material/Group';
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import CenterFocusStrongOutlinedIcon from "@mui/icons-material/CenterFocusStrongOutlined";
 import BatchPredictionOutlinedIcon from "@mui/icons-material/BatchPredictionOutlined";
@@ -83,6 +84,12 @@ const Sidebar = () => {
             <li>
               <BatchPredictionOutlinedIcon className="icon" />
               <span>Batch</span>
+            </li>
+          </Link>
+          <Link to="/group" style={{ textDecoration: "none" }}>
+            <li>
+              <GroupIcon className="icon" />
+              <span>Group</span>
             </li>
           </Link>
           <Link to="/class" style={{ textDecoration: "none" }}>
