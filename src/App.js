@@ -222,6 +222,7 @@ function App() {
 
             <Route path="student">
               <Route index element={<StudentList />} />
+              <Route path=":centerId/classId" element={<StudentList />} />
               <Route path=":studentId" element={<StudentSingle />} />
               <Route path="upd_student/:studentId" element={<StudentUpdate inputs={studentInputs} title="Update Student" />} />
               <Route
