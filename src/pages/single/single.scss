@@ -33,6 +33,57 @@
         background-color: rgb(101, 101, 249);
         color: #fff;
       }
+      .aformButton {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 5px;
+        font-size: 12px;
+        color: darkblue;
+        background-color: #7551f818;
+        cursor: pointer;
+        border-radius: 0px 0px 0px 5px;
+        padding: 2px 5px;
+        border: 1px dotted rgba(0, 0, 139, 0.596);
+      }
+      .aformButton:hover {
+      background-color: rgb(101, 101, 249);
+      color: #fff;
+    }
+    .lformButton {
+      position: absolute;
+      bottom: 0;
+      right: 100px;
+      padding: 5px;
+      font-size: 12px;
+      color: darkblue;
+      background-color: #7551f818;
+      cursor: pointer;
+      border-radius: 0px 0px 0px 5px;
+      padding: 2px 5px;
+      border: 1px dotted rgba(0, 0, 139, 0.596);
+    }
+    .lformButton:hover {
+    background-color: rgb(101, 101, 249);
+    color: #fff;
+  }
+  .hlformButton {
+    position: absolute;
+    bottom: 0;
+    right: 200px;
+    padding: 5px;
+    font-size: 12px;
+    color: darkblue;
+    background-color: #7551f818;
+    cursor: pointer;
+    border-radius: 0px 0px 0px 5px;
+    padding: 2px 5px;
+    border: 1px dotted rgba(0, 0, 139, 0.596);
+  }
+  .hlformButton:hover {
+  background-color: rgb(101, 101, 249);
+  color: #fff;
+}
         .item {
           display: flex;
           gap: 20px;

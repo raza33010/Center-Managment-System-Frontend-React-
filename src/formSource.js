@@ -741,6 +741,38 @@ export const categoryInputs = [
     },
   ];
 
+  export const lateformInputs = [
+    {
+      fieldName: "reason",
+      id: 2,
+      label: "Reason For Late",
+      type: "text",
+      placeholder: "E.g any....",
+    },
+    {
+      fieldName: "time",
+      id: 3,
+      label: "Time",
+      type: "time",
+      placeholder: "E.g ",
+    },
+    {
+      fieldName: "date",
+      id: 4,
+      label: "Date",
+      type: "Date",
+      placeholder: "E.g .",
+    },
+    {
+      fieldName: "status",
+      id: 11,
+      label: "Status",
+      type: "number",
+      placeholder: "E.g: 1 or 0",
+    },
+  ];
+
+
   export const subjectInputs = [
     // {
     //   fieldName: "center_id",

@@ -57,6 +57,7 @@ const Login = () => {
           localStorage.setItem("center_id",admindata.center_id);
           localStorage.setItem("name",admindata.name);
           localStorage.setItem("email",admindata.email);
+          localStorage.setItem("user_id",admindata.id);
           localStorage.setItem("role_id",admindata.role_id);
           const admindataString = JSON.stringify(admindata);
 

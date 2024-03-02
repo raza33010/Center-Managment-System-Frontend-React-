@@ -13,6 +13,7 @@ import CoursechapterList from "./pages/list/CoursechapterList";
 import TeacherList from "./pages/list/TeacherList";
 import SubjectList from "./pages/list/SubjectList";
 import StudentList from "./pages/list/StudentList";
+import LateFormList from "./pages/list/LateFormList";
 import DutyList from "./pages/list/DutyList";
 import GroupList from "./pages/list/GroupList";
 import CenterList from "./pages/list/CenterList";
@@ -47,6 +48,7 @@ import ClassSingle from "./pages/single/ClassSingle";
 import DutySingle from "./pages/single/DutySingle";
 import GroupSingle from "./pages/single/GroupSingle";
 import StudentSingle from "./pages/single/StudentSingle";
+import LateFormSingle from "./pages/single/LateFormSingle";
 import SubjectSingle from "./pages/single/SubjectSingle";
 import TeacherSingle from "./pages/single/TeacherSingle";
 import ResultSingle from "./pages/single/ResultSingle";
@@ -68,6 +70,7 @@ import ClassNew from "./pages/new/ClassNew";
 import DutyNew from "./pages/new/DutyNew";
 import GroupNew from "./pages/new/GroupNew";
 import StudentNew from "./pages/new/StudentNew";
+import LateFormNew from "./pages/new/LateFormNew";
 import SubjectNew from "./pages/new/SubjectNew";
 import TeacherNew from "./pages/new/TeacherNew";
 import ResultNew from "./pages/new/ResultNew";
@@ -94,7 +97,7 @@ import TeacherUpdate from "./components/update/TeacherUpdate";
 import ResultUpdate from "./components/update/ResultUpdate";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { expenseInputs, quizInputs, studentInputs, resultInputs, roleInputs, teacherInputsn, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
+import { expenseInputs, quizInputs, studentInputs, lateformInputs, resultInputs, roleInputs, teacherInputsn, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -222,8 +225,16 @@ function App() {
 
             <Route path="student">
               <Route index element={<StudentList />} />
-              <Route path=":centerId/classId" element={<StudentList />} />
               <Route path=":studentId" element={<StudentSingle />} />
+              <Route path="lform">
+                <Route index element={<LateFormList />} />
+                <Route path=":lformtId" element={<LateFormSingle />} />
+                <Route path="upd_lform/:lformId" element={<StudentUpdate inputs={lateformInputs} title="Update Late Form" />} />
+                <Route
+                  path="new"
+                  element={<LateFormNew inputs={lateformInputs} title="Add New Late Form" />}
+                />
+              </Route>
               <Route path="upd_student/:studentId" element={<StudentUpdate inputs={studentInputs} title="Update Student" />} />
               <Route
                 path="new"

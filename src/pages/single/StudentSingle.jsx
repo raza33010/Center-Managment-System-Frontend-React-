@@ -3,6 +3,9 @@ import { useLocation } from 'react-router-dom';
 import './single.scss';
 import Sidebar from '../../components/sidebar/Sidebar';
 import Navbar from '../../components/navbar/Navbar';
+import EventBusyIcon from '@mui/icons-material/EventBusy'; // Absent Form
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday'; // Half Leave Form
+import AccessTimeIcon from '@mui/icons-material/AccessTime'; // Late Form
 import { Link } from "react-router-dom";
 
 const StudentSingle = () => {
@@ -13,6 +16,8 @@ const StudentSingle = () => {
 
     const [student, setStudent] = useState(null);
     let [token] = useState(localStorage.getItem("token"));
+    localStorage.setItem('student_id',studentId)
+    localStorage.setItem('student_name',student?.data.name)
 
     const redirectToLogin = () => {
         alert("Plaese Login first then you can access this page...");
@@ -159,6 +164,24 @@ const StudentSingle = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="aformButton">
+                                    <Link to={`/student/lform`} className=" link">
+                                    <EventBusyIcon className="icon" />
+                                       Absent Form
+                                    </Link>
+                                </div>
+                                <div className="lformButton">
+                                    <Link to={`/student/lform`} className=" link">
+                                    <CalendarTodayIcon className="icon" />
+                                       Late Form
+                                    </Link>
+                                </div>
+                                <div className="hlformButton">
+                                    <Link to={`/student/upd_student/${studentId}`} className=" link">
+                                    <AccessTimeIcon className="icon" />
+                                       Half Leave Form
+                                    </Link>
+                                </div>
                             {/* <div className="right">
                     <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />
                 </div> */}
