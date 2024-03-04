@@ -62,7 +62,7 @@ const  StudentUpdate = ({ title }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fethcStudent = async () => {
+        const fetchStudent = async () => {
             try {
                 const response = await fetch(`http://127.0.0.1:5000/student/${studentId}`, {
                     method: 'GET',
@@ -110,7 +110,7 @@ const  StudentUpdate = ({ title }) => {
         };
 
         if (studentId) {
-            fethcStudent();
+            fetchStudent();
         }
     }, [studentId]);
     // console.log("quiz in a state:", data);

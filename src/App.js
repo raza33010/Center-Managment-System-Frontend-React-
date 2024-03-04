@@ -92,6 +92,7 @@ import ClassUpdate from "./components/update/ClassUpdate";
 import DutyUpdate from "./components/update/DutyUpdate";
 import GroupUpdate from "./components/update/GroupUpdate";
 import StudentUpdate from "./components/update/StudentUpdate";
+import LateFormUpdate from "./components/update/LateFormUpdate";
 import SubjectUpdate from "./components/update/SubjectUpdate";
 import TeacherUpdate from "./components/update/TeacherUpdate";
 import ResultUpdate from "./components/update/ResultUpdate";
@@ -229,7 +230,7 @@ function App() {
               <Route path="lform">
                 <Route index element={<LateFormList />} />
                 <Route path=":lformtId" element={<LateFormSingle />} />
-                <Route path="upd_lform/:lformId" element={<StudentUpdate inputs={lateformInputs} title="Update Late Form" />} />
+                <Route path="upd_lform/:lformId" element={<LateFormUpdate inputs={lateformInputs} title="Update Late Form" />} />
                 <Route
                   path="new"
                   element={<LateFormNew inputs={lateformInputs} title="Add New Late Form" />}

@@ -51,7 +51,7 @@ const LateFormSingle = () => {
                         <div className="top">
                             <div className="left">
                                 <div className="editButton">
-                                    <Link to={`/lform/upd_lform/${lformId}`} className=" link">
+                                    <Link to={`/student/lform/upd_lform/${lformId}`} className=" link">
                                         Edit
                                     </Link>
                                 </div>
