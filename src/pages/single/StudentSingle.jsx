@@ -165,7 +165,7 @@ const StudentSingle = () => {
                                 </div>
                             </div>
                             <div className="aformButton">
-                                    <Link to={`/student/lform`} className=" link">
+                                    <Link to={`/student/absentform`} className=" link">
                                     <EventBusyIcon className="icon" />
                                        Absent Form
                                     </Link>
@@ -177,9 +177,15 @@ const StudentSingle = () => {
                                     </Link>
                                 </div>
                                 <div className="hlformButton">
-                                    <Link to={`/student/upd_student/${studentId}`} className=" link">
+                                    <Link to={`/student/leaveform`} className=" link">
                                     <AccessTimeIcon className="icon" />
                                        Half Leave Form
+                                    </Link>
+                                </div>
+                                <div className="leformButton">
+                                    <Link to={`/student/leaveform`} className=" link">
+                                    <AccessTimeIcon className="icon" />
+                                       Leave Form
                                     </Link>
                                 </div>
                             {/* <div className="right">

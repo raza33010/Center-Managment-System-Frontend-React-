@@ -70,7 +70,7 @@
   .hlformButton {
     position: absolute;
     bottom: 0;
-    right: 200px;
+    right: 190px;
     padding: 5px;
     font-size: 12px;
     color: darkblue;
@@ -83,6 +83,23 @@
   .hlformButton:hover {
   background-color: rgb(101, 101, 249);
   color: #fff;
+}
+.leformButton {
+  position: absolute;
+  bottom: 0;
+  right: 310px;
+  padding: 5px;
+  font-size: 12px;
+  color: darkblue;
+  background-color: #7551f818;
+  cursor: pointer;
+  border-radius: 0px 0px 0px 5px;
+  padding: 2px 5px;
+  border: 1px dotted rgba(0, 0, 139, 0.596);
+}
+.leformButton:hover {
+background-color: rgb(101, 101, 249);
+color: #fff;
 }
         .item {
           display: flex;

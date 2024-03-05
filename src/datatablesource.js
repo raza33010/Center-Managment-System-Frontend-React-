@@ -968,7 +968,7 @@ export const fetchStudentRows = async () => {
 export const studentRows = [];
 
 /**
- * Student
+ * late form
  */
 export const lformColumns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -1053,6 +1053,197 @@ export const fetchLformRows = async () => {
 
 // Export an empty array to be used until the API data is loaded
 export const lformRows = [];
+
+
+/**
+ * leave form
+ */
+export const leaveformColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "leave_file",
+    headerName: "Leave",
+    width: 230,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img src={params.value} alt="Profile" className="cellImg" />
+        </div>
+      );
+    },
+  },
+  {
+    field: "user_names",
+    headerName: "User",
+    width: 230,
+  },
+    {
+    field: "reason",
+    headerName: "Reason For Leave",
+    width: 230,
+  },
+    {
+    field: "start_date_time",
+    headerName: "From Date",
+    width: 230,
+  },
+  {
+    field: "end_date_time",
+    headerName: "to Date",
+    width: 230,
+  },
+  // {
+  //   field: "status",
+  //   headerName: "Status",
+  //   width: 160,
+  //   renderCell: (params) => {
+  //     return (
+  //       <div className={`cellWithStatus ${params.row.status}`}>
+  //         {params.row.status}
+  //       </div>
+  //     );
+  //   },
+  // },
+];
+// Fetch the data from the API and format it for the DataGrid
+export const fetchLeaveformRows = async () => {
+  const formData = {
+    center_id: localStorage.getItem("center_id"),
+    student_id: localStorage.getItem("student_id"),
+    type: 1,
+    // role: 'coo',
+    // role_id: '2',
+  };
+  console.log("abbas",formData);
+  const formDataString = JSON.stringify(formData);
+  try {
+     const response = await fetch('http://127.0.0.1:5000/student/leave_form', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: formDataString,
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .then((data) => {
+        const userdata = data;
+        console.log("abbas",userdata);
+        return userdata
+     
+      })
+      .catch((error) => {
+        console.log(error)
+        // setError('Invalid username or password!');
+        // setUsername('');
+        // setPassword('');
+      }
+      );
+    return response
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const leaveformRows = [];
+
+/**
+ * leave form
+ */
+export const absentformColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "absent_file",
+    headerName: "Document",
+    width: 230,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img src={params.value} alt="Profile" className="cellImg" />
+        </div>
+      );
+    },
+  },
+  {
+    field: "user_names",
+    headerName: "User",
+    width: 230,
+  },
+    {
+    field: "reason",
+    headerName: "Reason For Absent",
+    width: 230,
+  },
+    {
+    field: "date",
+    headerName: "Date",
+    width: 230,
+  },
+  // {
+  //   field: "status",
+  //   headerName: "Status",
+  //   width: 160,
+  //   renderCell: (params) => {
+  //     return (
+  //       <div className={`cellWithStatus ${params.row.status}`}>
+  //         {params.row.status}
+  //       </div>
+  //     );
+  //   },
+  // },
+];
+// Fetch the data from the API and format it for the DataGrid
+export const fetchAbsentformRows = async () => {
+  const formData = {
+    center_id: localStorage.getItem("center_id"),
+    student_id: localStorage.getItem("student_id"),
+    
+    // role: 'coo',
+    // role_id: '2',
+  };
+  console.log("abbas",formData);
+  const formDataString = JSON.stringify(formData);
+  try {
+     const response = await fetch('http://127.0.0.1:5000/student/Aform', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: formDataString,
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .then((data) => {
+        const userdata = data;
+        console.log("abbas",userdata);
+        return userdata
+     
+      })
+      .catch((error) => {
+        console.log(error)
+        // setError('Invalid username or password!');
+        // setUsername('');
+        // setPassword('');
+      }
+      );
+    return response
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+// Export an empty array to be used until the API data is loaded
+export const absentformRows = [];
 
 /**
  * Subject

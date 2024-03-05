@@ -14,6 +14,8 @@ import TeacherList from "./pages/list/TeacherList";
 import SubjectList from "./pages/list/SubjectList";
 import StudentList from "./pages/list/StudentList";
 import LateFormList from "./pages/list/LateFormList";
+import LeaveFormList from "./pages/list/LeaveFormList";
+import AbsentFormList from "./pages/list/AbsentFormList";
 import DutyList from "./pages/list/DutyList";
 import GroupList from "./pages/list/GroupList";
 import CenterList from "./pages/list/CenterList";
@@ -49,6 +51,7 @@ import DutySingle from "./pages/single/DutySingle";
 import GroupSingle from "./pages/single/GroupSingle";
 import StudentSingle from "./pages/single/StudentSingle";
 import LateFormSingle from "./pages/single/LateFormSingle";
+import LeaveFormSingle from "./pages/single/LeaveFormSingle";
 import SubjectSingle from "./pages/single/SubjectSingle";
 import TeacherSingle from "./pages/single/TeacherSingle";
 import ResultSingle from "./pages/single/ResultSingle";
@@ -71,6 +74,7 @@ import DutyNew from "./pages/new/DutyNew";
 import GroupNew from "./pages/new/GroupNew";
 import StudentNew from "./pages/new/StudentNew";
 import LateFormNew from "./pages/new/LateFormNew";
+import LeaveFormNew from "./pages/new/LeaveFormNew";
 import SubjectNew from "./pages/new/SubjectNew";
 import TeacherNew from "./pages/new/TeacherNew";
 import ResultNew from "./pages/new/ResultNew";
@@ -93,12 +97,13 @@ import DutyUpdate from "./components/update/DutyUpdate";
 import GroupUpdate from "./components/update/GroupUpdate";
 import StudentUpdate from "./components/update/StudentUpdate";
 import LateFormUpdate from "./components/update/LateFormUpdate";
+import LeaveFormUpdate from "./components/update/LeaveFormUpdate";
 import SubjectUpdate from "./components/update/SubjectUpdate";
 import TeacherUpdate from "./components/update/TeacherUpdate";
 import ResultUpdate from "./components/update/ResultUpdate";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { expenseInputs, quizInputs, studentInputs, lateformInputs, resultInputs, roleInputs, teacherInputsn, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
+import { expenseInputs, quizInputs, studentInputs, lateformInputs, leaveformInputs, resultInputs, roleInputs, teacherInputsn, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -234,6 +239,24 @@ function App() {
                 <Route
                   path="new"
                   element={<LateFormNew inputs={lateformInputs} title="Add New Late Form" />}
+                />
+              </Route>
+              <Route path="leaveform">
+                <Route index element={<LeaveFormList />} />
+                <Route path=":leaveformtId" element={<LeaveFormSingle />} />
+                <Route path="upd_leaveform/:leaveformId" element={<LeaveFormUpdate inputs={leaveformInputs} title="Update Leave Form" />} />
+                <Route
+                  path="new"
+                  element={<LeaveFormNew inputs={leaveformInputs} title="Add New Leave" />}
+                />
+              </Route>
+              <Route path="absentform">
+                <Route index element={<AbsentFormList />} />
+                <Route path=":absentformId" element={<LeaveFormSingle />} />
+                <Route path="upd_absentform/:absentformId" element={<LeaveFormUpdate inputs={leaveformInputs} title="Update Leave Form" />} />
+                <Route
+                  path="new"
+                  element={<LeaveFormNew inputs={leaveformInputs} title="Add New Absent Form" />}
                 />
               </Route>
               <Route path="upd_student/:studentId" element={<StudentUpdate inputs={studentInputs} title="Update Student" />} />
