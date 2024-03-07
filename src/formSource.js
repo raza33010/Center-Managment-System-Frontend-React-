@@ -802,6 +802,32 @@ export const categoryInputs = [
     },
   ];
 
+  export const absentformInputs = [
+    {
+      fieldName: "reason",
+      id: 2,
+      label: "Reason For Absent",
+      type: "text",
+      placeholder: "E.g any....",
+    },
+    {
+      fieldName: "date",
+      id: 3,
+      label: "Date",
+      type: "date",
+      placeholder: "E.g ",
+    },
+
+    {
+      fieldName: "status",
+      id: 11,
+      label: "Status",
+      type: "number",
+      placeholder: "E.g: 1 or 0",
+    },
+  ];
+
+
 
   export const subjectInputs = [
     // {
