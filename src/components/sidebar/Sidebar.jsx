@@ -4,6 +4,7 @@ import { WalletOutlined } from "@mui/icons-material";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import GroupIcon from '@mui/icons-material/Group';
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import CenterFocusStrongOutlinedIcon from "@mui/icons-material/CenterFocusStrongOutlined";
@@ -96,6 +97,12 @@ const Sidebar = () => {
             <li>
               <ClassOutlinedIcon className="icon" />
               <span>Class</span>
+            </li>
+          </Link>
+          <Link to="/timetable" style={{ textDecoration: "none" }}>
+            <li>
+              <AccessTimeIcon className="icon" />
+              <span>Time Table</span>
             </li>
           </Link>
           <Link to="/duty" style={{ textDecoration: "none" }}>

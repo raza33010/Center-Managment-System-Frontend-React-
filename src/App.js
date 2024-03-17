@@ -14,6 +14,7 @@ import TeacherList from "./pages/list/TeacherList";
 import SubjectList from "./pages/list/SubjectList";
 import StudentList from "./pages/list/StudentList";
 import LateFormList from "./pages/list/LateFormList";
+import TimeTableList from "./pages/list/TimeTableList";
 import LeaveFormList from "./pages/list/LeaveFormList";
 import AbsentFormList from "./pages/list/AbsentFormList";
 import DutyList from "./pages/list/DutyList";
@@ -51,6 +52,7 @@ import DutySingle from "./pages/single/DutySingle";
 import GroupSingle from "./pages/single/GroupSingle";
 import StudentSingle from "./pages/single/StudentSingle";
 import LateFormSingle from "./pages/single/LateFormSingle";
+import TimeTableSingle from "./pages/single/TimeTableSingle";
 import LeaveFormSingle from "./pages/single/LeaveFormSingle";
 import AbsentFormSingle from "./pages/single/AbsentFormSingle"; 
 import SubjectSingle from "./pages/single/SubjectSingle";
@@ -75,6 +77,7 @@ import DutyNew from "./pages/new/DutyNew";
 import GroupNew from "./pages/new/GroupNew";
 import StudentNew from "./pages/new/StudentNew";
 import LateFormNew from "./pages/new/LateFormNew";
+import TimeTableNew from "./pages/new/TimeTableNew";
 import LeaveFormNew from "./pages/new/LeaveFormNew";
 import AbsentFormNew from "./pages/new/AbsentFormNew";
 import SubjectNew from "./pages/new/SubjectNew";
@@ -99,6 +102,7 @@ import DutyUpdate from "./components/update/DutyUpdate";
 import GroupUpdate from "./components/update/GroupUpdate";
 import StudentUpdate from "./components/update/StudentUpdate";
 import LateFormUpdate from "./components/update/LateFormUpdate";
+import TimeTableUpdate from "./components/update/TimeTableUpdate";
 import LeaveFormUpdate from "./components/update/LeaveFormUpdate";
 import AbsentFormUpdate from "./components/update/AbsentFormUpdate";
 import SubjectUpdate from "./components/update/SubjectUpdate";
@@ -106,7 +110,7 @@ import TeacherUpdate from "./components/update/TeacherUpdate";
 import ResultUpdate from "./components/update/ResultUpdate";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { expenseInputs, quizInputs, studentInputs, lateformInputs, leaveformInputs, absentformInputs, resultInputs, roleInputs, teacherInputsn, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
+import { expenseInputs, quizInputs, studentInputs, lateformInputs, timetableInputs, leaveformInputs, absentformInputs, resultInputs, roleInputs, teacherInputsn, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -231,6 +235,16 @@ function App() {
                 element={<AccountNew inputs={accountInputs} title="Add New Account" />}
               />
             </Route>
+
+            <Route path="timetable">
+                <Route index element={<TimeTableList />} />
+                <Route path=":timetabletId" element={<TimeTableSingle />} />
+                <Route path="upd_timetable/:timetableId" element={<TimeTableUpdate inputs={timetableInputs} title="Update Slot" />} />
+                <Route
+                  path="new"
+                  element={<TimeTableNew inputs={timetableInputs} title="Add New Slot" />}
+                />
+              </Route>
 
             <Route path="student">
               <Route index element={<StudentList />} />

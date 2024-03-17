@@ -771,6 +771,58 @@ export const categoryInputs = [
       placeholder: "E.g: 1 or 0",
     },
   ];
+  export const timetableInputs = [
+    {
+      fieldName: "user_id",
+      id: 2,
+      label: "Teacher Name",
+      type: "text",
+      placeholder: "E.g any....",
+    },
+    {
+      fieldName: "class_id",
+      id: 3,
+      label: "Class",
+      type: "text",
+      placeholder: "E.g ",
+    },
+    {
+      fieldName: "subject_id",
+      id: 4,
+      label: "Subject",
+      type: "text",
+      placeholder: "E.g .",
+    },
+    {
+      fieldName: "day",
+      id: 5,
+      label: "Day",
+      type: "day",
+      placeholder: "E.g .",
+    },    
+    {
+      fieldName: "start_slot_time",
+      id: 6,
+      label: "Start Time",
+      type: "time",
+      placeholder: "E.g .",
+    },
+    {
+      fieldName: "end_slot_time",
+      id: 7,
+      label: "End Time",
+      type: "time",
+      placeholder: "E.g .",
+    },
+    {
+      fieldName: "status",
+      id: 11,
+      label: "Status",
+      type: "number",
+      placeholder: "E.g: 1 or 0",
+    },
+  ];
+
   export const leaveformInputs = [
     {
       fieldName: "reason",

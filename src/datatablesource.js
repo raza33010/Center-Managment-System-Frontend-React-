@@ -1054,6 +1054,103 @@ export const fetchLformRows = async () => {
 // Export an empty array to be used until the API data is loaded
 export const lformRows = [];
 
+/**
+ * late form
+ */
+export const timetableColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "user_names",
+    headerName: "Teacher",
+    width: 230,
+  },
+    {
+    field: "class_names",
+    headerName: "Class",
+    width: 230,
+  },
+    {
+    field: "subject_names",
+    headerName: "Subject",
+    width: 230,
+  },
+  {
+  field: "day",
+  headerName: "Day",
+  width: 230,
+  },
+  {
+    field: "start_slot_time",
+    headerName: "Start Time",
+    width: 230,
+    },
+    {
+      field: "end_slot_time",
+      headerName: "End Time",
+      width: 230,
+      },
+  
+
+  // {
+  //   field: "status",
+  //   headerName: "Status",
+  //   width: 160,
+  //   renderCell: (params) => {
+  //     return (
+  //       <div className={`cellWithStatus ${params.row.status}`}>
+  //         {params.row.status}
+  //       </div>
+  //     );
+  //   },
+  // },
+];
+// Fetch the data from the API and format it for the DataGrid
+export const fetchTimetableRows = async () => {
+  const formData = {
+    center_id: localStorage.getItem("center_id"),
+    // role: 'coo',
+    // role_id: '2',
+  };
+  console.log("abbas",formData);
+  const formDataString = JSON.stringify(formData);
+  try {
+     const response = await fetch('http://127.0.0.1:5000/timetable', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: formDataString,
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .then((data) => {
+        const userdata = data;
+        console.log("abbas",userdata);
+        return userdata
+     
+      })
+      .catch((error) => {
+        console.log(error)
+        // setError('Invalid username or password!');
+        // setUsername('');
+        // setPassword('');
+      }
+      );
+    return response
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// Export an empty array to be used until the API data is loaded
+export const timetableRows = [];
+
+
 
 /**
  * leave form
