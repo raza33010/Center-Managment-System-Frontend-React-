@@ -11,6 +11,15 @@ import { timetableInputs } from "../../formSource";
       { value: 1, label: 'Active' },
       { value: 0, label: 'Inactive' },
     ];
+    const DayOptions = [
+        { value: 'Monday', label: 'Monday' },
+        { value: 'Tuesday', label: 'Tuesday' },
+        { value: 'Wednesday', label: 'Wednesday' },
+        { value: 'Thursday', label: 'Thursday' },
+        { value: 'Friday', label: 'Friday' },
+        { value: 'Saturday', label: 'Saturday' },
+      ];
+    
 
 const  TimeTableUpdate = ({ title }) => {
 
@@ -20,13 +29,14 @@ const  TimeTableUpdate = ({ title }) => {
     const center_id = localStorage.getItem('center_id');
     // Initializing state
     const [selectedStatus, setSelectedStatus] = useState(null);
+    const [selectedDay, setSelectedDay] = useState(null);
     const [inputValues, setInputValues] = useState("");
     const [selectedUser, setSelectedUser] = useState([]);
     const [useroptions, setUseroptions] = useState([]);
-    const [selectedTransaction, setSelectedTransaction] = useState([]);
-    const [transactionoptions, setTransactionoptions] = useState([]);
-    const [selectedAccount, setSelectedAccount] = useState([]);
-    const [accountoptions, setAccountoptions] = useState([]);
+    const [selectedSubject, setSelectedSubject] = useState([]);
+    const [Subjectoptions, setSubjectoptions] = useState([]);
+    const [selectedClass, setSelectedClass] = useState([]);
+    const [Classoptions, setClassoptions] = useState([]);
     let [token] = useState(localStorage.getItem("token"));
     
     const redirectToLogin = () => {
@@ -55,18 +65,19 @@ const  TimeTableUpdate = ({ title }) => {
                   console.log(name);
                   const id = sid; // Access the "name" property
                   namelist.push({ value: id, label: name },);
-                  const transaction = data.data.transaction_names
-                  const tid = data.data.transaction_id
+                  const Subject = data.data.subject_names
+                  const tid = data.data.subject_id
                   // console.log("abbas1",abbas);
                   const namelist_t = [];
-                    namelist_t.push({ value: tid, label: transaction },);
-                    const account = data.data.account_names
-                    const aid = data.data.account_id
+                    namelist_t.push({ value: tid, label: Subject },);
+                    const Class = data.data.class_names
+                    const aid = data.data.class_id
                     // console.log("abbas1",abbas);
                     const namelist_a = [];
-                      namelist_a.push({ value: aid, label: account },);
+                      namelist_a.push({ value: aid, label: Class },);
                 setInputValues(data.data);
                 const status = data.data.status
+                const day = data.data.day
                 console.log(status);
                 if (status == 1){
                     setSelectedStatus({ value: status, label: 'Active' });
@@ -74,10 +85,37 @@ const  TimeTableUpdate = ({ title }) => {
                 else{
                     setSelectedStatus({ value: status, label: 'Inactive' });
                 }
+                console.log(day);
+                if (day == "Monday"){
+                    setSelectedDay({ value: day, label: 'Monday' });
+                }
+                else if (day == "Tuesday"){
+                    setSelectedDay({ value: day, label: 'Tuesday' });
+                
+                }
+                else if (day == "Wednesday"){
+                    setSelectedDay({ value: day, label: 'Wednesday' });
+                
+                }
+                else if (day == "Thursday"){
+                    setSelectedDay({ value: day, label: 'Thursday' });
+                
+                }
+                else if (day == "Friday"){
+                    setSelectedDay({ value: day, label: 'Friday' });
+                
+                }
+                else if (day == "Saturday"){
+                    setSelectedDay({ value: day, label: 'Saturday' });
+                
+                }
+                else{
+                    setSelectedDay({ value: day, label: 'Sunday' });
+                }
 
                 setSelectedUser(namelist);
-                setSelectedTransaction(namelist_t);
-                setSelectedAccount(namelist_a);
+                setSelectedSubject(namelist_t);
+                setSelectedClass(namelist_a);
                 localStorage.setItem("quizData", JSON.stringify(data));
 
             } catch (error) {
@@ -107,6 +145,15 @@ const  TimeTableUpdate = ({ title }) => {
           status: selectedOption.value,
         });
       };
+
+      const handleDaySelectChange = (selectedOption) => {
+        setSelectedDay(selectedOption);
+        setInputValues({
+          ...inputValues,
+          day: selectedOption.value,
+        });
+      };
+
 
       const handleUserSelectChange = (selectedOption) => {
         setSelectedUser(selectedOption);
@@ -141,20 +188,20 @@ const  TimeTableUpdate = ({ title }) => {
         }
       }
 
-      const handleTransactionSelectChange = (selectedOption) => {
-        setSelectedTransaction(selectedOption);
+      const handleSubjectSelectChange = (selectedOption) => {
+        setSelectedSubject(selectedOption);
         setInputValues({
           ...inputValues,
-          transaction_id: selectedOption.value,
+          subject_id: selectedOption.value,
         });
       };
       useEffect(() => {
-        transaction_name();
+        Subject_name();
       }, []); // Empty dependency array means it runs once when the component mounts
 
-      const transaction_name = async () => {
+      const Subject_name = async () => {
         try {
-          const response = await fetch(`http://127.0.0.1:5000/transaction_ids`);
+          const response = await fetch(`http://127.0.0.1:5000/subject_ids/${center_id}`);
           if (!response.ok) {
             throw new Error("Failed to fetch data from the API");
           }
@@ -168,26 +215,26 @@ const  TimeTableUpdate = ({ title }) => {
             namelist.push({ value: id, label: name });
           }
           console.log(namelist);
-          setTransactionoptions(namelist);
+          setSubjectoptions(namelist);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
       }
 
-      const handleAccountSelectChange = (selectedOption) => {
-        setSelectedAccount(selectedOption);
+      const handleClassSelectChange = (selectedOption) => {
+        setSelectedClass(selectedOption);
         setInputValues({
           ...inputValues,
-          account_id: selectedOption.value,
+          class_id: selectedOption.value,
         });
       };
       useEffect(() => {
-        account_name();
+        Class_name();
       }, []); // Empty dependency array means it runs once when the component mounts
 
-      const account_name = async () => {
+      const Class_name = async () => {
         try {
-          const response = await fetch(`http://127.0.0.1:5000/account_ids/${center_id}`);
+          const response = await fetch(`http://127.0.0.1:5000/class_ids/${center_id}`);
           if (!response.ok) {
             throw new Error("Failed to fetch data from the API");
           }
@@ -201,7 +248,7 @@ const  TimeTableUpdate = ({ title }) => {
             namelist.push({ value: id, label: name });
           }
           console.log(namelist);
-          setAccountoptions(namelist);
+          setClassoptions(namelist);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
@@ -229,7 +276,7 @@ const  TimeTableUpdate = ({ title }) => {
 
 
         // Send formData to the server using an HTTP request to update
-        fetch(`http://127.0.0.1:5000/timetable/upd_timetable/${timetableId}`, {
+        fetch(`http://127.0.0.1:5000/upd_timetable/${timetableId}`, {
             method: "PUT",
             body: formData, // Pass the object as the body
         })
@@ -263,12 +310,12 @@ const  TimeTableUpdate = ({ title }) => {
                                     {timetableInputs.map((input) => (
                                          <div className="formInput" key={input.id}>
                                          <label>{input.label}</label>
-                                         {input.fieldName === "class_id" ? (
+                                         {input.fieldName === "subject_id" ? (
                                                 <Select
-                                                options={transactionoptions}
+                                                options={Subjectoptions}
                                                 name={input.fieldName}
-                                                value={selectedTransaction}
-                                                onChange={handleTransactionSelectChange}
+                                                value={selectedSubject}
+                                                onChange={handleSubjectSelectChange}
                                                 required
                                                 />
                                             ):input.fieldName === "user_id" ? (
@@ -279,12 +326,12 @@ const  TimeTableUpdate = ({ title }) => {
                                                 onChange={handleUserSelectChange}
                                                 required
                                                 />
-                                            ):input.fieldName === "subject_id" ? (
+                                            ):input.fieldName === "class_id" ? (
                                                 <Select
-                                                options={accountoptions}
+                                                options={Classoptions}
                                                 name={input.fieldName}
-                                                value={selectedAccount}
-                                                onChange={handleAccountSelectChange}
+                                                value={selectedClass}
+                                                onChange={handleClassSelectChange}
                                                 required
                                                 />
                                             ):input.fieldName === "status" ? (
@@ -295,7 +342,15 @@ const  TimeTableUpdate = ({ title }) => {
                                              onChange={handleStatusSelectChange}
                                              required
                                              />
-                                         ) :<input
+                                         ) :input.fieldName === "day" ? (
+                                            <Select
+                                            options={DayOptions}
+                                            name={input.fieldName}
+                                            value={selectedDay}
+                                            onChange={handleDaySelectChange}
+                                            required
+                                            />
+                                        ) :<input
                                              type={input.type}
                                              placeholder={input.placeholder}
                                              name={input.fieldName}

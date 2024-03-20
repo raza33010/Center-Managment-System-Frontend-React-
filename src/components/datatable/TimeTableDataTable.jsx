@@ -49,6 +49,9 @@ const TimeTableDataTable = () => {
                 return (
                     <div className="cellAction">
                         <Link to={`/timetable/${params.row.id}`} style={{ textDecoration: "none" }}>
+                            <div className="viewButton">Attendance</div>
+                        </Link>
+                        <Link to={`/timetable/${params.row.id}`} style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
                         </Link>
                         <div
