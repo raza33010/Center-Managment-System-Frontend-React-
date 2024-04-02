@@ -13,6 +13,7 @@ import WorkOutlinedIcon from "@mui/icons-material/WorkOutlined";
 import ChildCareOutlinedIcon from "@mui/icons-material/ChildCareOutlined";
 import SubjectOutlinedIcon from "@mui/icons-material/SubjectOutlined";
 import RocketLaunchOutlinedIcon from "@mui/icons-material/RocketLaunchOutlined";
+import { CheckCircleOutline } from '@mui/icons-material';
 import TopicOutlinedIcon from "@mui/icons-material/TopicOutlined";
 import PercentOutlinedIcon from "@mui/icons-material/PercentOutlined";
 import FiberSmartRecordOutlinedIcon from "@mui/icons-material/FiberSmartRecordOutlined";
@@ -103,6 +104,12 @@ const Sidebar = () => {
             <li>
               <AccessTimeIcon className="icon" />
               <span>Time Table</span>
+            </li>
+          </Link>
+          <Link to="/teacher_attendance" style={{ textDecoration: "none" }}>
+            <li>
+              <CheckCircleOutline className="icon" />
+              <span>Teacher Attendance</span>
             </li>
           </Link>
           <Link to="/duty" style={{ textDecoration: "none" }}>

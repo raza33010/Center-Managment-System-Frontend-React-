@@ -1,17 +1,17 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { timetableColumns, timetableRows, fetchTimetableRows } from "../../datatablesource";
+import { teacherattendanceColumns, teacherattendanceRows, fetchTeacherattendanceRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const TimeTableDataTable = () => {
-    const [data, setData] = useState(timetableRows);
+const TeacherAttendanceDataTable = () => {
+    const [data, setData] = useState(teacherattendanceRows);
     const [loading, setLoading] = useState(false);
     const studentName = localStorage.getItem('student_name')
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
-            const rows = await fetchTimetableRows();
+            const rows = await fetchTeacherattendanceRows();
             console.log("jawad",rows)
             setLoading(false);
             setData(Array.from(rows.data));
@@ -48,10 +48,7 @@ const TimeTableDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to={`/teacher_attendance/new/${params.row.id}`} style={{ textDecoration: "none" }}>
-                            <div className="viewButton">Attendance</div>
-                        </Link>
-                        <Link to={`/timetable/${params.row.id}`} style={{ textDecoration: "none" }}>
+                        <Link to={`/teacher_attendance/${params.row.id}`} style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
                         </Link>
                         <div
@@ -68,16 +65,16 @@ const TimeTableDataTable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Time Table
-                <Link to="/timetable/new" className="link">
-                    Add New Time Table
+                Teacher Attendance
+                <Link to="/teacher_attendance/new" className="link">
+                    Add New  Time Table
                 </Link>
             </div>
             {loading ? <h1 style={{ textAlign: "student", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
                     className="datagrid"
                     rows={data}
-                    columns={timetableColumns.concat(actionColumn)}
+                    columns={teacherattendanceColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
                     // checkboxSelection
@@ -86,4 +83,4 @@ const TimeTableDataTable = () => {
     );
 };
 
-export default TimeTableDataTable;
+export default TeacherAttendanceDataTable;

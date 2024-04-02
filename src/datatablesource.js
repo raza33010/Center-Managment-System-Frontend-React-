@@ -1150,6 +1150,123 @@ export const fetchTimetableRows = async () => {
 // Export an empty array to be used until the API data is loaded
 export const timetableRows = [];
 
+/**
+ * Teacher Attendance form
+ */
+export const teacherattendanceColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "timetable_user_name",
+    headerName: "Teacher",
+    width: 230,
+  },
+    {
+    field: "class_name",
+    headerName: "Class",
+    width: 230,
+  },
+    {
+    field: "subject_name",
+    headerName: "Subject",
+    width: 230,
+  },
+  {
+  field: "day",
+  headerName: "Day",
+  width: 230,
+  },
+  {
+    field: "date",
+    headerName: "Date",
+    width: 230,
+    },
+  {
+    field: "start_slot_time",
+    headerName: "Start Time",
+    width: 230,
+    },
+    {
+      field: "end_slot_time",
+      headerName: "End Time",
+      width: 230,
+      },
+      {
+        field: "teacher_status",
+        headerName: "Teacher Status",
+        width: 230,
+        },
+        {
+          field: "user_rep_name",
+          headerName: "Teacher Replacement",
+          width: 230,
+          },
+          {
+            field: "subject_rep_name",
+            headerName: "Subject Replacement",
+            width: 230,
+            },
+
+                        
+  
+
+  // {
+  //   field: "status",
+  //   headerName: "Status",
+  //   width: 160,
+  //   renderCell: (params) => {
+  //     return (
+  //       <div className={`cellWithStatus ${params.row.status}`}>
+  //         {params.row.status}
+  //       </div>
+  //     );
+  //   },
+  // },
+];
+// Fetch the data from the API and format it for the DataGrid
+export const fetchTeacherattendanceRows = async () => {
+  const formData = {
+    center_id: localStorage.getItem("center_id"),
+    // role: 'coo',
+    // role_id: '2',
+  };
+  console.log("abbas",formData);
+  const formDataString = JSON.stringify(formData);
+  try {
+     const response = await fetch('http://127.0.0.1:5000/teacher_attendance', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: formDataString,
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .then((data) => {
+        const userdata = data;
+        console.log("abbas",userdata);
+        return userdata
+     
+      })
+      .catch((error) => {
+        console.log(error)
+        // setError('Invalid username or password!');
+        // setUsername('');
+        // setPassword('');
+      }
+      );
+    return response
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// Export an empty array to be used until the API data is loaded
+export const teacherattendanceRows = [];
 
 
 /**
@@ -1436,25 +1553,21 @@ export const teacherColumns = [
   //   width: 230,
   // },
   {
-    field: "name",
-    headerName: "Name",
+    field: "user_names",
+    headerName: "Teacher",
     width: 230,
   },
   {
-    field: "email",
-    headerName: "Email",
+    field: "class_names",
+    headerName: "Class",
     width: 230,
   },
   {
-    field: "phone_no",
-    headerName: "Phone Number",
+    field: "subject_names",
+    headerName: "Subject",
     width: 230,
   },
-  {
-    field: "role_names",
-    headerName: "Role",
-    width: 230,
-  },
+
   // {
   //   field: "status",
   //   headerName: "Status",
@@ -1478,7 +1591,7 @@ export const fetchTeacherRows = async () => {
   console.log("abbas",formData);
   const formDataString = JSON.stringify(formData);
   try {
-     const response = await fetch('http://127.0.0.1:5000/user', {
+     const response = await fetch('http://127.0.0.1:5000/teacher', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

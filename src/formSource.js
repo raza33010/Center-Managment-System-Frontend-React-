@@ -823,6 +823,88 @@ export const categoryInputs = [
     },
   ];
 
+
+
+  export const teacher_attendanceInputs = [
+    {
+      fieldName: "user_id",
+      id: 2,
+      label: "Teacher Name",
+      type: "text",
+      placeholder: "E.g any....",
+    },
+    {
+      fieldName: "class_id",
+      id: 3,
+      label: "Class",
+      type: "text",
+      placeholder: "E.g ",
+    },
+    {
+      fieldName: "subject_id",
+      id: 4,
+      label: "Subject",
+      type: "text",
+      placeholder: "E.g .",
+    },
+    {
+      fieldName: "day",
+      id: 5,
+      label: "Day",
+      type: "day",
+      placeholder: "E.g .",
+    },    
+    {
+      fieldName: "start_slot_time",
+      id: 6,
+      label: "Start Time",
+      type: "time",
+      placeholder: "E.g .",
+    },
+    {
+      fieldName: "end_slot_time",
+      id: 7,
+      label: "End Time",
+      type: "time",
+      placeholder: "E.g .",
+    },
+    {
+      fieldName: "teacher_status",
+      id: 8,
+      label: "Teacher Status",
+      type: "text",
+      placeholder: "E.g .",
+    },
+    {
+      fieldName: "date",
+      id: 9,
+      label: "Date",
+      type: "date",
+      placeholder: "E.g .",
+    },
+    {
+      fieldName: "user_rep_id",
+      id: 10,
+      label: "Replacment Teacher",
+      type: "text",
+      placeholder: "E.g .",
+    },
+    {
+      fieldName: "subject_rep_id",
+      id: 12,
+      label: "Replacement Subject",
+      type: "text",
+      placeholder: "E.g .",
+    },
+    {
+      fieldName: "status",
+      id: 11,
+      label: "Status",
+      type: "number",
+      placeholder: "E.g: 1 or 0",
+    },
+  ];
+
   export const leaveformInputs = [
     {
       fieldName: "reason",
@@ -968,21 +1050,21 @@ export const categoryInputs = [
     {
       fieldName: "user_id",
       id: 2,
-      label: "User Id",
+      label: "Teacher",
       type: "text",
       placeholder: "E.g: 1",
     },
     {
       fieldName: "subject_id",
       id: 3,
-      label: "Subject Id",
+      label: "Subject",
       type: "text",
       placeholder: "E.g: 1",
     },
     {
       fieldName: "class_id",
       id:4,
-      label: "Class Id",
+      label: "Class",
       type: "text",
       placeholder: "E.g: 1",
     },
@@ -994,62 +1076,6 @@ export const categoryInputs = [
       placeholder: "E.g: 1 or 0",
     },
   ];  
-
-  export const teacherInputsn = [
-    // {
-    //   fieldName: "center_id",
-    //   id: 1,
-    //   label: "Center Id",
-    //   type: "text",
-    //   placeholder: "E.g: 1",
-    // },
-    {
-      fieldName: "name",
-      id: 2,
-      label: "Name",
-      type: "text",
-      placeholder: "E.g: Abbas",
-    },
-    {
-      fieldName: "email",
-      id: 3,
-      label: "Email",
-      type: "text",
-      placeholder: "E.g: @gmail.com",
-    },
-    {
-      fieldName: "phone_no",
-      id: 4,
-      label: "Phone Number",
-      type: "text",
-      placeholder: "E.g: 03-- ------",
-    },
-    {
-      fieldName: "role_id",
-      id: 5,
-      label: "Role ",
-      type: "select", // Change the type to "select"
-      placeholder: "Select a Role", // Optional placeholder for the dropdow
-    },    
-    {
-      fieldName: "password",
-      id: 6,
-      label: "Password",
-      type: "text",
-      placeholder: "E.g: any",
-    },
-    // {
-    //   fieldName: "status",
-    //   id: 7,
-    //   label: "Status",
-    //   type: "select", // Change the type to "select"
-    //   placeholder: "Select a Status", // Optional placeholder for the dropdown
-    //   options: [
-    //     { value: "0", label: "0" }, // Add your dropdown options here
-    //     { value: "1", label: "1" }, // Add more options as needed
-    //   ],
-    // }, 
-  ];
 
 
   export const resultInputs = [

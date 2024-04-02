@@ -36,6 +36,7 @@ const  TimeTableUpdate = ({ title }) => {
     const [selectedSubject, setSelectedSubject] = useState([]);
     const [Subjectoptions, setSubjectoptions] = useState([]);
     const [selectedClass, setSelectedClass] = useState([]);
+    const [selectedsubject_id, setSelectedsubject_id] = useState([]);
     const [Classoptions, setClassoptions] = useState([]);
     let [token] = useState(localStorage.getItem("token"));
     
@@ -155,12 +156,18 @@ const  TimeTableUpdate = ({ title }) => {
       };
 
 
-      const handleUserSelectChange = (selectedOption) => {
+      const handleUserSelectChange = async (selectedOption) => {
         setSelectedUser(selectedOption);
         setInputValues({
           ...inputValues,
           user_id: selectedOption.value,
         });
+        if (inputValues.class_id) {
+          const response = await fetch(`http://127.0.0.1:5000/teacher/user_class_ids/subjects?user_id=${selectedOption.value}&class_id=${inputValues.class_id}`);
+          const data = await response.json();
+          setSelectedsubject_id(data.data.subject_id);
+          setSelectedSubject({ value: data.data.subject_id, label: data.data.subject_names });
+        }
       };
       useEffect(() => {
         user_name();
@@ -221,12 +228,19 @@ const  TimeTableUpdate = ({ title }) => {
         }
       }
 
-      const handleClassSelectChange = (selectedOption) => {
+      const handleClassSelectChange = async (selectedOption) => {
         setSelectedClass(selectedOption);
         setInputValues({
           ...inputValues,
           class_id: selectedOption.value,
         });
+           // Fetch subjects based on selected user and class
+    if (inputValues.user_id) {
+      const response = await fetch(`http://127.0.0.1:5000/teacher/user_class_ids/subjects?user_id=${inputValues.user_id}&class_id=${selectedOption.value}`);
+      const data = await response.json();
+      setSelectedsubject_id(data.data.subject_id);
+      setSelectedSubject({ value: data.data.subject_id, label: data.data.subject_names });
+    }
       };
       useEffect(() => {
         Class_name();
@@ -266,7 +280,7 @@ const  TimeTableUpdate = ({ title }) => {
         formData.append("center_id", localStorage.getItem('center_id'));
         formData.append("user_id", inputValues.user_id);
         formData.append("class_id", inputValues.class_id);
-        formData.append("subject_id", inputValues.subject_id);
+        formData.append("subject_id", selectedsubject_id );
         formData.append("day", inputValues.day);
         formData.append("start_slot_time", inputValues.start_slot_time);
         formData.append("end_slot_time", inputValues.end_slot_time);

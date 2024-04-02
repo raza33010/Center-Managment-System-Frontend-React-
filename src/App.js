@@ -15,6 +15,7 @@ import SubjectList from "./pages/list/SubjectList";
 import StudentList from "./pages/list/StudentList";
 import LateFormList from "./pages/list/LateFormList";
 import TimeTableList from "./pages/list/TimeTableList";
+import TeacherAttendanceList from "./pages/list/TeacherAttendanceList";
 import LeaveFormList from "./pages/list/LeaveFormList";
 import AbsentFormList from "./pages/list/AbsentFormList";
 import DutyList from "./pages/list/DutyList";
@@ -53,6 +54,7 @@ import GroupSingle from "./pages/single/GroupSingle";
 import StudentSingle from "./pages/single/StudentSingle";
 import LateFormSingle from "./pages/single/LateFormSingle";
 import TimeTableSingle from "./pages/single/TimeTableSingle";
+import TeacherAttendanceSingle from "./pages/single/TeacherAttendanceSingle";
 import LeaveFormSingle from "./pages/single/LeaveFormSingle";
 import AbsentFormSingle from "./pages/single/AbsentFormSingle"; 
 import SubjectSingle from "./pages/single/SubjectSingle";
@@ -78,6 +80,7 @@ import GroupNew from "./pages/new/GroupNew";
 import StudentNew from "./pages/new/StudentNew";
 import LateFormNew from "./pages/new/LateFormNew";
 import TimeTableNew from "./pages/new/TimeTableNew";
+import TeacherAttendanceNew from "./pages/new/TeacherAttendanceNew";
 import LeaveFormNew from "./pages/new/LeaveFormNew";
 import AbsentFormNew from "./pages/new/AbsentFormNew";
 import SubjectNew from "./pages/new/SubjectNew";
@@ -103,6 +106,7 @@ import GroupUpdate from "./components/update/GroupUpdate";
 import StudentUpdate from "./components/update/StudentUpdate";
 import LateFormUpdate from "./components/update/LateFormUpdate";
 import TimeTableUpdate from "./components/update/TimeTableUpdate";
+import TeacherAttendanceUpdate from "./components/update/TeacherAttendanceUpdate";
 import LeaveFormUpdate from "./components/update/LeaveFormUpdate";
 import AbsentFormUpdate from "./components/update/AbsentFormUpdate";
 import SubjectUpdate from "./components/update/SubjectUpdate";
@@ -110,7 +114,7 @@ import TeacherUpdate from "./components/update/TeacherUpdate";
 import ResultUpdate from "./components/update/ResultUpdate";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { expenseInputs, quizInputs, studentInputs, lateformInputs, timetableInputs, leaveformInputs, absentformInputs, resultInputs, roleInputs, teacherInputsn, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
+import { expenseInputs, quizInputs, studentInputs, lateformInputs, timetableInputs, teacher_attendanceInputs, leaveformInputs, absentformInputs, resultInputs, roleInputs, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -246,6 +250,17 @@ function App() {
                 />
               </Route>
 
+              <Route path="teacher_attendance">
+                <Route index element={<TeacherAttendanceList />} />
+                <Route path=":teacher_attendanceId" element={<TeacherAttendanceSingle />} />
+                <Route path="upd_teacher_attendance/:teacher_attendanceId" element={<TeacherAttendanceUpdate inputs={teacher_attendanceInputs} title="Update Slot" />} />
+                <Route
+                  path="new/:teacher_attendanceId"
+                  element={<TeacherAttendanceNew inputs={teacher_attendanceInputs} title="Add Teacher Attendance" />}
+                />
+              </Route>
+
+
             <Route path="student">
               <Route index element={<StudentList />} />
               <Route path=":studentId" element={<StudentSingle />} />
@@ -299,7 +314,7 @@ function App() {
               <Route path="upd_teacher/:teacherId" element={<TeacherUpdate inputs={teacherInputs} title="Update Teacher" />} />
               <Route
                 path="new"
-                element={<TeacherNew inputs={teacherInputsn} title="Add New Teacher" />}
+                element={<TeacherNew inputs={teacherInputs} title="Add New Teacher" />}
               />
             </Route>
 

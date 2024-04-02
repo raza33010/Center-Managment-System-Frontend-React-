@@ -22,7 +22,7 @@ const TeacherSingle = () => {
 
     const fetchCoo = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:5000/user/${teacherId}`);
+            const response = await fetch(`http://127.0.0.1:5000/teacher/${teacherId}`);
             // if (!response.ok) {
             //     throw new Error('Failed to fetch User');
             // }
@@ -58,29 +58,25 @@ const TeacherSingle = () => {
                                 <h1 className="title">Teacher Information</h1>
                                     <div className="details">
                                         {/* <h1 className="itemTitle">{teacher?.data.name}</h1> */}
-                                        <div className="detailItem">
+                                        {/* <div className="detailItem">
                                             <span className="itemKey">Id: </span>
                                             <span className="itemValue">{teacher?.data.id}</span>
-                                        </div>
+                                        </div> */}
                                         {/* <div className="detailItem">
                                             <span className="itemKey">Center Id: </span>
                                             <span className="itemValue">{teacher?.data.center_id}</span>
                                         </div> */}
                                         <div className="detailItem">
                                             <span className="itemKey">Name: </span>
-                                            <span className="itemValue">{teacher?.data.name}</span>
+                                            <span className="itemValue">{teacher?.data.user_names}</span>
                                         </div>
                                         <div className="detailItem">
-                                            <span className="itemKey">Email: </span>
-                                            <span className="itemValue">{teacher?.data.email}</span>
+                                            <span className="itemKey">Class: </span>
+                                            <span className="itemValue">{teacher?.data.class_names}</span>
                                         </div>
                                         <div className="detailItem">
-                                            <span className="itemKey">Phone Number: </span>
-                                            <span className="itemValue">{teacher?.data.phone_no}</span>
-                                        </div>
-                                        <div className="detailItem">
-                                            <span className="itemKey">Roles: </span>
-                                            <span className="itemValue">{teacher?.data.role_names}</span>
+                                            <span className="itemKey">Subject: </span>
+                                            <span className="itemValue">{teacher?.data.subject_names}</span>
                                         </div>
                                         {/* <div className="detailItem">
                                             <span className="itemKey">Status: </span>
