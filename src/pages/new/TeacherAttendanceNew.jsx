@@ -27,6 +27,8 @@ const TeacherAttendanceNew = ({ title }) => {
     const [useroptions, setUseroptions] = useState([]);
     const [selectedSubject, setSelectedSubject] = useState([]);
     const [teacher_status, setTeacher_status] = useState([]);
+    const [teacher_rep, setTeacher_rep] = useState([]);
+    const [subject_rep, setSubject_rep] = useState([]);
     const [Subjectoptions, setSubjectoptions] = useState([]);
     const [selectedClass, setSelectedClass] = useState([]);
     const [selectedtt_id, setSelectedtt_id] = useState([]);
@@ -153,6 +155,15 @@ const TeacherAttendanceNew = ({ title }) => {
           ...inputValues,
           user_rep_id: selectedOption.value
         });
+        if (teacher_status == 'Present' ){
+          setTeacher_rep("Present");
+        }
+        else if ( teacher_status == 'Late'){
+          setTeacher_rep("Late");
+        }
+        else{
+          setTeacher_rep(selectedOption.value);
+        }
       };
       useEffect(() => {
         user_name();
@@ -217,6 +228,15 @@ const TeacherAttendanceNew = ({ title }) => {
           ...inputValues,
           subject_rep_id: selectedOption.value
         });
+        if (teacher_status == 'Present' ){
+          setSubject_rep("Present");
+        }
+        else if ( teacher_status == 'Late'){
+          setSubject_rep("Late");
+        }
+        else{
+          setSubject_rep(selectedOption.value);
+        }
       };
       useEffect(() => {
         subject_name();
@@ -313,55 +333,51 @@ const TeacherAttendanceNew = ({ title }) => {
                                         <div className="formInput" key={input.id}>
                                         {input.fieldName === "status" ? null : (
          <>
-                                         <label>{input.label}</label>
-                                         {
-                                            input.fieldName === "teacher_status" ? (
-                                                <Select
-                                                options={TSOptions}
-                                                name={input.fieldName}
-                                                onChange={handleTeacher_StatusSelectChange}
-                                                required
-                                                />
-                                            ) : (input.fieldName === "subject_rep_id" || input.fieldName === "user_rep_id") ? (
-                                                teacher_status === "Replacement" || teacher_status === "Absent" ? (
-                                                <Select
-                                                    options={input.fieldName === "subject_rep_id" ? Subjectoptions : useroptions}
-                                                    name={input.fieldName}
-                                                    onChange={input.fieldName === "subject_rep_id" ? handleSubjectSelectChange : handleUserSelectChange}
-                                                    required
-                                                />
-                                                ) : null
-                                            ) : (input.fieldName === "subject_id" || input.fieldName === "user_id" || input.fieldName === "class_id" || input.fieldName === "day") ? (
-                                                <Select
-                                                name={input.fieldName}
-                                                value={
-                                                    input.fieldName === "subject_id" ? selectedSubject :
-                                                    input.fieldName === "user_id" ? selectedUser :
-                                                    input.fieldName === "class_id" ? selectedClass :
-                                                    input.fieldName === "day" ? selectedDay :
-                                                    ''
-                                                }
-                                                onChange={
-                                                    input.fieldName === "subject_id" ? handleSubjectSelectChange :
-                                                    input.fieldName === "user_id" ? handleUserSelectChange :
-                                                    input.fieldName === "class_id" ? handleClassSelectChange :
-                                                    input.fieldName === "day" ? handleDaySelectChange :
-                                                    handleInputChange
-                                                }
-                                                required
-                                                />
-                                            ) : (
-                                                <input
-                                                type={input.type}
-                                                placeholder={input.placeholder}
-                                                name={input.fieldName}
-                                                value={inputValues[input.fieldName] || ''}
-                                                onChange={handleInputChange}
-                                                required
-                                                />
-                                            )
-                                            }
-
+                              <label>{input.label}</label>
+                                      {input.fieldName === "teacher_status" ? (
+                                          <Select
+                                              options={TSOptions}
+                                              name={input.fieldName}
+                                              onChange={handleTeacher_StatusSelectChange}
+                                              required
+                                          />
+                                      ) : input.fieldName === "subject_rep_id" || input.fieldName === "user_rep_id" ? (
+                                          <Select
+                                              options={input.fieldName === "subject_rep_id" ? Subjectoptions : useroptions}
+                                              name={input.fieldName}
+                                              value={input.fieldName === "subject_rep_id" ? subject_rep : teacher_rep}
+                                              onChange={input.fieldName === "subject_rep_id" ? handleSubjectSelectChange : handleUserSelectChange}
+                                              required
+                                          />
+                                      ) : input.fieldName === "subject_id" || input.fieldName === "user_id" || input.fieldName === "class_id" || input.fieldName === "day" ? (
+                                          <Select
+                                              name={input.fieldName}
+                                              value={
+                                                  input.fieldName === "subject_id" ? selectedSubject :
+                                                  input.fieldName === "user_id" ? selectedUser :
+                                                  input.fieldName === "class_id" ? selectedClass :
+                                                  input.fieldName === "day" ? selectedDay :
+                                                  ''
+                                              }
+                                              onChange={
+                                                  input.fieldName === "subject_id" ? handleSubjectSelectChange :
+                                                  input.fieldName === "user_id" ? handleUserSelectChange :
+                                                  input.fieldName === "class_id" ? handleClassSelectChange :
+                                                  input.fieldName === "day" ? handleDaySelectChange :
+                                                  handleInputChange
+                                              }
+                                              required
+                                          />
+                                      ) : (
+                                          <input
+                                              type={input.type}
+                                              placeholder={input.placeholder}
+                                              name={input.fieldName}
+                                              value={inputValues[input.fieldName] || ''}
+                                              onChange={handleInputChange}
+                                              required
+                                          />
+                                      )}
                                          </>
                                         )}
                                      </div>
