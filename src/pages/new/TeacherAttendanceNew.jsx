@@ -26,9 +26,11 @@ const TeacherAttendanceNew = ({ title }) => {
     const [selectedUser, setSelectedUser] = useState([]);
     const [useroptions, setUseroptions] = useState([]);
     const [selectedSubject, setSelectedSubject] = useState([]);
+    const [selectedUser_rep, setSelectedUser_rep] = useState([]);
+    const [selectedSubject_rep, setSelectedSubject_rep] = useState([]);
+    const [selectedUser_replac, setSelectedUser_replac] = useState([]);
+    const [selectedSubject_replac, setSelectedSubject_replac] = useState([]);
     const [teacher_status, setTeacher_status] = useState([]);
-    const [teacher_rep, setTeacher_rep] = useState([]);
-    const [subject_rep, setSubject_rep] = useState([]);
     const [Subjectoptions, setSubjectoptions] = useState([]);
     const [selectedClass, setSelectedClass] = useState([]);
     const [selectedtt_id, setSelectedtt_id] = useState([]);
@@ -147,23 +149,27 @@ const TeacherAttendanceNew = ({ title }) => {
           ...inputValues,
           teacher_status: selectedOption.value
         });
+        if (selectedOption.value == "Present" || selectedOption.value == "Late" ){
+          setSelectedSubject_rep({ value: "None", label: "None" });
+          setSelectedUser_rep({ value: "None", label: "None" });
+          setSelectedSubject_replac("None");
+          setSelectedUser_replac("None");
+        }
+        else{
+          setSelectedSubject_rep([]);
+          setSelectedUser_rep([]);
+        }
         setTeacher_status(selectedOption.value);
       };
 
     const handleUserSelectChange = (selectedOption) => {
+      setSelectedUser_rep(selectedOption);
         setInputValues({
           ...inputValues,
           user_rep_id: selectedOption.value
         });
-        if (teacher_status == 'Present' ){
-          setTeacher_rep("Present");
-        }
-        else if ( teacher_status == 'Late'){
-          setTeacher_rep("Late");
-        }
-        else{
-          setTeacher_rep(selectedOption.value);
-        }
+        setSelectedUser_replac(selectedOption.value);
+      
       };
       useEffect(() => {
         user_name();
@@ -224,19 +230,12 @@ const TeacherAttendanceNew = ({ title }) => {
       }
 
       const handleSubjectSelectChange = (selectedOption) => {
+        setSelectedSubject_rep(selectedOption)
         setInputValues({
           ...inputValues,
           subject_rep_id: selectedOption.value
         });
-        if (teacher_status == 'Present' ){
-          setSubject_rep("Present");
-        }
-        else if ( teacher_status == 'Late'){
-          setSubject_rep("Late");
-        }
-        else{
-          setSubject_rep(selectedOption.value);
-        }
+        setSelectedSubject_replac(selectedOption.value);
       };
       useEffect(() => {
         subject_name();
@@ -276,8 +275,8 @@ const TeacherAttendanceNew = ({ title }) => {
         formData.append("timetable_id", selectedtt_id);
         formData.append("teacher_status", teacher_status);
         formData.append("date", inputValues.date);
-        formData.append("subject_rep_id", inputValues.subject_rep_id|| 'None');
-        formData.append("user_rep_id", inputValues.user_rep_id|| 'None');
+        formData.append("subject_rep_id", selectedSubject_replac);
+        formData.append("user_rep_id", selectedUser_replac);
         formData.append("status", inputValues.status || 1);
         // formData.append("logo", file); // Append the file to FormData
     
@@ -345,7 +344,7 @@ const TeacherAttendanceNew = ({ title }) => {
                                           <Select
                                               options={input.fieldName === "subject_rep_id" ? Subjectoptions : useroptions}
                                               name={input.fieldName}
-                                              value={input.fieldName === "subject_rep_id" ? subject_rep : teacher_rep}
+                                              value={input.fieldName === "subject_rep_id" ? selectedSubject_rep : selectedUser_rep}
                                               onChange={input.fieldName === "subject_rep_id" ? handleSubjectSelectChange : handleUserSelectChange}
                                               required
                                           />
