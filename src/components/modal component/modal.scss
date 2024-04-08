@@ -1,0 +1,33 @@
+// TransitionsModal.scss
+
+// Variables
+$modalBgColor: #ffffff; // Background color (replace with your desired color)
+$modalBorderColor: #000000; // Border color (replace with your desired color)
+$modalBorderWidth: 2px; // Border width
+$modalBoxShadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Box shadow
+$modalPadding: 20px; // Padding inside the modal content
+$modalMaxWidth: 400px; // Maximum width of the modal
+
+// Styles
+.custom-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: $modalMaxWidth;
+  background-color: $modalBgColor;
+  border: $modalBorderWidth solid $modalBorderColor;
+  box-shadow: $modalBoxShadow;
+  padding: $modalPadding;
+  box-sizing: border-box; // Ensures padding and border are included in the width
+}
+
+.list {
+  display: flex;
+  width: 100%;
+  .listContainer {
+    flex: 6;
+  }
+}
+

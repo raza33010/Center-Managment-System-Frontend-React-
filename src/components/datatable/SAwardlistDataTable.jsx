@@ -1,17 +1,17 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { examinationColumns, examinationRows, fetchExaminationRows } from "../../datatablesource";
+import { sawardlistColumns, sawardlistRows, fetchSAwardlistRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const ExaminationDataTable = () => {
-    const [data, setData] = useState(examinationRows);
+const SAwardlistDataTable = () => {
+    const [data, setData] = useState(sawardlistRows);
     const [loading, setLoading] = useState(false);
-
+    const studentName = localStorage.getItem('student_name')
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
-            const rows = await fetchExaminationRows();
+            const rows = await fetchSAwardlistRows();
             console.log("jawad",rows)
             setLoading(false);
             setData(Array.from(rows.data));
@@ -19,14 +19,9 @@ const ExaminationDataTable = () => {
         getData();
     }, []);
 
-    const handleSaveID = (id) => {
-        // Make a DELETE request to the Flask API endpoint
-        localStorage.setItem('Aclass_id',id);
-      };
-
     const handleDelete = (id) => {
         // Make a DELETE request to the Flask API endpoint
-        fetch(`http://127.0.0.1:5000/del_examination/${id}`, {
+        fetch(`http://127.0.0.1:5000/student/del_timetable/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -43,6 +38,7 @@ const ExaminationDataTable = () => {
             console.error('There was a problem with the fetch operation:', error);
           });
       };
+      
 
     const actionColumn = [
         {
@@ -52,19 +48,15 @@ const ExaminationDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                         <Link to={`/awardlist`} style={{ textDecoration: "none" }}>
-                            <div className="viewButton" 
-                            onClick={() => handleSaveID(params.row.class_id)}>Award List</div>
+                        <Link to={`/awardlist/by_id`} style={{ textDecoration: "none" }}>
+                            <div className="viewButton">+ Add Number</div>
                         </Link>
-                        <Link to={`/examination/${params.row.id}`} style={{ textDecoration: "none" }}>
-                            <div className="viewButton">View</div>
-                        </Link>
-                        <div
+                        {/* <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
                         >
                             Delete
-                        </div>
+                        </div> */}
                     </div>
                 );
             },
@@ -73,16 +65,16 @@ const ExaminationDataTable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Examination Details
-                <Link to="/examination/new" className="link">
-                    Add New Exam
-                </Link>
+                AwardList
+                {/* <Link to="/teacher_attendance/new" className="link">
+                    Add New  Time Table
+                </Link> */}
             </div>
-            {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :
+            {loading ? <h1 style={{ textAlign: "student", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
                     className="datagrid"
                     rows={data}
-                    columns={examinationColumns.concat(actionColumn)}
+                    columns={sawardlistColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
                     // checkboxSelection
@@ -91,4 +83,4 @@ const ExaminationDataTable = () => {
     );
 };
 
-export default ExaminationDataTable;
+export default SAwardlistDataTable;

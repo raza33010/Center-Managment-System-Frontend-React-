@@ -334,34 +334,34 @@ const TeacherAttendanceUpdate = ({ title }) => {
          <>
                                          <label>{input.label}</label>
                                          {
-                                            input.fieldName === "teacher_status" ? (
+                                        input.fieldName === "teacher_status" ? (
+                                            <Select
+                                                options={TSOptions}
+                                                name={input.fieldName}
+                                                value={teacher_status}
+                                                onChange={handleTeacher_StatusSelectChange}
+                                                required
+                                            />
+                                        ) : (input.fieldName === "subject_rep_id" || input.fieldName === "user_rep_id") ? (
+                                            teacher_status === "Replacement" || teacher_status === "Absent" ? (
                                                 <Select
-                                                    options={TSOptions}
+                                                    options={input.fieldName === "subject_rep_id" ? Subjectoptions : useroptions}
                                                     name={input.fieldName}
-                                                    value={teacher_status}
-                                                    onChange={handleTeacher_StatusSelectChange}
+                                                    onChange={input.fieldName === "subject_rep_id" ? handleSubjectSelectChange : handleUserSelectChange}
                                                     required
                                                 />
-                                            ) : (input.fieldName === "subject_rep_id" || input.fieldName === "user_rep_id") ? (
-                                                teacher_status === "Replacement" || teacher_status === "Absent" ? (
-                                                    <Select
-                                                        options={input.fieldName === "subject_rep_id" ? Subjectoptions : useroptions}
-                                                        name={input.fieldName}
-                                                        onChange={input.fieldName === "subject_rep_id" ? handleSubjectSelectChange : handleUserSelectChange}
-                                                        required
-                                                    />
-                                                ) : null
-                                            ) : (
-                                                <input
-                                                    type={input.type}
-                                                    placeholder={input.placeholder}
-                                                    name={input.fieldName}
-                                                    value={inputValues[input.fieldName] || ''}
-                                                    onChange={handleInputChange}
-                                                    required
-                                                />
-                                            )
-                                        }
+                                            ) : null
+                                        ) : (
+                                            <input
+                                                type={input.type}
+                                                placeholder={input.placeholder}
+                                                name={input.fieldName}
+                                                value={inputValues[input.fieldName] || ''}
+                                                onChange={handleInputChange}
+                                                required
+                                            />
+                                        )
+                                    }
 
                                          </>
                                         )}

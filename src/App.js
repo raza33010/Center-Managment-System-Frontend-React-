@@ -16,6 +16,7 @@ import StudentList from "./pages/list/StudentList";
 import LateFormList from "./pages/list/LateFormList";
 import TimeTableList from "./pages/list/TimeTableList";
 import TeacherAttendanceList from "./pages/list/TeacherAttendanceList";
+import SAwardList from "./pages/list/SAwardList";
 import LeaveFormList from "./pages/list/LeaveFormList";
 import AbsentFormList from "./pages/list/AbsentFormList";
 import DutyList from "./pages/list/DutyList";
@@ -34,6 +35,7 @@ import RolescreenList from "./pages/list/RolescreenList";
 import ExaminationList from "./pages/list/ExaminationList";
 import QuestionList from "./pages/list/QuestionList";
 import ResultList from "./pages/list/ResultList";
+import User_Single from "./components/modal component/modal_component";
 
 import Single from "./pages/single/Single";
 import UserSingle from "./pages/single/UserSingle";
@@ -260,6 +262,16 @@ function App() {
                 />
               </Route>
 
+              <Route path="awardlist">
+                <Route index element={<SAwardList />} />
+                <Route path="by_id" element={<User_Single />} />
+                <Route path=":teacher_attendanceId" element={<TeacherAttendanceSingle />} />
+                <Route path="upd_teacher_attendance/:teacher_attendanceId" element={<TeacherAttendanceUpdate inputs={teacher_attendanceInputs} title="Update Slot" />} />
+                <Route
+                  path="new/:teacher_attendanceId"
+                  element={<TeacherAttendanceNew inputs={teacher_attendanceInputs} title="Add Teacher Attendance" />}
+                />
+              </Route>
 
             <Route path="student">
               <Route index element={<StudentList />} />
