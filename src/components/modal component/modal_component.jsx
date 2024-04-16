@@ -9,7 +9,7 @@ import Navbar from '../navbar/Navbar';
 import SAwardlistDataTable from '../datatable/SAwardlistDataTable';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './modal.scss';
-
+import { awardlistInputs } from '../../formSource';
 const CloseIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@ const User_Single = () => {
   const [userUrl, setUserUrl] = useState('');
   const [userData, setUserData] = useState(null); // State to hold fetched user data
   const [loading, setLoading] = useState(true); // Loading state
-
+  const student_name = useState(localStorage.getItem('student_name_n'));
   let [token] = useState(localStorage.getItem("token"));
 
   const redirectToLogin = () => {
@@ -78,7 +78,7 @@ const User_Single = () => {
         <Navbar />
         <SAwardlistDataTable />
         <div>
-          <Modal
+        <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             open={open}
@@ -91,35 +91,47 @@ const User_Single = () => {
           >
             <Fade in={open}>
               <Box className="custom-modal">
-                {!loading && (
-                  <button
-                    className="close-button"
-                    onClick={handleClose}
-                    aria-label="Close"
-                  >
-                    {CloseIcon}
-                  </button>
-                )}
-                {loading ? ( // Render loading state while data is being fetched
+              <Typography variant="h5" id="transition-modal-title" sx={{ mt: 2 }}>
+                Add {student_name}'s number
+            </Typography>
+                {loading ? (
                   <Typography>Loading...</Typography>
                 ) : (
                   <>
-
                     <Typography id="transition-modal-description" sx={{ mt: 2 }}>
                       {userData && (
                         <>
-                          <div><strong>Name:</strong>{userData?.name}</div>
-                          <div><strong>Phone No:</strong>{userData?.phone_no}</div>
+                          {/* Render form fields */}
+                          <form>
+                            {awardlistInputs.map((field) => (
+                              <div key={field.name}>
+                                <label htmlFor={field.name}>{field.label}</label>
+                                <input
+                                  type={field.type}
+                                  id={field.name}
+                                  name={field.name}
+                                  value={userData[field.name] || ''}
+                                  onChange={(e) => {
+                                    // Handle form field changes
+                                  }}
+                                />
+                              </div>
+                            ))}
+                            <button type="submit">Submit</button>
+                          </form>
                           {/* Render other user data as needed */}
                         </>
                       )}
-                      <a href={userUrl} target="_blank" rel="noopener noreferrer">{userUrl}</a>
+                      <a href={userUrl} target="_blank" rel="noopener noreferrer">
+                        {userUrl}
+                      </a>
                     </Typography>
                   </>
                 )}
               </Box>
             </Fade>
           </Modal>
+
         </div>
       </div>
     </div>

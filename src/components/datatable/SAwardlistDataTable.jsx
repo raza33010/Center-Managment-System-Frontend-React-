@@ -4,6 +4,9 @@ import { sawardlistColumns, sawardlistRows, fetchSAwardlistRows } from "../../da
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+
+
+
 const SAwardlistDataTable = () => {
     const [data, setData] = useState(sawardlistRows);
     const [loading, setLoading] = useState(false);
@@ -18,6 +21,12 @@ const SAwardlistDataTable = () => {
         };
         getData();
     }, []);
+    const handleAddNumber = (id, studentName) => {
+        // Store student information in local storage
+        localStorage.setItem('student_id_n', id);
+        localStorage.setItem('student_name_n', studentName);
+    };
+    
 
     const handleDelete = (id) => {
         // Make a DELETE request to the Flask API endpoint
@@ -48,7 +57,11 @@ const SAwardlistDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to={`/awardlist/by_id`} style={{ textDecoration: "none" }}>
+                        <Link
+                            to={`/awardlist/by_id`}
+                            style={{ textDecoration: "none" }}
+                            onClick={() => handleAddNumber(params.row.id, params.row.name)}
+                        >
                             <div className="viewButton">+ Add Number</div>
                         </Link>
                         {/* <div

@@ -378,7 +378,7 @@ const  ExaminationUpdate = ({ title }) => {
                                             type="file"
                                             id="file"
                                             onChange={(e) => setFile(e.target.files[0])}
-                                            style={{ display: "none" }}
+                                            style={{ display: "none" }}a
                                         />
                                     </div>
                                     {examinationInputs.map((input) => (

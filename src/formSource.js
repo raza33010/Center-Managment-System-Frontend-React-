@@ -1316,6 +1316,22 @@ export const categoryInputs = [
       placeholder: "E.g: 1 or 0",
     },
   ];  
+  export const awardlistInputs = [
+    // {
+    //   fieldName: "center_id",
+    //   id: 1,
+    //   label: "Center",
+    //   type: "text",
+    //   placeholder: "E.g: 1",
+    // },
+    {
+      fieldName: "obtain_number",
+      id: 2,
+      label: "Obtain Number",
+      type: "text",
+      placeholder: "E.g: 35...",
+    },
+  ];  
 
 
 
