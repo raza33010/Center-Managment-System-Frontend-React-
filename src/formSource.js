@@ -1325,10 +1325,10 @@ export const categoryInputs = [
     //   placeholder: "E.g: 1",
     // },
     {
-      fieldName: "obtain_number",
+      fieldName: "number",
       id: 2,
       label: "Obtain Number",
-      type: "text",
+      type: "number",
       placeholder: "E.g: 35...",
     },
   ];  

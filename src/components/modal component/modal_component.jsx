@@ -31,13 +31,20 @@ const User_Single = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [open, setOpen] = useState(true);
-  const [userUrl, setUserUrl] = useState('');
+  const [id, setId] = useState('');
   const [status, setStatus] = useState('');
-  const [inputValues, setInputValues] = useState("");
+  const [numbers, setNumbers] = useState('');
+  const [inputValues, setInputValues] = useState({
+    obtain_number: '', // Initialize with an empty string or default value
+    // Add other properties as needed
+  });
+  const total_marks = useState(localStorage.getItem('total_marks'));
+  
   const [userData, setUserData] = useState(null); // State to hold fetched user data
   const [loading, setLoading] = useState(true); // Loading state
   const student_name = useState(localStorage.getItem('student_name_n'));
   let [token] = useState(localStorage.getItem("token"));
+  const [isNumberGreaterThanTotal, setIsNumberGreaterThanTotal] = useState(false); // State to track if obtain_number > total_marks
 
   const redirectToLogin = () => {
       alert("Plaese Login first then you can access this page...");
@@ -66,7 +73,7 @@ const User_Single = () => {
     fetchData();
   }, []);
   useEffect(() => {
-    const fetchSAwardlistRows = async () => {
+    const fetchSAwardlistRows = () => {
       const formData = {
         student_id: localStorage.getItem("student_id_n"),
         examination_id: localStorage.getItem("examination_id"),
@@ -76,7 +83,7 @@ const User_Single = () => {
       console.log("abbas",formData);
       const formDataString = JSON.stringify(formData);
       try {
-         const response = await fetch('http://127.0.0.1:5000/awardlist_for_checking', {
+         const response = fetch('http://127.0.0.1:5000/awardlist_for_checking', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -85,18 +92,22 @@ const User_Single = () => {
         })
           .then((response) => {
             if (response.ok) {
-              const abbas1 = response.json()
-              console.log("status",abbas1.status);
-              setStatus(abbas1.status);
-              return abbas1.status;
+              return response.json();
             } else {
               throw new Error('Error: ' + response.status);
             }
           })
           .then((data) => {
             const userdata = data;
+            console.log(userdata.status);
+            setStatus(userdata.status)
+            if (status == 'true'){
+              setInputValues(userdata.data);
+              console.log(userdata.data.id);
+              setNumbers(userdata.data.number);
+              setId(userdata.data.id);
 
-            setInputValues(userdata.data);
+            }
             return userdata
          
           })
@@ -114,11 +125,75 @@ const User_Single = () => {
     };
     fetchSAwardlistRows();
   },[]);
-  const handleInputChange = (e) => {
-    setInputValues({
-        ...inputValues,
-        [e.target.name]: e.target.value
-    });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (status == 'false'){
+      const formData = new FormData();
+      formData.append('center_id', localStorage.getItem('center_id'));
+      formData.append('examination_id', localStorage.getItem('examination_id'));
+      formData.append('student_id', localStorage.getItem('student_id_n'));
+      formData.append('user_id', localStorage.getItem('user_id'));
+      formData.append('obtain_number', inputValues.number);
+      formData.append('status', inputValues.status || 1);
+      console.log(formData);
+  
+  
+      // Send formData to the server using an HTTP request to update
+      fetch(`http://127.0.0.1:5000/add_awardlist`, {
+          method: "POST",
+          body: formData, // Pass the object as the body
+      })
+          .then((response) => {
+              return response.json();
+          })
+          .then((data) => {
+              console.log("Response from API", data);
+              // Navigate to the desired page after API response
+              navigate(`/awardlist`);
+          })
+          .catch((error) => {
+              console.log(error);
+          });
+  
+    }
+    else{
+      const formData = new FormData();
+      formData.append('center_id', localStorage.getItem('center_id'));
+      formData.append('examination_id', localStorage.getItem('examination_id'));
+      formData.append('student_id', localStorage.getItem('student_id_n'));
+      formData.append('user_id', localStorage.getItem('user_id'));
+      formData.append('obtain_number', inputValues.number);
+      formData.append('status', inputValues.status || 1);
+      console.log(formData);
+  
+  
+      // Send formData to the server using an HTTP request to update
+      fetch(`http://127.0.0.1:5000/upd_awardlist/${id}`, {
+          method: "PUT",
+          body: formData, // Pass the object as the body
+      })
+          .then((response) => {
+              return response.json();
+          })
+          .then((data) => {
+              console.log("Response from API", data);
+              // Navigate to the desired page after API response
+              navigate(`/awardlist`);
+          })
+          .catch((error) => {
+              console.log(error);
+          });
+
+    }
+};
+
+
+const handleInputChange = (e) => {
+  setInputValues({
+      ...inputValues,
+      [e.target.name]: e.target.value
+  });
 };
 
   const handleClose = () => {
@@ -159,30 +234,28 @@ const User_Single = () => {
                     <Typography id="transition-modal-description" sx={{ mt: 2 }}>
                       {userData && (
                         <>
-                          {/* Render form fields */}
-                          <form>
-                            {awardlistInputs.map((field) => (
-                              <div key={field.name}>
-                                <label htmlFor={field.name}>{field.label}</label>
-                                <input
-                                  type={field.type}
-                                  id={field.name}
-                                  name={field.name}
-                                  value={inputValues[field.name] || ''}
-                                  onChange={(e) => {
-                                    // Handle form field changes
-                                  }}
-                                />
-                              </div>
-                            ))}
-                            <button type="submit">Submit</button>
-                          </form>
-                          {/* Render other user data as needed */}
+                        {/* Render form fields */}
+                        <form onSubmit={handleSubmit}>
+                          {awardlistInputs.map((field, index) => (
+                            <div key={index}>
+                              <label htmlFor={field.name}>{field.label}</label>
+                              <input
+                                type={field.type}
+                                placeholder={field.placeholder}
+                                name={field.fieldName}
+                                value={inputValues[field.fieldName] || ''}
+                                onChange={handleInputChange}
+                                required
+                                className={isNumberGreaterThanTotal ? 'red-input' : ''} // Add className conditionally
+                              />
+                            </div>
+                          ))}
+                          <button type="submit">Submit</button>
+                        </form>
+                        {/* Render other user data as needed */}
                         </>
+
                       )}
-                      <a href={userUrl} target="_blank" rel="noopener noreferrer">
-                        {userUrl}
-                      </a>
                     </Typography>
                   </>
                 )}
