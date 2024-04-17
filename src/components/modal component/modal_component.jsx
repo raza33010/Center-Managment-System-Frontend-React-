@@ -32,6 +32,8 @@ const User_Single = () => {
   const location = useLocation();
   const [open, setOpen] = useState(true);
   const [userUrl, setUserUrl] = useState('');
+  const [status, setStatus] = useState('');
+  const [inputValues, setInputValues] = useState("");
   const [userData, setUserData] = useState(null); // State to hold fetched user data
   const [loading, setLoading] = useState(true); // Loading state
   const student_name = useState(localStorage.getItem('student_name_n'));
@@ -43,6 +45,7 @@ const User_Single = () => {
   };
 
   useEffect(() => {
+    
     const fetchData = async () => {
       setLoading(true); // Set loading to true when fetching data
       const abbas ={
@@ -62,6 +65,61 @@ const User_Single = () => {
     };
     fetchData();
   }, []);
+  useEffect(() => {
+    const fetchSAwardlistRows = async () => {
+      const formData = {
+        student_id: localStorage.getItem("student_id_n"),
+        examination_id: localStorage.getItem("examination_id"),
+        // role: 'coo',
+        // role_id: '2',
+      };
+      console.log("abbas",formData);
+      const formDataString = JSON.stringify(formData);
+      try {
+         const response = await fetch('http://127.0.0.1:5000/awardlist_for_checking', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: formDataString,
+        })
+          .then((response) => {
+            if (response.ok) {
+              const abbas1 = response.json()
+              console.log("status",abbas1.status);
+              setStatus(abbas1.status);
+              return abbas1.status;
+            } else {
+              throw new Error('Error: ' + response.status);
+            }
+          })
+          .then((data) => {
+            const userdata = data;
+
+            setInputValues(userdata.data);
+            return userdata
+         
+          })
+          .catch((error) => {
+            console.log(error)
+            // setError('Invalid username or password!');
+            // setUsername('');
+            // setPassword('');
+          }
+          );
+        return response
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchSAwardlistRows();
+  },[]);
+  const handleInputChange = (e) => {
+    setInputValues({
+        ...inputValues,
+        [e.target.name]: e.target.value
+    });
+};
 
   const handleClose = () => {
     setOpen(false);
@@ -110,7 +168,7 @@ const User_Single = () => {
                                   type={field.type}
                                   id={field.name}
                                   name={field.name}
-                                  value={userData[field.name] || ''}
+                                  value={inputValues[field.name] || ''}
                                   onChange={(e) => {
                                     // Handle form field changes
                                   }}

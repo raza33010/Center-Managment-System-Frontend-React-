@@ -19,9 +19,10 @@ const ExaminationDataTable = () => {
         getData();
     }, []);
 
-    const handleSaveID = (id) => {
+    const handleSaveID = (id, classid) => {
         // Make a DELETE request to the Flask API endpoint
-        localStorage.setItem('Aclass_id',id);
+        localStorage.setItem('examination_id',id);
+        localStorage.setItem('Aclass_id',classid);
       };
 
     const handleDelete = (id) => {
@@ -54,7 +55,7 @@ const ExaminationDataTable = () => {
                     <div className="cellAction">
                          <Link to={`/awardlist`} style={{ textDecoration: "none" }}>
                             <div className="viewButton" 
-                            onClick={() => handleSaveID(params.row.class_id)}>Award List</div>
+                            onClick={() => handleSaveID(params.row.id,params.row.class_id)}>Award List</div>
                         </Link>
                         <Link to={`/examination/${params.row.id}`} style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
