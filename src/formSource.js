@@ -1316,22 +1316,18 @@ export const categoryInputs = [
       placeholder: "E.g: 1 or 0",
     },
   ];  
+  const total_marks = localStorage.getItem('total_marks');
+
   export const awardlistInputs = [
-    // {
-    //   fieldName: "center_id",
-    //   id: 1,
-    //   label: "Center",
-    //   type: "text",
-    //   placeholder: "E.g: 1",
-    // },
     {
       fieldName: "number",
       id: 2,
       label: "Obtain Number",
       type: "number",
-      placeholder: "E.g: 35...",
+      placeholder: `Enter number out of ${total_marks}`,
     },
-  ];  
+  ];
+  
 
 
 

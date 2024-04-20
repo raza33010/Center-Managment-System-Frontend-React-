@@ -1348,6 +1348,48 @@ export const fetchSAwardlistRows = async () => {
 // Export an empty array to be used until the API data is loaded
 export const sawardlistRows = [];
 
+export const fetchAwardlistRows = () => {
+  const formData = {
+    student_id: localStorage.getItem("student_id_n"),
+    examination_id: localStorage.getItem("examination_id"),
+    // role: 'coo',
+    // role_id: '2',
+  };
+  console.log("abbas",formData);
+  const formDataString = JSON.stringify(formData);
+  try {
+     const response = fetch('http://127.0.0.1:5000/awardlist_for_checking', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: formDataString,
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .then((data) => {
+        const userdata = data;
+        console.log("abbas",userdata);
+        return userdata
+     
+      })
+      .catch((error) => {
+        console.log(error)
+        // setError('Invalid username or password!');
+        // setUsername('');
+        // setPassword('');
+      }
+      );
+    return response
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 
 /**

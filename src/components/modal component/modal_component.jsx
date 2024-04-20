@@ -10,6 +10,8 @@ import SAwardlistDataTable from '../datatable/SAwardlistDataTable';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './modal.scss';
 import { awardlistInputs } from '../../formSource';
+import { fetchAwardlistRows } from '../../datatablesource';
+
 const CloseIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -40,8 +42,6 @@ const User_Single = () => {
   });
   const total_marks = useState(localStorage.getItem('total_marks'));
   
-  const [userData, setUserData] = useState(null); // State to hold fetched user data
-  const [loading, setLoading] = useState(true); // Loading state
   const student_name = useState(localStorage.getItem('student_name_n'));
   let [token] = useState(localStorage.getItem("token"));
   const [isNumberGreaterThanTotal, setIsNumberGreaterThanTotal] = useState(false); // State to track if obtain_number > total_marks
@@ -54,78 +54,41 @@ const User_Single = () => {
   useEffect(() => {
     
     const fetchData = async () => {
-      setLoading(true); // Set loading to true when fetching data
-      const abbas ={
-            "address": "Hasan Acadmey",
-            "created_at": "Fri, 05 May 2023 21:43:16 GMT",
-            "id": 1,
-            "logo": "download (3).jpg",
-            "name": "Jinnah Campus",
-            "phone_no": "02134185108",
-            "status": 1,
-            "updated_at": "Mon, 02 Oct 2023 11:19:50 GMT"
-        }; // Modify API call to accept pagination parameters
-  
-      console.log('abbas1', abbas);
-      setUserData(abbas);
-      setLoading(false); // Set loading to false after data is fetched
+
+      const rows = await fetchAwardlistRows();
+      console.log('abbassatus', rows.status);
+      setStatus(rows.status);
+      if (rows.status == 'true'){
+ 
+        setInputValues(rows.data);
+        setId(rows.data.id);
+      }
+
     };
     fetchData();
   }, []);
-  useEffect(() => {
-    const fetchSAwardlistRows = () => {
-      const formData = {
-        student_id: localStorage.getItem("student_id_n"),
-        examination_id: localStorage.getItem("examination_id"),
-        // role: 'coo',
-        // role_id: '2',
-      };
-      console.log("abbas",formData);
-      const formDataString = JSON.stringify(formData);
-      try {
-         const response = fetch('http://127.0.0.1:5000/awardlist_for_checking', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: formDataString,
-        })
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            } else {
-              throw new Error('Error: ' + response.status);
-            }
-          })
-          .then((data) => {
-            const userdata = data;
-            console.log(userdata.status);
-            setStatus(userdata.status)
-            if (status == 'true'){
-              setInputValues(userdata.data);
-              console.log(userdata.data.id);
-              setNumbers(userdata.data.number);
-              setId(userdata.data.id);
 
-            }
-            return userdata
-         
-          })
-          .catch((error) => {
-            console.log(error)
-            // setError('Invalid username or password!');
-            // setUsername('');
-            // setPassword('');
-          }
-          );
-        return response
-      } catch (error) {
-        console.error(error);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+  
+    if (name === 'obtain_number') {
+      const inputNumber = parseInt(value, 10);
+      const totalMarks = parseInt(total_marks, 10); // Convert total_marks to integer
+  
+      if (inputNumber > totalMarks) {
+        setIsNumberGreaterThanTotal(true);
+      } else {
+        setIsNumberGreaterThanTotal(false);
       }
-    };
-    fetchSAwardlistRows();
-  },[]);
-
+    }
+  
+    setInputValues({
+      ...inputValues,
+      [name]: value
+    });
+  };
+  
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (status == 'false'){
@@ -189,12 +152,6 @@ const User_Single = () => {
 };
 
 
-const handleInputChange = (e) => {
-  setInputValues({
-      ...inputValues,
-      [e.target.name]: e.target.value
-  });
-};
 
   const handleClose = () => {
     setOpen(false);
@@ -227,38 +184,28 @@ const handleInputChange = (e) => {
               <Typography variant="h5" id="transition-modal-title" sx={{ mt: 2 }}>
                 Add {student_name}'s number
             </Typography>
-                {loading ? (
-                  <Typography>Loading...</Typography>
-                ) : (
-                  <>
-                    <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                      {userData && (
-                        <>
-                        {/* Render form fields */}
-                        <form onSubmit={handleSubmit}>
-                          {awardlistInputs.map((field, index) => (
-                            <div key={index}>
-                              <label htmlFor={field.name}>{field.label}</label>
-                              <input
-                                type={field.type}
-                                placeholder={field.placeholder}
-                                name={field.fieldName}
-                                value={inputValues[field.fieldName] || ''}
-                                onChange={handleInputChange}
-                                required
-                                className={isNumberGreaterThanTotal ? 'red-input' : ''} // Add className conditionally
-                              />
-                            </div>
-                          ))}
-                          <button type="submit">Submit</button>
-                        </form>
-                        {/* Render other user data as needed */}
-                        </>
-
-                      )}
-                    </Typography>
-                  </>
-                )}
+            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                  {isNumberGreaterThanTotal && (
+                    <span style={{ color: 'red' }}>Your number exceeds the total marks.</span>
+                  )}
+                  <form onSubmit={handleSubmit}>
+                      {awardlistInputs.map((field, index) => (
+                        <div key={index}>
+                          <label htmlFor={field.name}>{field.label}</label>
+                          <input
+                            type={field.type}
+                            placeholder={field.placeholder}
+                            name={field.fieldName}
+                            value={inputValues[field.fieldName] || ''}
+                            onChange={handleInputChange}
+                            className={isNumberGreaterThanTotal ? 'inputError' : ''}
+                            required
+                          />
+                        </div>
+                      ))}
+                      <button type="submit">Submit</button>
+                    </form>
+                  </Typography>
               </Box>
             </Fade>
           </Modal>
