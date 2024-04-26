@@ -18,7 +18,10 @@ const CoursechapterDataTable = () => {
         };
         getData();
     }, []);
-
+    const handleSaveID = (id) => {
+        // Make a DELETE request to the Flask API endpoint
+        localStorage.setItem('chapter_id_for_unit',id);
+      };
     const handleDelete = (id) => {
         // Make a DELETE request to the Flask API endpoint
         fetch(`http://127.0.0.1:5000/del_cchapter/${id}`, {
@@ -39,15 +42,18 @@ const CoursechapterDataTable = () => {
           });
       };
 
-    const actionColumn = [
+      const actionColumn = [
         {
             field: "action",
             headerName: "Action",
             width: 200,
             renderCell: (params) => {
                 return (
-                    <div cchapterName="cellAction">
-                        <Link to={`/cchapter/${params.row.id}`} style={{ textDecoration: "none" }}>
+                    <div className="cellAction">
+                        <Link to={`/subject/cchapter/unit`} style={{ textDecoration: "none" }}>
+                            <div className="otherButton"onClick={() => handleSaveID(params.row.id)}>Units</div>
+                        </Link>
+                        <Link to={`/subject/cchapter/${params.row.id}`} style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
                         </Link>
                         <div
@@ -64,9 +70,9 @@ const CoursechapterDataTable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New Course Chapter
-                <Link to="/cchapter/new" className="link">
-                    Add New
+                Course Chapters
+                <Link to="/subject/cchapter/new" className="link">
+                    Add New chapter
                 </Link>
             </div>
             {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :

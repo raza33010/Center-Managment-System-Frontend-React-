@@ -10,6 +10,7 @@ import ReviewQuestions from "./pages/review/ReviewQuestions";
 //Center CRUD
 import ClassList from "./pages/list/ClassLIst";
 import CoursechapterList from "./pages/list/CoursechapterList";
+import UnitList from "./pages/list/UnitList";
 import TeacherList from "./pages/list/TeacherList";
 import SubjectList from "./pages/list/SubjectList";
 import StudentList from "./pages/list/StudentList";
@@ -51,6 +52,7 @@ import ExpenseSingle from "./pages/single/ExpenseSingle";
 import BatchSingle from "./pages/single/BatchSingle";
 import RoleSingle from "./pages/single/RoleSingle";
 import ClassSingle from "./pages/single/ClassSingle";
+import CourseChapterSingle from "./pages/single/CoursechapterSingle";
 import DutySingle from "./pages/single/DutySingle";
 import GroupSingle from "./pages/single/GroupSingle";
 import StudentSingle from "./pages/single/StudentSingle";
@@ -77,6 +79,7 @@ import ExaminationNew from "./pages/new/ExaminationNew";
 import BatchNew from "./pages/new/BatchNew";
 import RoleNew from "./pages/new/RoleNew";
 import ClassNew from "./pages/new/ClassNew";
+import CourseChapterNew from "./pages/new/CourseChapterNew";
 import DutyNew from "./pages/new/DutyNew";
 import GroupNew from "./pages/new/GroupNew";
 import StudentNew from "./pages/new/StudentNew";
@@ -103,6 +106,7 @@ import ExaminationUpdate from "./components/update/ExaminationUpdate";
 import BatchUpdate from "./components/update/BatchUpdate";
 import RoleUpdate from "./components/update/RoleUpdate";
 import ClassUpdate from "./components/update/ClassUpdate";
+import CourseChapterUpdate from "./components/update/CourseChapterUpdate";
 import DutyUpdate from "./components/update/DutyUpdate";
 import GroupUpdate from "./components/update/GroupUpdate";
 import StudentUpdate from "./components/update/StudentUpdate";
@@ -116,7 +120,7 @@ import TeacherUpdate from "./components/update/TeacherUpdate";
 import ResultUpdate from "./components/update/ResultUpdate";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { expenseInputs, quizInputs, studentInputs, lateformInputs, timetableInputs, teacher_attendanceInputs, leaveformInputs, absentformInputs, resultInputs, roleInputs, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
+import { expenseInputs, quizInputs, studentInputs, lateformInputs, timetableInputs, teacher_attendanceInputs, leaveformInputs, absentformInputs, resultInputs, roleInputs, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, cchapterInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -318,6 +322,24 @@ function App() {
                 path="new"
                 element={<SubjectNew inputs={nsubjectInputs} title="Add New Subject" />}
               />
+              <Route path="cchapter">
+              <Route index element={<CoursechapterList />} />
+              <Route path=":cchapterId" element={<CourseChapterSingle />} />
+              <Route path="upd_cchapter/:cchapterId" element={<CourseChapterUpdate inputs={cchapterInputs} title="Update Chapter" />} />
+              <Route
+                path="new"
+                element={<CourseChapterNew inputs={cchapterInputs} title="Add New Chapter" />}
+              />
+              <Route path="unit">
+              <Route index element={<UnitList />} />
+              <Route path=":unitId" element={<CourseChapterSingle />} />
+              <Route path="upd_unit/:unitId" element={<CourseChapterUpdate inputs={cchapterInputs} title="Update Unit" />} />
+              <Route
+                path="new"
+                element={<CourseChapterNew inputs={cchapterInputs} title="Add New Unit" />}
+              />
+            </Route>
+            </Route>
             </Route>
 
             <Route path="teacher">
@@ -380,15 +402,6 @@ function App() {
               />
             </Route>
 
-            <Route path="cchapter">
-              <Route index element={<CoursechapterList />} />
-              <Route path=":classId" element={<ClassSingle />} />
-              <Route path="upd_class/:classId" element={<ClassUpdate inputs={classInputs} title="Update Class" />} />
-              <Route
-                path="new"
-                element={<ClassNew inputs={classInputs} title="Add New Class" />}
-              />
-            </Route>
 
             {/* <Route path="user">
               <Route index element={<UserList />} />

@@ -1,17 +1,17 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { subjectColumns, subjectRows, fetchSubjectRows } from "../../datatablesource";
+import { coursechapterColumns, coursechapterRows, fetchCoursechapterRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const SubjectDataTable = () => {
-    const [data, setData] = useState(subjectRows);
+const UnitDataTable = () => {
+    const [data, setData] = useState(coursechapterRows);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
-            const rows = await fetchSubjectRows();
+            const rows = await fetchCoursechapterRows();
             console.log("jawad",rows)
             setLoading(false);
             setData(Array.from(rows.data));
@@ -20,11 +20,11 @@ const SubjectDataTable = () => {
     }, []);
     const handleSaveID = (id) => {
         // Make a DELETE request to the Flask API endpoint
-        localStorage.setItem('subject_id_for_chapter',id);
+        localStorage.setItem('chapter_id_for_unit',id);
       };
     const handleDelete = (id) => {
         // Make a DELETE request to the Flask API endpoint
-        fetch(`http://127.0.0.1:5000/del_subject/${id}`, {
+        fetch(`http://127.0.0.1:5000/del_cchapter/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ const SubjectDataTable = () => {
           });
       };
 
-    const actionColumn = [
+      const actionColumn = [
         {
             field: "action",
             headerName: "Action",
@@ -50,10 +50,10 @@ const SubjectDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to={`/subject/cchapter`} style={{ textDecoration: "none" }}>
-                            <div className="otherButton"onClick={() => handleSaveID(params.row.id)}>Chapters</div>
+                        <Link to={`/subject/cchapter/units`} style={{ textDecoration: "none" }}>
+                            <div className="otherButton"onClick={() => handleSaveID(params.row.id)}>Units</div>
                         </Link>
-                        <Link to={`/subject/${params.row.id}`} style={{ textDecoration: "none" }}>
+                        <Link to={`/subject/cchapter/${params.row.id}`} style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
                         </Link>
                         <div
@@ -70,16 +70,16 @@ const SubjectDataTable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Subjects
-                <Link to="/subject/new" className="link">
-                    Add New
+                Units
+                <Link to="/subject/cchapter/new" className="link">
+                    Add New chapter
                 </Link>
             </div>
             {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
                     className="datagrid"
                     rows={data}
-                    columns={subjectColumns.concat(actionColumn)}
+                    columns={coursechapterColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
                     // checkboxSelection
@@ -88,4 +88,4 @@ const SubjectDataTable = () => {
     );
 };
 
-export default SubjectDataTable;
+export default UnitDataTable;

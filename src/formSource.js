@@ -490,6 +490,29 @@ export const categoryInputs = [
       placeholder: "E.g: 1 or 0",
     },
   ]; 
+  export const cchapterInputs = [
+    // {
+    //   fieldName: "center_id",
+    //   id: 1,
+    //   label: "Center Id",
+    //   type: "text",
+    //   placeholder: "E.g: 1",
+    // },
+    {
+      fieldName: "name",
+      id: 2,
+      label: "Chapter Name",
+      type: "text",
+      placeholder: "Write chapter name",
+    },
+    {
+      fieldName: "status",
+      id: 5,
+      label: "Status",
+      type: "number",
+      placeholder: "E.g: 1 or 0",
+    },
+  ]; 
 
   export const nclassInputs = [
     // {
