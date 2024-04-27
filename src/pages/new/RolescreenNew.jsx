@@ -2,6 +2,7 @@ import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { rolescreenInputs } from "../../formSource";
 
 
@@ -10,7 +11,7 @@ const RolescreenNew = ({ title }) => {
     const [inputValues, setInputValues] = useState({});
     const [notification, setNotification] = useState("");
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
-
+    const navigate = useNavigate();
     let [token] = useState(localStorage.getItem("token"));
 
     const redirectToLogin = () => {
@@ -31,9 +32,9 @@ const RolescreenNew = ({ title }) => {
         e.preventDefault();
     
         const formData = new FormData();
-        formData.append("center_id", inputValues.center_id);
+        formData.append("center_id", localStorage.getItem('center_id'));
         formData.append("name", inputValues.name);
-        formData.append("status", inputValues.status);
+        formData.append("status", inputValues.status || 1);
         // formData.append("logo", file); // Append the file to FormData
     
         try {
@@ -53,6 +54,7 @@ const RolescreenNew = ({ title }) => {
             // setFile(""); // Clear the file
             setInputValues({});
             showNotification("Role Screen has been added successfully!");
+            navigate(`/rscreen`);
         } catch (error) {
           console.log(error);
         }
@@ -104,6 +106,8 @@ const RolescreenNew = ({ title }) => {
                                     </div> */}
                                     {rolescreenInputs.map((input) => (
                                         <div className="formInput" key={input.id}>
+                                             {input.fieldName === "status" ? null : (
+            <>
                                             <label>{input.label}</label>
                                             {input.type === "dropdown" ? (
                                                 <select
@@ -125,6 +129,8 @@ const RolescreenNew = ({ title }) => {
                                                     onChange={handleInputChange}
                                                     required
                                                 />
+                                            )}
+                                            </>
                                             )}
                                         </div>
                                     ))}

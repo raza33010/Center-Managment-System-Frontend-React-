@@ -1248,19 +1248,19 @@ export const categoryInputs = [
   ];
 
   export const rolescreenInputs = [
-    {
-      fieldName: "center_id",
-      id: 1,
-      label: "Center Id",
-      type: "text",
-      placeholder: "E.g: 1",
-    },
+    // {
+    //   fieldName: "center_id",
+    //   id: 1,
+    //   label: "Center Id",
+    //   type: "text",
+    //   placeholder: "E.g: 1",
+    // },
     {
       fieldName: "name",
       id: 2,
-      label: "Name",
+      label: "Screen Name",
       type: "text",
-      placeholder: "E.g: Abbas",
+      placeholder: "Enter screen name",
     },
     {
       fieldName: "status",

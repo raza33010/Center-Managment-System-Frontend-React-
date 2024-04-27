@@ -141,14 +141,13 @@ const Sidebar = () => {
               <PercentOutlinedIcon className="icon" />
               <span>Subject Result</span>
             </li>
-          </Link>
-          {role_id == '0' && (      
+          </Link>     
             <Link to="/role" style={{ textDecoration: "none" }}>
             <li>
               <RocketLaunchOutlinedIcon className="icon" />
               <span>User Role</span>
             </li>
-          </Link>          )}
+          </Link>
 
           <Link to="/srecord" style={{ textDecoration: "none" }}>
             <li>

@@ -1,4 +1,5 @@
 import "./update.scss";
+import Select from 'react-select';
 import Sidebar from "../sidebar/Sidebar";
 import Navbar from "../navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
@@ -6,7 +7,10 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { rolescreenInputs } from "../../formSource";
 
-
+const statusOptions = [
+    { value: 1, label: 'Active' },
+    { value: 0, label: 'Unactive' },
+  ];
 const  RolescreenUpdate = ({ title }) => {
 
     // Extracting rolescreenId using regular expressions
@@ -16,6 +20,7 @@ const  RolescreenUpdate = ({ title }) => {
     // Initializing state
     // const [file, setFile] = useState(null);
     const [inputValues, setInputValues] = useState("");
+    const [selectedStatus, setSelectedStatus] = useState(null);
     let [token] = useState(localStorage.getItem("token"));
     
     const redirectToLogin = () => {
@@ -35,6 +40,13 @@ const  RolescreenUpdate = ({ title }) => {
                     throw new Error('Failed to fetch quiz');
                 }
                 const data = await response.json();
+                const status = data.data.status
+                if (status == 1){
+                    setSelectedStatus({ value: status, label: 'Active' });
+                }
+                else{
+                    setSelectedStatus({ value: status, label: 'Inactive' });
+                }
                 console.log("abbas",data)
                 setInputValues(data.data);
                 // setFile(data.data.logo);
@@ -57,30 +69,33 @@ const  RolescreenUpdate = ({ title }) => {
             [e.target.name]: e.target.value
         });
     };
-
-    const handleUpdate = async (e) => {
+    const handleStatusSelectChange = (selectedOption) => {
+        setSelectedStatus(selectedOption);
+        setInputValues({
+          ...inputValues,
+          status: selectedOption.value,
+        });
+      };
+      const handleUpdate = async (e) => {
         e.preventDefault();
 
-        const formData = {
-            id: rolescreenId,
-            center_id: inputValues.center_id,
-            name: inputValues.name,
-            status: parseInt(inputValues.status),
-        };
-        console.log("Abbas",formData)
-
+        const formData = new FormData();
+        formData.append("center_id", localStorage.getItem('center_id'));
+        formData.append("name", inputValues.name);
+        formData.append("status", parseInt(inputValues.status));
+        console.log(formData);
         // Send formData to the server using an HTTP request to update
-        fetch('http://127.0.0.1:5000/upd_rscreen/', {
+        fetch(`http://127.0.0.1:5000/upd_rscreen/${rolescreenId}`, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData), // Pass the object as the body
+            body: formData, // Send the data as form data
+            
         })
             .then((response) => {
+                console.log(response);
                 return response.json();
             })
             .then((data) => {
+                console.log('abbas1',formData)
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
                 navigate(`/rscreen/${rolescreenId}`);
@@ -88,6 +103,7 @@ const  RolescreenUpdate = ({ title }) => {
             .catch((error) => {
                 console.log(error);
             });
+        
     };
 
 
@@ -117,7 +133,15 @@ const  RolescreenUpdate = ({ title }) => {
                                     {rolescreenInputs.map((input) => (
                                         <div className="formInput" key={input.id}>
                                             <label>{input.label}</label>
-                                            <input
+                                            {input.fieldName === "status" ? (
+                                                <Select
+                                                options={statusOptions}
+                                                name={input.fieldName}
+                                                value={selectedStatus}
+                                                onChange={handleStatusSelectChange}
+                                                required
+                                                />
+                                            ) : (<input
                                                 type={input.type}
                                                 placeholder={input.placeholder}
                                                 name={input.fieldName}
@@ -126,6 +150,7 @@ const  RolescreenUpdate = ({ title }) => {
                                                 required
                                                 // inputMode={input.fieldName === 'no_of_quiz' ? 'numeric' : undefined}
                                             />
+                                            )}
                                         </div>
                                     ))}
                                     <div style={{ clear: "both" }} className="formUpdate">

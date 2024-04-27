@@ -109,6 +109,7 @@ import BatchUpdate from "./components/update/BatchUpdate";
 import RoleUpdate from "./components/update/RoleUpdate";
 import ClassUpdate from "./components/update/ClassUpdate";
 import CourseChapterUpdate from "./components/update/CourseChapterUpdate";
+import UnitUpdate from "./components/update/UnitUpdate";
 import DutyUpdate from "./components/update/DutyUpdate";
 import GroupUpdate from "./components/update/GroupUpdate";
 import StudentUpdate from "./components/update/StudentUpdate";
@@ -335,7 +336,7 @@ function App() {
               <Route path="unit">
               <Route index element={<UnitList />} />
               <Route path=":unitId" element={<UnitSingle />} />
-              <Route path="upd_unit/:unitId" element={<CourseChapterUpdate inputs={unitInputs}  title="Update Unit" />} />
+              <Route path="upd_unit/:unitId" element={<UnitUpdate inputs={unitInputs}  title="Update Unit" />} />
               <Route
                 path="new"
                 element={<UnitNew inputs={unitInputs} title="Add New Unit" />}

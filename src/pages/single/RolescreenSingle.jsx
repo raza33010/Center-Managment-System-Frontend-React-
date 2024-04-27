@@ -62,18 +62,18 @@ const RolescreenSingle = () => {
                                             <span className="itemKey">Id: </span>
                                             <span className="itemValue">{rscreen?.data.id}</span>
                                         </div>
-                                        <div className="detailItem">
+                                        {/* <div className="detailItem">
                                             <span className="itemKey">Center Id: </span>
                                             <span className="itemValue">{rscreen?.data.center_id}</span>
-                                        </div>
+                                        </div> */}
                                         <div className="detailItem">
-                                            <span className="itemKey">Name: </span>
+                                            <span className="itemKey">Screen Name: </span>
                                             <span className="itemValue">{rscreen?.data.name}</span>
                                         </div>
-                                        <div className="detailItem">
+                                        {/* <div className="detailItem">
                                             <span className="itemKey">Status: </span>
                                             <span className="itemValue">{rscreen?.data.status}</span>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

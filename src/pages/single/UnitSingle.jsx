@@ -51,7 +51,7 @@ const UnitSingle = () => {
                         <div className="top">
                             <div className="left">
                                 <div className="editButton">
-                                    <Link to={`/subject/unit/upd_unit/${unit_id}`} className=" link">
+                                    <Link to={`/subject/cchapter/unit/upd_unit/${unit_id}`} className=" link">
                                         Edit
                                     </Link>
                                 </div>

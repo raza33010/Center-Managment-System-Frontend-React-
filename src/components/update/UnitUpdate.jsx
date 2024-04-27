@@ -8,16 +8,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { unitInputs } from "../../formSource";
 
 const statusOptions = [
-  { value: 1, label: 'Active' },
-  { value: 0, label: 'Inactive' },
+  { value: 1, label: 'Done' },
+  { value: 0, label: 'Pending' },
 ];
 
 
 const  UnitUpdate = ({ title }) => {
 
-    // Extracting cchapterId using regular expressions
+    // Extracting unitId using regular expressions
     const location = useLocation();
-    const cchapterId = location.pathname.match(/\/upd_cchapter\/(\d+)/)?.[1];
+    const unitId = location.pathname.match(/\/upd_unit\/(\d+)/)?.[1];
 
     // Initializing state
     // const [file, setFile] = useState(null);
@@ -34,9 +34,9 @@ const  UnitUpdate = ({ title }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchCchapter = async () => {
+        const fetchUnit = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:5000/cchapter/${cchapterId}`, {
+                const response = await fetch(`http://127.0.0.1:5000/unit/${unitId}`, {
                     method: 'GET',
                 });
                 if (!response.ok) {
@@ -44,14 +44,7 @@ const  UnitUpdate = ({ title }) => {
                 }
                 const data = await response.json();
                 console.log("abbas",data)
-             const status = data.data.status
-                if (status == 1){
-                    setSelectedStatus({ value: status, label: 'Active' });
-                }
-                else{
-                    setSelectedStatus({ value: status, label: 'Inactive' });
-                }
- 
+                setSelectedStatus({ value: '1', label: 'Done' });
                 setInputValues(data.data);
                 // setFile(data.data.logo);
                 localStorage.setItem("quizData", JSON.stringify(data));
@@ -61,10 +54,10 @@ const  UnitUpdate = ({ title }) => {
             }
         };
 
-        if (cchapterId) {
-            fetchCchapter();
+        if (unitId) {
+            fetchUnit();
         }
-    }, [cchapterId]);
+    }, [unitId]);
     // console.log("quiz in a state:", data);
  
     const handleStatusSelectChange = (selectedOption) => {
@@ -90,11 +83,13 @@ const  UnitUpdate = ({ title }) => {
         const formData = new FormData();
         formData.append("center_id", localStorage.getItem('center_id'));
         formData.append("name", inputValues.name);
-        formData.append("subject_id",localStorage.getItem('subject_id_for_chapter'));
+        formData.append("month", inputValues.month);
+        formData.append("description", inputValues.description);
+        formData.append("chapter_id",localStorage.getItem('chapter_id_for_unit'));
         formData.append("status", parseInt(inputValues.status));
         console.log(formData);
         // Send formData to the server using an HTTP request to update
-        fetch(`http://127.0.0.1:5000/upd_cchapter/${cchapterId}`, {
+        fetch(`http://127.0.0.1:5000/upd_unit/${unitId}`, {
             method: "PUT",
             body: formData, // Send the data as form data
             
@@ -107,7 +102,7 @@ const  UnitUpdate = ({ title }) => {
                 console.log('abbas1',formData)
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/subject/cchapter/${cchapterId}`);
+                navigate(`/subject/cchapter/unit/${unitId}`);
             })
             .catch((error) => {
                 console.log(error);
@@ -164,7 +159,7 @@ const  UnitUpdate = ({ title }) => {
                                     <div style={{ clear: "both" }} className="formUpdate">
                                         <button
                                             style={{ float: "right" }}
-                                        // onClick={() => navigate(`/class/${cchapterId}`)}
+                                        // onClick={() => navigate(`/class/${unitId}`)}
                                         >
                                             Update
                                         </button>
@@ -173,7 +168,7 @@ const  UnitUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/subject/cchapter/${cchapterId}`)}
+                                            onClick={() => navigate(`/subject/cchapter/${unitId}`)}
                                         >
                                             Cancel
                                         </button>
