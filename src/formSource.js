@@ -514,6 +514,45 @@ export const categoryInputs = [
     },
   ]; 
 
+  export const unitInputs = [
+    // {
+    //   fieldName: "center_id",
+    //   id: 1,
+    //   label: "Center Id",
+    //   type: "text",
+    //   placeholder: "E.g: 1",
+    // },
+    {
+      fieldName: "name",
+      id: 2,
+      label: "Unit",
+      type: "text",
+      placeholder: "Write unit name",
+    },
+    {
+      fieldName: "month",
+      id: 3,
+      label: "Month in which it will be completed",
+      type: "month",
+      placeholder: "write month",
+    },
+    {
+      fieldName: "description",
+      id: 4,
+      label: "Description about Unit",
+      type: "text",
+      placeholder: "Give comments about units.....",
+    },
+    {
+      fieldName: "status",
+      id: 5,
+      label: "Status",
+      type: "number",
+      placeholder: "E.g: 1 or 0",
+    },
+  ]; 
+
+
   export const nclassInputs = [
     // {
     //   fieldName: "center_id",

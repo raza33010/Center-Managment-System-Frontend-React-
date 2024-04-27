@@ -2151,6 +2151,76 @@ export const fetchCoursechapterRows = async () => {
 // Export an empty array to be used until the API data is loaded
 export const coursechapterRows = [];
 
+/**
+ * Course Chapter
+ */
+export const unitColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  
+  {
+    field: "chapter_names",
+    headerName: "Chapter",
+    width: 230,
+  },
+  {
+    field: "name",
+    headerName: "Name",
+    width: 230,
+  },
+  {
+    field: "month",
+    headerName: "Month in which it will be covered",
+    width: 230,
+  },
+  {
+    field: "description",
+    headerName: "Description",
+    width: 230,
+  },
+];
+// Fetch the data from the API and format it for the DataGrid
+export const fetchUnitRows = async () => {
+  const formData = {
+    center_id: localStorage.getItem("center_id"),
+    chapter_id: localStorage.getItem("chapter_id_for_unit"),
+  };
+  console.log("abbas",formData);
+  const formDataString = JSON.stringify(formData);
+  try {
+     const response = await fetch('http://127.0.0.1:5000/unit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: formDataString,
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .then((data) => {
+        const userdata = data;
+        console.log("abbas",userdata);
+        return userdata
+     
+      })
+      .catch((error) => {
+        console.log(error)
+        // setError('Invalid username or password!');
+        // setUsername('');
+        // setPassword('');
+      }
+      );
+    return response
+  } catch (error) {
+    console.error(error);
+  }
+};
+// Export an empty array to be used until the API data is loaded
+export const unitRows = [];
 
 
 

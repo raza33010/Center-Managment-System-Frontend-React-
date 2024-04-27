@@ -1,27 +1,24 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { coursechapterColumns, coursechapterRows, fetchCoursechapterRows } from "../../datatablesource";
+import { unitColumns, unitRows, fetchUnitRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const UnitDataTable = () => {
-    const [data, setData] = useState(coursechapterRows);
+    const [data, setData] = useState(unitRows);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
-            const rows = await fetchCoursechapterRows();
+            const rows = await fetchUnitRows();
             console.log("jawad",rows)
             setLoading(false);
             setData(Array.from(rows.data));
         };
         getData();
     }, []);
-    const handleSaveID = (id) => {
-        // Make a DELETE request to the Flask API endpoint
-        localStorage.setItem('chapter_id_for_unit',id);
-      };
+
     const handleDelete = (id) => {
         // Make a DELETE request to the Flask API endpoint
         fetch(`http://127.0.0.1:5000/del_cchapter/${id}`, {
@@ -50,10 +47,7 @@ const UnitDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to={`/subject/cchapter/units`} style={{ textDecoration: "none" }}>
-                            <div className="otherButton"onClick={() => handleSaveID(params.row.id)}>Units</div>
-                        </Link>
-                        <Link to={`/subject/cchapter/${params.row.id}`} style={{ textDecoration: "none" }}>
+                        <Link to={`/subject/cchapter/unit/${params.row.id}`} style={{ textDecoration: "none" }}>
                             <div className="viewButton">View</div>
                         </Link>
                         <div
@@ -71,15 +65,15 @@ const UnitDataTable = () => {
         <div className="datatable">
             <div className="datatableTitle">
                 Units
-                <Link to="/subject/cchapter/new" className="link">
-                    Add New chapter
+                <Link to="/subject/cchapter/unit/new" className="link">
+                    Add New Unit
                 </Link>
             </div>
             {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
                     className="datagrid"
                     rows={data}
-                    columns={coursechapterColumns.concat(actionColumn)}
+                    columns={unitColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
                     // checkboxSelection
