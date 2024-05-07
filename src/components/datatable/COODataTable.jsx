@@ -1,5 +1,5 @@
 import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { cooColumns, cooRows, fetchCooRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -7,7 +7,8 @@ import { useState, useEffect } from "react";
 const COODataTable = () => {
     const [data, setData] = useState(cooRows);
     const [loading, setLoading] = useState(false);
-
+    const slugs = localStorage.getItem("slugs");
+    
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
@@ -39,6 +40,10 @@ const COODataTable = () => {
           });
       };
 
+      const viewLinkString = "Coo-Single";
+      const editLinkString = "Coo-Edit";
+      const newLinkString = "Coo-New";
+
     const actionColumn = [
         {
             field: "action",
@@ -47,9 +52,14 @@ const COODataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
+                         {slugs && slugs.includes(viewLinkString) && (
                         <Link to={`/coo/${params.row.id}`} style={{ textDecoration: "none" }}>
-                            <div className="viewButton">View</div>
-                        </Link>
+                        <div className="viewButton">View</div>
+                        </Link>)}
+                        {slugs && slugs.includes(editLinkString) && (
+                        <Link to={`/coo/update-coo/${params.row.id}`} style={{ textDecoration: "none" }}>
+                            <div className="editButton">Edit</div>
+                        </Link>)}
                         <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
@@ -65,9 +75,10 @@ const COODataTable = () => {
         <div className="datatable">
             <div className="datatableTitle">
             Chief Operating Officer
+            {slugs && slugs.includes(newLinkString) && (
                 <Link to="/coo/new" className="link">
                     Add New
-                </Link>
+                </Link>)}
             </div>
             {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
@@ -76,6 +87,9 @@ const COODataTable = () => {
                     columns={cooColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
+                    components={{
+                        Toolbar: GridToolbar, // Include the GridToolbar in the Toolbar slot
+                    }}
                     // checkboxSelection
                 />}
         </div>

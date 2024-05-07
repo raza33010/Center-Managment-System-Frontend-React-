@@ -25,7 +25,33 @@ import { useContext } from "react";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
-  const role_id = localStorage.getItem("role_id");
+  const slugs = localStorage.getItem("slugs");
+  const linkStrings = {
+    "/user": "User-Listing",
+    "/coo": "Coo-Listing",
+    "/center": "Center-Listing",
+    "/account": "Account-Listing",
+    "/expense": "Expense-Listing",
+    "/batch": "Batch-Listing",
+    "/group": "Group-Listing",
+    "/class": "Class-Listing",
+    "/time-table": "Timetable-Listing",
+    "/teacher-attendance": "Teacherattendance-Listing",
+    "/duty": "Duty-Listing",
+    "/student": "Student-Listing",
+    "/subject": "Subject-Listing",
+    "/teacher": "Teacher-Listing",   
+    "/role": "User Role-Listing",
+    "/role-screen": "Role Screen-Listing",
+    "/examination": "Examination-Listing",
+  };
+  
+  const isLinkEnabled = (path) => {
+    const assignedString = linkStrings[path];
+    return slugs.includes(assignedString);
+  };
+
+
   return (
     <div className="sidebar">
       <div className="top">
@@ -46,137 +72,120 @@ const Sidebar = () => {
          
           <p className="title">LISTS</p>
           <Link to="/user" style={{ textDecoration: "none" }}>
-            <li>
+            <li style={{ display: isLinkEnabled("/user") ? "block" : "none" }}>
               <PersonOutlineIcon className="icon" />
               <span>Users</span>
             </li> 
           </Link>
-
-          {role_id == '0' && (
             <Link to="/coo" style={{ textDecoration: "none" }}>
-              <li>
+              <li style={{ display: isLinkEnabled("/coo") ? "block" : "none" }}>
                 <PersonOutlineIcon className="icon" />
                 <span>COO</span>
               </li>
             </Link>
-          )}
 
-          {role_id == '0' && (
           <Link to="/center" style={{ textDecoration: "none" }}>
-            <li>
+            <li style={{ display: isLinkEnabled("/center") ? "block" : "none" }}>
               <CenterFocusStrongOutlinedIcon Icon className="icon" />
               <span>Center</span>
             </li> 
-          </Link>          )}
-
+          </Link>    
 
         <Link to="/account" style={{ textDecoration: "none" }}>
-            <li>
+            <li style={{ display: isLinkEnabled("/account") ? "block" : "none" }}>
               <AccountCircleOutlinedIcon className="icon" />
               <span>Account</span>
             </li> 
           </Link>
           <Link to="/expense" style={{ textDecoration: "none" }}>
-            <li>
+            <li style={{ display: isLinkEnabled("/account") ? "block" : "none" }}>
               <WalletOutlined className="icon" />
               <span>Expense</span>
             </li> 
           </Link>
           <Link to="/batch" style={{ textDecoration: "none" }}>
-            <li>
+            <li style={{ display: isLinkEnabled("/batch") ? "block" : "none" }}>
               <BatchPredictionOutlinedIcon className="icon" />
               <span>Batch</span>
             </li>
           </Link>
           <Link to="/group" style={{ textDecoration: "none" }}>
-            <li>
+            <li style={{ display: isLinkEnabled("/group") ? "block" : "none" }}>
               <GroupIcon className="icon" />
               <span>Group</span>
             </li>
           </Link>
           <Link to="/class" style={{ textDecoration: "none" }}>
-            <li>
+            <li style={{ display: isLinkEnabled("/class") ? "block" : "none" }}>
               <ClassOutlinedIcon className="icon" />
               <span>Class</span>
             </li>
           </Link>
-          <Link to="/timetable" style={{ textDecoration: "none" }}>
-            <li>
+          <Link to="/time-table" style={{ textDecoration: "none" }}>
+            <li style={{ display: isLinkEnabled("/time-table") ? "block" : "none" }}>
               <AccessTimeIcon className="icon" />
               <span>Time Table</span>
             </li>
           </Link>
-          <Link to="/teacher_attendance" style={{ textDecoration: "none" }}>
-            <li>
+          <Link to="/teacher-attendance" style={{ textDecoration: "none" }}>
+            <li style={{ display: isLinkEnabled("/teacher-attendance") ? "block" : "none" }}>
               <CheckCircleOutline className="icon" />
               <span>Teacher Attendance</span>
             </li>
           </Link>
           <Link to="/duty" style={{ textDecoration: "none" }}>
-            <li>
+            <li style={{ display: isLinkEnabled("/duty") ? "block" : "none" }}>
               <WorkOutlinedIcon className="icon" />
               <span>Duty</span>
             </li>
           </Link>
           <Link to="/student" style={{ textDecoration: "none" }}>
-            <li>
+            <li style={{ display: isLinkEnabled("/student") ? "block" : "none" }}>
               <ChildCareOutlinedIcon className="icon" />
               <span>Student</span>
             </li>
           </Link>
           <Link to="/subject" style={{ textDecoration: "none" }}>
-            <li>
+            <li style={{ display: isLinkEnabled("/subject") ? "block" : "none" }}>
               <SubjectOutlinedIcon className="icon" />
               <span>Subject</span>
             </li>
           </Link>
           <Link to="/teacher" style={{ textDecoration: "none" }}>
-            <li>
+            <li style={{ display: isLinkEnabled("/teacher") ? "block" : "none" }}>
               <PersonOutlineIcon className="icon" />
               <span>Teacher</span>
             </li>
           </Link>
           <Link to="/result" style={{ textDecoration: "none" }}>
-            <li>
+            <li >
               <PercentOutlinedIcon className="icon" />
               <span>Subject Result</span>
             </li>
           </Link>     
             <Link to="/role" style={{ textDecoration: "none" }}>
-            <li>
+            <li >
               <RocketLaunchOutlinedIcon className="icon" />
               <span>User Role</span>
             </li>
           </Link>
 
           <Link to="/srecord" style={{ textDecoration: "none" }}>
-            <li>
+            <li >
               <FiberSmartRecordOutlinedIcon  className="icon" />
               <span>Student Record</span>
             </li>
           </Link>
-          <Link to="/rscreen" style={{ textDecoration: "none" }}>
-            <li>
+          <Link to="/role-screen" style={{ textDecoration: "none" }}>
+            <li >
               <ScreenLockLandscapeOutlinedIcon  className="icon" />
               <span>Role Screen</span>
             </li>
           </Link>
           <Link to="/examination" style={{ textDecoration: "none" }}>
-            <li>
+            <li style={{ display: isLinkEnabled("/examination") ? "block" : "none" }}>
               <CheckCircleOutlineOutlinedIcon  className="icon" />
               <span>Examination</span>
-            </li>
-          </Link>
-          <Link to="/cchapter" style={{ textDecoration: "none" }}>
-            <li>
-              <TopicOutlinedIcon  className="icon" />
-              <span>Course Chapter</span>
-            </li>
-          </Link>
-          <Link to="/question" style={{ textDecoration: "none" }}>
-            <li>
-              <TopicOutlinedIcon  className="icon" />
-              <span>Question</span>
             </li>
           </Link>
           <p className="title">USER</p>

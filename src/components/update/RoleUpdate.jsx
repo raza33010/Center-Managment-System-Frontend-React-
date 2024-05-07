@@ -1,18 +1,25 @@
 import "./update.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
+import Select from 'react-select';
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { roleInputs } from "../../formSource";
 
-
+const statusOptions = [
+    { value: 1, label: 'Active' },
+    { value: 0, label: 'Inactive' },
+  ];
 const  RoleUpdate = ({ title }) => {
 
     // Extracting roleId using regular expressions
     const location = useLocation();
     const roleId = location.pathname.match(/\/upd_role\/(\d+)/)?.[1];
-
+    const [selectedSubject, setSelectedSubject] = useState([]);
+    const [subjectoptions, setSubjectoptions] = useState([]);
+    const [selectedStatus, setSelectedStatus] = useState(null);
+    const center_id = localStorage.getItem('center_id');
     // Initializing state
     // const [file, setFile] = useState(null);
     const [inputValues, setInputValues] = useState("");
@@ -34,7 +41,26 @@ const  RoleUpdate = ({ title }) => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch quiz');
                 }
+                
                 const data = await response.json();
+                const status = data.data.status
+                if (status == 1){
+                    setSelectedStatus({ value: status, label: 'Active' });
+                }
+                else{
+                    setSelectedStatus({ value: status, label: 'Inactive' });
+                }
+                const snames = data.data.screen_names.split(',');
+                const sid = data.data.screen_id.split(',');
+                // console.log("abbas1",abbas);
+                const namelist = [];
+                for (let i = 0; i < snames.length; i++) {
+                  const name = snames[i];
+                  console.log(name);
+                  const id = sid[i]; // Access the "name" property
+                  namelist.push({ value: id, label: name },);
+                }
+                setSelectedSubject(namelist);
                 console.log("abbas",data)
                 setInputValues(data.data);
                 // setFile(data.data.logo);
@@ -57,26 +83,66 @@ const  RoleUpdate = ({ title }) => {
             [e.target.name]: e.target.value
         });
     };
+    const handleStatusSelectChange = (selectedOption) => {
+        setSelectedStatus(selectedOption);
+        setInputValues({
+          ...inputValues,
+          status: selectedOption.value,
+        });
+      };
+    const handleSubjectSelectChange = (selectedOptions) => {
+        setSelectedSubject(selectedOptions);
+        // Update the role_id in the inputValues
+        const roleIds = selectedOptions.map((option) => option.value);
+        setInputValues({
+            ...inputValues,
+           subject_id: roleIds,
+        });
+    };
+      useEffect(() => {
+        subject_names();
+      }, []); // Empty dependency array means it runs once when the component mounts
 
-    const handleUpdate = async (e) => {
+      const subject_names = async () => {
+        try {
+          const response = await fetch(`http://127.0.0.1:5000/rscreen_ids/${center_id}`);
+          if (!response.ok) {
+            throw new Error("Failed to fetch data from the API");
+          }
+          const data = await response.json();
+          console.log(data.data.length);
+          const namelist = [];
+          for (let i = 0; i < data.data.length; i++) {
+            const name = data.data[i].name;
+            console.log(name);
+            const id = data.data[i].id; // Access the "name" property
+            namelist.push({ value: id, label: name });
+          }
+          console.log(namelist);
+          setSubjectoptions(namelist);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+
+
+      const handleUpdate = async (e) => {
         e.preventDefault();
 
-        const formData = {
-            id: roleId,
-            center_id: inputValues.center_id,
-            name: inputValues.name,
-            screen: inputValues.screen,
-            status: parseInt(inputValues.status),
-        };
-        console.log("Abbas",formData)
+        const formData = new FormData();
+
+        const UserValues = selectedSubject.map((option) => option.value);
+        formData.append("center_id",localStorage.getItem('center_id'));
+        formData.append("name", inputValues.name);
+        formData.append("screen_id", UserValues);
+        formData.append('status', parseInt(inputValues.status));
+        console.log(formData);
+
 
         // Send formData to the server using an HTTP request to update
-        fetch('http://127.0.0.1:5000/upd_role/', {
+        fetch(`http://127.0.0.1:5000/upd_role/${roleId}`, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData), // Pass the object as the body
+            body: formData, // Pass the object as the body
         })
             .then((response) => {
                 return response.json();
@@ -118,7 +184,24 @@ const  RoleUpdate = ({ title }) => {
                                     {roleInputs.map((input) => (
                                         <div className="formInput" key={input.id}>
                                             <label>{input.label}</label>
-                                            <input
+                                            {input.fieldName === "screen_id" ? (
+                                                <Select
+                                                options={subjectoptions}
+                                                name={input.fieldName}
+                                                isMulti // Enable multiple selection
+                                                value={selectedSubject}
+                                                onChange={handleSubjectSelectChange}
+                                                required
+                                                />
+                                            ):input.fieldName === "status" ? (
+                                                <Select
+                                                options={statusOptions}
+                                                name={input.fieldName}
+                                                value={selectedStatus}
+                                                onChange={handleStatusSelectChange}
+                                                required
+                                                />
+                                            ): (<input
                                                 type={input.type}
                                                 placeholder={input.placeholder}
                                                 name={input.fieldName}
@@ -127,6 +210,7 @@ const  RoleUpdate = ({ title }) => {
                                                 required
                                                 // inputMode={input.fieldName === 'no_of_quiz' ? 'numeric' : undefined}
                                             />
+                                            )}
                                         </div>
                                     ))}
                                     <div style={{ clear: "both" }} className="formUpdate">

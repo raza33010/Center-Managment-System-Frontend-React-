@@ -2,12 +2,13 @@ import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { centerInputs } from "../../formSource";
+import { useState } from "react";
+import { halfleaveformInputs } from "../../formSource";
 
 
-const CenterNew = ({ title }) => {
+
+const HalfLeaveFormNew = ({ title }) => {
     const navigate = useNavigate();
     const [file, setFile] = useState("");
     const [inputValues, setInputValues] = useState({});
@@ -28,21 +29,30 @@ const CenterNew = ({ title }) => {
             [e.target.name]: e.target.value
         });
         console.log("inputValues",inputValues)
+        console.log("Files",e.target.files)
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
     
         const formData = new FormData();
-        formData.append("name", inputValues.name);
-        formData.append("address", inputValues.address);
-        formData.append("phone_no", inputValues.phone_no);
-        formData.append("status", inputValues.status);
-        formData.append("logo", file); // Append the file to FormData
+    
+    
+    
+        formData.append("center_id", localStorage.getItem('center_id'));
+        formData.append("student_id", localStorage.getItem('student_id'));
+        formData.append("user_id", localStorage.getItem('user_id'));
+        formData.append("reason", inputValues.reason);
+        formData.append("start_date_time", inputValues.start_date_time);
+        formData.append("end_date_time", inputValues.end_date_time);
+        formData.append("type", inputValues.type || 0);
+        formData.append("logo", file);
+        formData.append("status", inputValues.status || 1);
+        // formData.append("logo", file); // Append the file to FormData
     
         try {
             // Send formData to the server using an HTTP request with multipart/form-data
-            const response = await fetch("http://127.0.0.1:5000/add_center", {
+            const response = await fetch("http://127.0.0.1:5000/student/add_leave_form", {
                 method: "POST",
                 body: formData, // Use formData here with multipart/form-data
             });
@@ -54,10 +64,11 @@ const CenterNew = ({ title }) => {
             localStorage.setItem("formData", JSON.stringify(formData));
     
             // Reset the form
-            setFile(""); // Clear the file
+            setFile("");
             setInputValues({});
-            showNotification("Center has been added successfully!");
-            navigate('/student/absent-form');
+            showNotification("Late Form has been added successfully!");
+            navigate('/student/half-leave-form');
+            
         } catch (error) {
           console.log(error);
         }
@@ -86,7 +97,7 @@ const CenterNew = ({ title }) => {
                             <h1>{title}</h1>
                         </div>
                         <div className="bottom">
-                            <div className="left">
+                        <div className="left">
                                 <img
                                     src={
                                         file
@@ -96,9 +107,9 @@ const CenterNew = ({ title }) => {
                             </div>
                             <div className="right">
                                 <form onSubmit={handleSubmit}>
-                                    <div className="formInput">
+                                <div className="formInput">
                                         <label htmlFor="file">
-                                            Image: <DriveFolderUploadOutlinedIcon className="icon" />
+                                            Leave: <DriveFolderUploadOutlinedIcon className="icon" />
                                         </label>
                                         <input
                                             type="file"
@@ -107,34 +118,32 @@ const CenterNew = ({ title }) => {
                                             style={{ display: "none" }}
                                         />
                                     </div>
-                                    {centerInputs.map((input) => (
+                                    {halfleaveformInputs.map((input) => (
                                         <div className="formInput" key={input.id}>
-                                            <label>{input.label}</label>
-                                            {input.type === "dropdown" ? (
-                                                <select
-                                                    name={input.fieldName}
-                                                    onChange={handleInputChange}
-                                                    required
-                                                >
-                                                    {input.options.map((option) => (
-                                                        <option key={option} value={option}>
-                                                            {option}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            ) : (
-                                                <input
-                                                    type={input.type}
-                                                    placeholder={input.placeholder}
-                                                    name={input.fieldName}
-                                                    onChange={handleInputChange}
-                                                    required
-                                                />
-                                            )}
-                                        </div>
+                                        {input.fieldName === "status" ? null : (
+         <>
+                                         <label>{input.label}</label>
+                                         { 
+                                         <input
+                                             type={input.type}
+                                             placeholder={input.placeholder}
+                                             name={input.fieldName}
+                                             onChange={handleInputChange}
+                                             required={input.fieldName !== "status"}
+                                         />
+                                         }
+                                         </>
+                                        )}
+                                     </div>
+
                                     ))}
                                     <div style={{ clear: "both" }} className="formSubmit">
-                                        <button type="submit" style={{ float: "right" }} >Send</button>
+                                        
+                                        <button type="submit" style={{ float: "right" }} >
+                                       
+                                        Send
+                                       
+                                        </button>
                                     </div>
                                 </form>
                                 {isNotificationVisible && (
@@ -152,4 +161,4 @@ const CenterNew = ({ title }) => {
     );
 };
 
-export default CenterNew;
+export default HalfLeaveFormNew;

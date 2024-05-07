@@ -1,5 +1,5 @@
 import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { lformColumns, lformRows, fetchLformRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -7,7 +7,9 @@ import { useState, useEffect } from "react";
 const LateFormDataTable = () => {
     const [data, setData] = useState(lformRows);
     const [loading, setLoading] = useState(false);
-    const studentName = localStorage.getItem('student_name')
+    const studentName = localStorage.getItem('student_name');
+    
+    const slugs = localStorage.getItem("slugs");
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
@@ -39,6 +41,9 @@ const LateFormDataTable = () => {
           });
       };
       
+      const viewLinkString = "Lateform-Single";
+      const editLinkString = "Lateform-Edit";
+      const newLinkString = "Lateform-New";
 
     const actionColumn = [
         {
@@ -48,9 +53,14 @@ const LateFormDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to={`/student/lform/${params.row.id}`} style={{ textDecoration: "none" }}>
-                            <div className="viewButton">View</div>
-                        </Link>
+                         {slugs && slugs.includes(viewLinkString) && (
+                        <Link to={`/student/late-form/${params.row.id}`} style={{ textDecoration: "none" }}>
+                        <div className="viewButton">View</div>
+                        </Link>)}
+                        {slugs && slugs.includes(editLinkString) && (
+                        <Link to={`/student/late-form/update-late-form/${params.row.id}`} style={{ textDecoration: "none" }}>
+                            <div className="editButton">Edit</div>
+                        </Link>)}
                         <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
@@ -66,9 +76,10 @@ const LateFormDataTable = () => {
         <div className="datatable">
             <div className="datatableTitle">
                 {studentName}'s Late Form
-                <Link to="/student/lform/new" className="link">
-                    Add New Late Form
-                </Link>
+                {slugs && slugs.includes(newLinkString) && (
+                <Link to="/student/late-form/new" className="link">
+                    Add New
+                </Link>)}
             </div>
             {loading ? <h1 style={{ textAlign: "student", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
@@ -77,7 +88,9 @@ const LateFormDataTable = () => {
                     columns={lformColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
-                    // checkboxSelection
+                    components={{
+                        Toolbar: GridToolbar, // Include the GridToolbar in the Toolbar slot
+                    }}
                 />}
         </div>
     );

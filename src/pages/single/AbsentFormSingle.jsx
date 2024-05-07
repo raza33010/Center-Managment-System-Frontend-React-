@@ -9,7 +9,7 @@ const AbsentFormSingle = () => {
     // Extracting absentformId using regular expressions
     const location = useLocation();
     // const absentformId = location.pathname.match(/\/class\/(\d+)/);
-    const absentformId = location.pathname.match(/\/absentform\/(\d+)/)?.[1];
+    const absentformId = location.pathname.match(/\/absent-form\/(\d+)/)?.[1];
 
     const [absentform, setAbsentform] = useState(null);
     let [token] = useState(localStorage.getItem("token"));
@@ -50,11 +50,7 @@ const AbsentFormSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/student/absentform/upd_absentform/${absentformId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                                
                                 <h1 className="title">Absent Form Details</h1>
                                 <div className="item">
                                     Absent:

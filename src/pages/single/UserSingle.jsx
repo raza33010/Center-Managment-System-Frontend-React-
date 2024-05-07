@@ -50,11 +50,6 @@ const UserSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/user/upd_user/${userId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
                                 <h1 className="title">User Information</h1>
                                     <div className="details">
                                         {/* <h1 className="itemTitle">{user?.data.name}</h1> */}

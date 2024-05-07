@@ -1,10 +1,10 @@
 import "./list.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
-import UserDatatable from "../../components/datatable/UserDatatable"
+import HalfLeaveFormDataTable from "../../components/datatable/HalfLeaveFormDatatable"
 import { useState } from "react"
 
-const UserList = () => {
+const HalfLeaveFormList = () => {
     let [token] = useState(localStorage.getItem("token"));
 
     const redirectToLogin = () => {
@@ -14,18 +14,19 @@ const UserList = () => {
 
     return (
         <>
-             (
+            {!token && redirectToLogin()}
+            {token && (
                 <div className="list">
                     <Sidebar />
                     <div className="listContainer">
                         <Navbar />
-                        <UserDatatable />
+                        <HalfLeaveFormDataTable />
                     </div>
                 </div>
                 )
-             
+            }
         </>
-    );
-};
+    )
+}
 
-export default UserList
+export default HalfLeaveFormList

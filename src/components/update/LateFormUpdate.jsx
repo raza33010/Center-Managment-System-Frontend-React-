@@ -16,7 +16,7 @@ const  LateFormUpdate = ({ title }) => {
 
     // Extracting LFId using regular expressions
     const location = useLocation();
-    const LFId = location.pathname.match(/\/upd_lform\/(\d+)/)?.[1];
+    const LFId = location.pathname.match(/\/update-late-form\/(\d+)/)?.[1];
 
     // Initializing state
     const [selectedStatus, setSelectedStatus] = useState(null);

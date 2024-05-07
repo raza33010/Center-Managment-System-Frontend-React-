@@ -5,18 +5,18 @@ import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { leaveformInputs } from "../../formSource";
+import { halfleaveformInputs} from "../../formSource";
 
   const statusOptions = [
       { value: 1, label: 'Active' },
       { value: 0, label: 'Inactive' },
     ];
 
-const  LeaveFormUpdate = ({ title }) => {
+const  HalfLeaveFormUpdate = ({ title }) => {
 
     // Extracting LeaveformId using regular expressions
     const location = useLocation();
-    const LeaveformId = location.pathname.match(/\/update-leave-form\/(\d+)/)?.[1];
+    const LeaveformId = location.pathname.match(/\/update-half-leave-form\/(\d+)/)?.[1];
 
     // Initializing state
     const [selectedStatus, setSelectedStatus] = useState(null);
@@ -96,7 +96,7 @@ const  LeaveFormUpdate = ({ title }) => {
         formData.append("reason", inputValues.reason);
         formData.append("start_date_time", inputValues.start_date_time);
         formData.append("end_date_time", inputValues.end_date_time);
-        formData.append("type", inputValues.type || 1);
+        formData.append("type", inputValues.type || 0);
         formData.append('logo', file || "");
         formData.append('status', inputValues.status || 1);
         // formData.append("logo", file); // Append the file to FormData
@@ -114,7 +114,7 @@ const  LeaveFormUpdate = ({ title }) => {
             .then((data) => {
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/student/leaveform/${LeaveformId}`);
+                navigate(`/student/half-leave-form`);
             })
             .catch((error) => {
                 console.log(error);
@@ -155,7 +155,7 @@ const  LeaveFormUpdate = ({ title }) => {
                                             style={{ display: "none" }}
                                         />
                                     </div>
-                                    {leaveformInputs.map((input) => (
+                                    {halfleaveformInputs.map((input) => (
                                          <div className="formInput" key={input.id}>
                                          <label>{input.label}</label>
                                          {
@@ -191,7 +191,7 @@ const  LeaveFormUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/student/lform/${LeaveformId}`)}
+                                            onClick={() => navigate(`/student/half-leave-form`)}
                                         >
                                             Cancel
                                         </button>
@@ -207,4 +207,4 @@ const  LeaveFormUpdate = ({ title }) => {
     );
 };
 
-export default LeaveFormUpdate;
+export default HalfLeaveFormUpdate;

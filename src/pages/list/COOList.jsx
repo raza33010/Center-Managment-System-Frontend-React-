@@ -5,12 +5,12 @@ import COODataTable from "../../components/datatable/COODataTable"
 import { useState } from "react"
 
 const COOList = () => {
-    // let [token] = useState(localStorage.getItem("token"));
+    let [token] = useState(localStorage.getItem("token"));
 
-    // const redirectToLogin = () => {
-    //     alert("Plaese Login first then you can access this page...");
-    //     window.location.href = '/'; // Replace "/login" with the actual login page path
-    // };
+    const redirectToLogin = () => {
+        alert("Plaese Login first then you can access this page...");
+        window.location.href = '/'; // Replace "/login" with the actual login page path
+    };
 
     return (
         <>

@@ -11,7 +11,7 @@ const  AccountUpdate = ({ title }) => {
 
     // Extracting accountId using regular expressions
     const location = useLocation();
-    const accountId = location.pathname.match(/\/upd_account\/(\d+)/)?.[1];
+    const accountId = location.pathname.match(/\/update-account\/(\d+)/)?.[1];
 
     // Initializing state
     // const [file, setFile] = useState(null);

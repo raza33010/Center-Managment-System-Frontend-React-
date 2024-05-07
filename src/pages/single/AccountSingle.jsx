@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import './single.scss';
 import Sidebar from '../../components/sidebar/Sidebar';
 import Navbar from '../../components/navbar/Navbar';
-import { Link } from "react-router-dom";
 
 const AccountSingle = () => {
     // Extracting accountID using regular expressions
@@ -50,11 +49,6 @@ const AccountSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/account/upd_account/${accountID}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
                                 <h1 className="title">account Information</h1>
                                     <div className="details">
                                         <h1 className="itemTitle">{account?.data.name}</h1>

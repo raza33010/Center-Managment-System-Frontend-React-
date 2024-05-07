@@ -997,7 +997,36 @@ export const categoryInputs = [
       placeholder: "E.g: 1 or 0",
     },
   ];
-
+  export const halfleaveformInputs = [
+    {
+      fieldName: "reason",
+      id: 2,
+      label: "Reason For Leave",
+      type: "text",
+      placeholder: "E.g any....",
+    },
+    {
+      fieldName: "start_date_time",
+      id: 3,
+      label: "From Date",
+      type: "datetime-local",
+      placeholder: "E.g ",
+    },
+    {
+      fieldName: "end_date_time",
+      id: 4,
+      label: "To Date",
+      type: "datetime-local",
+      placeholder: "E.g ",
+    },
+    {
+      fieldName: "status",
+      id: 11,
+      label: "Status",
+      type: "number",
+      placeholder: "E.g: 1 or 0",
+    },
+  ];
   export const absentformInputs = [
     {
       fieldName: "reason",
@@ -1189,12 +1218,12 @@ export const categoryInputs = [
     {
       fieldName: "name",
       id: 2,
-      label: "Name",
+      label: "Role Name",
       type: "text",
-      placeholder: "E.g: C-12",
+      placeholder: "write role name",
     },
     {
-      fieldName: "screen",
+      fieldName: "screen_id",
       id: 3,
       label: "Screen",
       type: "text",

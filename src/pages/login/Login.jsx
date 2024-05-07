@@ -59,6 +59,7 @@ const Login = () => {
           localStorage.setItem("email",admindata.email);
           localStorage.setItem("user_id",admindata.id);
           localStorage.setItem("role_id",admindata.role_id);
+          localStorage.setItem("slugs",admindata.slugs);
           const admindataString = JSON.stringify(admindata);
 
           localStorage.setItem("admindata", admindataString);

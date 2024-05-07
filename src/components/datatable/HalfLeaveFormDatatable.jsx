@@ -1,18 +1,18 @@
 import "./datatable.scss";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { classColumns, classRows, fetchClassRows } from "../../datatablesource";
+import { halfleaveformColumns, halfleaveformRows, fetchHalfleaveformRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const ClassDataTable = () => {
-    const [data, setData] = useState(classRows);
+const HalfLeaveFormDataTable = () => {
+    const [data, setData] = useState(halfleaveformRows);
     const [loading, setLoading] = useState(false);
+    const studentName = localStorage.getItem('student_name');
     const slugs = localStorage.getItem("slugs");
-
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
-            const rows = await fetchClassRows();
+            const rows = await fetchHalfleaveformRows();
             console.log("jawad",rows)
             setLoading(false);
             setData(Array.from(rows.data));
@@ -22,7 +22,7 @@ const ClassDataTable = () => {
 
     const handleDelete = (id) => {
         // Make a DELETE request to the Flask API endpoint
-        fetch(`http://127.0.0.1:5000/del_class/${id}`, {
+        fetch(`http://127.0.0.1:5000/student/del_leave_form/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -39,10 +39,9 @@ const ClassDataTable = () => {
             console.error('There was a problem with the fetch operation:', error);
           });
       };
-
-      const viewLinkString = "Class-Single";
-      const editLinkString = "Class-Edit";
-      const newLinkString = "Class-New";
+      const viewLinkString = "Halfleaveform-Single";
+      const editLinkString = "Halfleaveform-Edit";
+      const newLinkString = "Halfleaveform-New";
 
     const actionColumn = [
         {
@@ -52,12 +51,12 @@ const ClassDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                       {slugs && slugs.includes(viewLinkString) && (
-                        <Link to={`/class/${params.row.id}`} style={{ textDecoration: "none" }}>
+                         {slugs && slugs.includes(viewLinkString) && (
+                        <Link to={`/student/half-leave-form/${params.row.id}`} style={{ textDecoration: "none" }}>
                         <div className="viewButton">View</div>
                         </Link>)}
                         {slugs && slugs.includes(editLinkString) && (
-                        <Link to={`/class/update-class/${params.row.id}`} style={{ textDecoration: "none" }}>
+                        <Link to={`/student/half-leave-form/update-half-leave-form/${params.row.id}`} style={{ textDecoration: "none" }}>
                             <div className="editButton">Edit</div>
                         </Link>)}
                         <div
@@ -74,17 +73,17 @@ const ClassDataTable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Classes
+                {studentName}'s Half Leave Form
                 {slugs && slugs.includes(newLinkString) && (
-                <Link to="/center/new" className="link">
+                <Link to="/student/half-leave-form/new" className="link">
                     Add New
                 </Link>)}
             </div>
-            {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :
+            {loading ? <h1 style={{ textAlign: "student", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
                     className="datagrid"
                     rows={data}
-                    columns={classColumns.concat(actionColumn)}
+                    columns={halfleaveformColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
                     components={{
@@ -95,4 +94,4 @@ const ClassDataTable = () => {
     );
 };
 
-export default ClassDataTable;
+export default HalfLeaveFormDataTable;

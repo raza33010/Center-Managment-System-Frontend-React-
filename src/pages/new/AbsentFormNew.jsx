@@ -65,7 +65,7 @@ const AbsentFormNew = ({ title }) => {
             setFile("");
             setInputValues({});
             showNotification("Late Form has been added successfully!");
-            navigate('/student/absentform');
+            navigate('/student/absent-form');
             
         } catch (error) {
           console.log(error);

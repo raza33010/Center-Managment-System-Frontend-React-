@@ -23,7 +23,7 @@ const  ClassUpdate = ({ title }) => {
 
     // Extracting classId using regular expressions
     const location = useLocation();
-    const classId = location.pathname.match(/\/upd_class\/(\d+)/)?.[1];
+    const classId = location.pathname.match(/\/update-class\/(\d+)/)?.[1];
 
     // Initializing state
     // const [file, setFile] = useState(null);

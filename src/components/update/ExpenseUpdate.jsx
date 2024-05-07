@@ -23,7 +23,7 @@ const  ExpenseUpdate = ({ title }) => {
 
     // Extracting expenseId using regular expressions
     const location = useLocation();
-    const expenseId = location.pathname.match(/\/upd_expense\/(\d+)/)?.[1];
+    const expenseId = location.pathname.match(/\/update-expense\/(\d+)/)?.[1];
     const center_id = localStorage.getItem('center_id');
     // Initializing state
     // const [file, setFile] = useState(null);

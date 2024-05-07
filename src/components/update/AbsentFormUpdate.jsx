@@ -16,7 +16,7 @@ const  AbsentFormUpdate = ({ title }) => {
 
     // Extracting absentformId using regular expressions
     const location = useLocation();
-    const absentformId = location.pathname.match(/\/upd_absentform\/(\d+)/)?.[1];
+    const absentformId = location.pathname.match(/\/update-absent-form\/(\d+)/)?.[1];
 
     // Initializing state
     const [selectedStatus, setSelectedStatus] = useState(null);
@@ -112,7 +112,7 @@ const  AbsentFormUpdate = ({ title }) => {
             .then((data) => {
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/student/absentform/${absentformId}`);
+                navigate(`/student/absent-form`);
             })
             .catch((error) => {
                 console.log(error);
@@ -189,7 +189,7 @@ const  AbsentFormUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/student/lform/${absentformId}`)}
+                                            onClick={() => navigate(`/student/absent-form`)}
                                         >
                                             Cancel
                                         </button>

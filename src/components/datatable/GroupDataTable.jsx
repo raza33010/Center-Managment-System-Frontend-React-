@@ -1,5 +1,5 @@
 import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { groupColumns, groupRows, fetchGroupRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 const GroupDataTable = () => {
     const [data, setData] = useState(groupRows);
     const [loading, setLoading] = useState(false);
+    const slugs = localStorage.getItem("slugs");
 
     useEffect(() => {
         const getData = async () => {
@@ -39,6 +40,10 @@ const GroupDataTable = () => {
           });
       };
 
+      const viewLinkString = "Group-Single";
+      const editLinkString = "Group-Edit";
+      const newLinkString = "Group-New";
+
     const actionColumn = [
         {
             field: "action",
@@ -47,9 +52,14 @@ const GroupDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
+                         {slugs && slugs.includes(viewLinkString) && (
                         <Link to={`/group/${params.row.id}`} style={{ textDecoration: "none" }}>
-                            <div className="viewButton">View</div>
-                        </Link>
+                        <div className="viewButton">View</div>
+                        </Link>)}
+                        {slugs && slugs.includes(editLinkString) && (
+                        <Link to={`/group/update-group/${params.row.id}`} style={{ textDecoration: "none" }}>
+                            <div className="editButton">Edit</div>
+                        </Link>)}
                         <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
@@ -65,9 +75,10 @@ const GroupDataTable = () => {
         <div className="datatable">
             <div className="datatableTitle">
                 Group
+                {slugs && slugs.includes(newLinkString) && (
                 <Link to="/group/new" className="link">
-                    Add New group
-                </Link>
+                    Add New
+                </Link>)}
             </div>
             {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
@@ -76,7 +87,9 @@ const GroupDataTable = () => {
                     columns={groupColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
-                    // checkboxSelection
+                    components={{
+                        Toolbar: GridToolbar, // Include the GridToolbar in the Toolbar slot
+                    }}
                 />}
         </div>
     );

@@ -50,11 +50,7 @@ const CenterSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/center/upd_center/${centerID}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                              
                                 <h1 className="title">Center Information</h1>
                                 <div className="item">
                                     <img src={

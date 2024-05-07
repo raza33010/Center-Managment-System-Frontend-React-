@@ -1,5 +1,5 @@
 import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { accountColumns, accountRows, fetchAccountRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 const AccountDataTable = () => {
     const [data, setData] = useState(accountRows);
     const [loading, setLoading] = useState(false);
+    const slugs = localStorage.getItem("slugs");
 
     useEffect(() => {
         const getData = async () => {
@@ -38,6 +39,10 @@ const AccountDataTable = () => {
             console.error('There was a problem with the fetch operation:', error);
           });
       };
+      const viewLinkString = "Account-Single";
+      const editLinkString = "Account-Edit";
+      const newLinkString = "Account-New";
+
 
     const actionColumn = [
         {
@@ -47,9 +52,14 @@ const AccountDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
+                        {slugs && slugs.includes(viewLinkString) && (
                         <Link to={`/account/${params.row.id}`} style={{ textDecoration: "none" }}>
-                            <div className="viewButton">View</div>
-                        </Link>
+                        <div className="viewButton">View</div>
+                        </Link>)}
+                        {slugs && slugs.includes(editLinkString) && (
+                        <Link to={`/account/update-account/${params.row.id}`} style={{ textDecoration: "none" }}>
+                            <div className="editButton">Edit</div>
+                        </Link>)}
                         <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
@@ -64,10 +74,11 @@ const AccountDataTable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New account
+                Accounts
+                {slugs && slugs.includes(newLinkString) && (
                 <Link to="/account/new" className="link">
                     Add New
-                </Link>
+                </Link>)}
             </div>
             {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
@@ -76,6 +87,9 @@ const AccountDataTable = () => {
                     columns={accountColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
+                    components={{
+                        Toolbar: GridToolbar, // Include the GridToolbar in the Toolbar slot
+                    }}
                     // checkboxSelection
                 />}
         </div>

@@ -1,5 +1,5 @@
 import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { leaveformColumns, leaveformRows, fetchLeaveformRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -7,7 +7,8 @@ import { useState, useEffect } from "react";
 const LeaveFormDataTable = () => {
     const [data, setData] = useState(leaveformRows);
     const [loading, setLoading] = useState(false);
-    const studentName = localStorage.getItem('student_name')
+    const studentName = localStorage.getItem('student_name');
+    const slugs = localStorage.getItem("slugs");
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
@@ -38,7 +39,9 @@ const LeaveFormDataTable = () => {
             console.error('There was a problem with the fetch operation:', error);
           });
       };
-      
+      const viewLinkString = "Leaveform-Single";
+      const editLinkString = "Leaveform-Edit";
+      const newLinkString = "Leaveform-New";
 
     const actionColumn = [
         {
@@ -48,9 +51,14 @@ const LeaveFormDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to={`/student/leaveform/${params.row.id}`} style={{ textDecoration: "none" }}>
-                            <div className="viewButton">View</div>
-                        </Link>
+                         {slugs && slugs.includes(viewLinkString) && (
+                        <Link to={`/student/leave-form/${params.row.id}`} style={{ textDecoration: "none" }}>
+                        <div className="viewButton">View</div>
+                        </Link>)}
+                        {slugs && slugs.includes(editLinkString) && (
+                        <Link to={`/student/leave-form/update-leave-form/${params.row.id}`} style={{ textDecoration: "none" }}>
+                            <div className="editButton">Edit</div>
+                        </Link>)}
                         <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
@@ -66,9 +74,10 @@ const LeaveFormDataTable = () => {
         <div className="datatable">
             <div className="datatableTitle">
                 {studentName}'s Leave Form
-                <Link to="/student/leaveform/new" className="link">
-                    Add New Leave Form
-                </Link>
+                {slugs && slugs.includes(newLinkString) && (
+                <Link to="/student/leave-form/new" className="link">
+                    Add New
+                </Link>)}
             </div>
             {loading ? <h1 style={{ textAlign: "student", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
@@ -77,7 +86,9 @@ const LeaveFormDataTable = () => {
                     columns={leaveformColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
-                    // checkboxSelection
+                    components={{
+                        Toolbar: GridToolbar, // Include the GridToolbar in the Toolbar slot
+                    }}
                 />}
         </div>
     );

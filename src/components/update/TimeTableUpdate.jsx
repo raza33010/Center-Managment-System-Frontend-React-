@@ -25,7 +25,7 @@ const  TimeTableUpdate = ({ title }) => {
 
     // Extracting timetableId using regular expressions
     const location = useLocation();
-    const timetableId = location.pathname.match(/\/upd_timetable\/(\d+)/)?.[1];
+    const timetableId = location.pathname.match(/\/update-time-table\/(\d+)/)?.[1];
     const center_id = localStorage.getItem('center_id');
     // Initializing state
     const [selectedStatus, setSelectedStatus] = useState(null);

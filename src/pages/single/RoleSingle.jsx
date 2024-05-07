@@ -72,12 +72,12 @@ const RoleSingle = () => {
                                         </div>
                                         <div className="detailItem">
                                             <span className="itemKey">Screen: </span>
-                                            <span className="itemValue">{role?.data.screen}</span>
+                                            <span className="itemValue">{role?.data.screen_names}</span>
                                         </div>
-                                        <div className="detailItem">
+                                        {/* <div className="detailItem">
                                             <span className="itemKey">Status: </span>
                                             <span className="itemValue">{role?.data.status}</span>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

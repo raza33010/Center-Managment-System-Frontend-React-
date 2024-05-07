@@ -9,7 +9,7 @@ const LateFormSingle = () => {
     // Extracting lformId using regular expressions
     const location = useLocation();
     // const lformId = location.pathname.match(/\/class\/(\d+)/);
-    const lformId = location.pathname.match(/\/lform\/(\d+)/)?.[1];
+    const lformId = location.pathname.match(/\/late-form\/(\d+)/)?.[1];
 
     const [lform, setlform] = useState(null);
     let [token] = useState(localStorage.getItem("token"));
@@ -50,11 +50,7 @@ const LateFormSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/student/lform/upd_lform/${lformId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                             
                                 <h1 className="title">Late Form Details</h1>
                                     <div className="details">
                                         <h1 className="itemTitle">{lform?.data.date}</h1>

@@ -50,11 +50,7 @@ const COOSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/coo/upd_coo/${cooId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                                
                                 <h1 className="title">COO Information</h1>
                                     <div className="details">
                                         {/* <h1 className="itemTitle">{coo?.data.name}</h1> */}

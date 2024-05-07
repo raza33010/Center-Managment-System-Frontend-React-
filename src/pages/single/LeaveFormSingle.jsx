@@ -9,7 +9,7 @@ const LeaveFormSingle = () => {
     // Extracting leaveformId using regular expressions
     const location = useLocation();
     // const leaveformId = location.pathname.match(/\/class\/(\d+)/);
-    const leaveformId = location.pathname.match(/\/leaveform\/(\d+)/)?.[1];
+    const leaveformId = location.pathname.match(/\/leave-form\/(\d+)/)?.[1];
 
     const [leaveform, setleaveform] = useState(null);
     let [token] = useState(localStorage.getItem("token"));
@@ -50,11 +50,7 @@ const LeaveFormSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/student/leaveform/upd_leaveform/${leaveformId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                                
                                 <h1 className="title">Leave Form Details</h1>
                                 <div className="item">
                                     leave:

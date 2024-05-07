@@ -50,11 +50,7 @@ const BatchSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/batch/upd_batch/${batchId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                                
                                 <h1 className="title">batch Information</h1>
                                     <div className="details">
                                         {/* <h1 className="itemTitle">{batch?.data.name}</h1> */}

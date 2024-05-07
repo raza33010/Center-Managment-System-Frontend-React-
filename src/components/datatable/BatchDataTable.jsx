@@ -1,5 +1,5 @@
 import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { batchColumns, batchRows, fetchBatchRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 const BatchDataTable = () => {
     const [data, setData] = useState(batchRows);
     const [loading, setLoading] = useState(false);
+    const slugs = localStorage.getItem("slugs");
 
     useEffect(() => {
         const getData = async () => {
@@ -39,6 +40,10 @@ const BatchDataTable = () => {
           });
       };
 
+      const viewLinkString = "Batch-Single";
+      const editLinkString = "Batch-Edit";
+      const newLinkString = "Batch-New";
+      
     const actionColumn = [
         {
             field: "action",
@@ -47,9 +52,14 @@ const BatchDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
+                        {slugs && slugs.includes(viewLinkString) && (
                         <Link to={`/batch/${params.row.id}`} style={{ textDecoration: "none" }}>
-                            <div className="viewButton">View</div>
-                        </Link>
+                        <div className="viewButton">View</div>
+                        </Link>)}
+                        {slugs && slugs.includes(editLinkString) && (
+                        <Link to={`/batch/update-batch/${params.row.id}`} style={{ textDecoration: "none" }}>
+                            <div className="editButton">Edit</div>
+                        </Link>)}
                         <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
@@ -64,10 +74,11 @@ const BatchDataTable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New Batch
+                Batchs
+                {slugs && slugs.includes(newLinkString) && (
                 <Link to="/batch/new" className="link">
                     Add New
-                </Link>
+                </Link>)}
             </div>
             {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
@@ -76,7 +87,9 @@ const BatchDataTable = () => {
                     columns={batchColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
-                    // checkboxSelection
+                    components={{
+                        Toolbar: GridToolbar, // Include the GridToolbar in the Toolbar slot
+                    }}
                 />}
         </div>
     );

@@ -1,5 +1,5 @@
 import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { timetableColumns, timetableRows, fetchTimetableRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 const TimeTableDataTable = () => {
     const [data, setData] = useState(timetableRows);
     const [loading, setLoading] = useState(false);
-    const studentName = localStorage.getItem('student_name')
+    const slugs = localStorage.getItem("slugs");
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
@@ -39,21 +39,30 @@ const TimeTableDataTable = () => {
           });
       };
       
-
+      const viewLinkString = "Timetable-Single";
+      const editLinkString = "Timetable-Edit";
+      const newLinkString = "Timetable-New";
+      const newLinkString_1 = "Teacherattendance-New";
     const actionColumn = [
         {
             field: "action",
             headerName: "Action",
-            width: 200,
+            width: 300,
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to={`/teacher_attendance/new/${params.row.id}`} style={{ textDecoration: "none" }}>
+                        {slugs && slugs.includes(newLinkString_1) && (
+                        <Link to={`/teacher-attendance/new/${params.row.id}`} style={{ textDecoration: "none" }}>
                             <div className="viewButton">Attendance</div>
-                        </Link>
-                        <Link to={`/timetable/${params.row.id}`} style={{ textDecoration: "none" }}>
-                            <div className="viewButton">View</div>
-                        </Link>
+                        </Link>)}
+                        {slugs && slugs.includes(viewLinkString) && (
+                        <Link to={`/time-table/${params.row.id}`} style={{ textDecoration: "none" }}>
+                        <div className="viewButton">View</div>
+                        </Link>)}
+                        {slugs && slugs.includes(editLinkString) && (
+                        <Link to={`/time-table/update-time-table/${params.row.id}`} style={{ textDecoration: "none" }}>
+                            <div className="editButton">Edit</div>
+                        </Link>)}
                         <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
@@ -69,9 +78,10 @@ const TimeTableDataTable = () => {
         <div className="datatable">
             <div className="datatableTitle">
                 Time Table
-                <Link to="/timetable/new" className="link">
-                    Add New Time Table
-                </Link>
+                {slugs && slugs.includes(newLinkString) && (
+                <Link to="/time-table/new" className="link">
+                    Add New
+                </Link>)}
             </div>
             {loading ? <h1 style={{ textAlign: "student", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
@@ -80,7 +90,9 @@ const TimeTableDataTable = () => {
                     columns={timetableColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
-                    // checkboxSelection
+                    components={{
+                        Toolbar: GridToolbar, // Include the GridToolbar in the Toolbar slot
+                    }}
                 />}
         </div>
     );

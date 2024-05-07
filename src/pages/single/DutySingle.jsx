@@ -50,11 +50,7 @@ const DutySingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/duty/upd_duty/${dutyId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                               
                                 <h1 className="title">Duty Details</h1>
                                     <div className="details">
                                         {/* <h1 className="itemTitle">{class?.data.name}</h1> */}

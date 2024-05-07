@@ -18,7 +18,7 @@ const StudentSingle = () => {
     let [token] = useState(localStorage.getItem("token"));
     localStorage.setItem('student_id',studentId)
     localStorage.setItem('student_name',student?.data.name)
-
+    const slugs = localStorage.getItem("slugs");
     const redirectToLogin = () => {
         alert("Plaese Login first then you can access this page...");
         window.location.href = '/'; // Replace "/login" with the actual login page path
@@ -38,6 +38,10 @@ const StudentSingle = () => {
             console.error(error);
         }
     };
+    const AbsentformLinkString = "Absentform-Listing";
+    const LateformLinkString = "Lateform-Listing";
+    const LeaveformLinkString = "Leaveform-Listing";
+    const HalfleaveformLinkString = "Halfleaveform-Listing";
 
     useEffect(() => {
         if (studentId) {
@@ -55,11 +59,7 @@ const StudentSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/student/upd_student/${studentId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                                
                                 <h1 className="title">Student Info</h1>
                                 <div className="item">
                                     <img src={
@@ -165,28 +165,32 @@ const StudentSingle = () => {
                                 </div>
                             </div>
                             <div className="aformButton">
-                                    <Link to={`/student/absentform`} className=" link">
+                            {slugs && slugs.includes(AbsentformLinkString) && (
+                                    <Link to={`/student/absent-form`} className=" link">
                                     <EventBusyIcon className="icon" />
                                        Absent Form
-                                    </Link>
+                                    </Link>)}
                                 </div>
                                 <div className="lformButton">
-                                    <Link to={`/student/lform`} className=" link">
+                                {slugs && slugs.includes(LateformLinkString) && (
+                                    <Link to={`/student/late-form`} className=" link">
                                     <CalendarTodayIcon className="icon" />
                                        Late Form
-                                    </Link>
+                                    </Link>)}
                                 </div>
                                 <div className="hlformButton">
-                                    <Link to={`/student/leaveform`} className=" link">
+                                {slugs && slugs.includes(HalfleaveformLinkString) && (
+                                    <Link to={`/student/half-leave-form`} className=" link">
                                     <AccessTimeIcon className="icon" />
                                        Half Leave Form
-                                    </Link>
+                                    </Link>)}
                                 </div>
                                 <div className="leformButton">
-                                    <Link to={`/student/leaveform`} className=" link">
+                                {slugs && slugs.includes(LeaveformLinkString) && (
+                                    <Link to={`/student/leave-form`} className=" link">
                                     <AccessTimeIcon className="icon" />
                                        Leave Form
-                                    </Link>
+                                    </Link>)}
                                 </div>
                             {/* <div className="right">
                     <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />

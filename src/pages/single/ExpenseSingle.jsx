@@ -51,11 +51,6 @@ const ExpenseSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/expense/upd_expense/${expenseID}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
                                 <h1 className="title">expense Info</h1>
                                     <div className="details">
                                         {/* <h1 className="itemTitle">{expense?.data.name}</h1> */}

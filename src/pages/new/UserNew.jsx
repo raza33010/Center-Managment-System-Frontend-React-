@@ -1,9 +1,8 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { cooInputsn } from "../../formSource";
-
 
 const UserNew = ({ title }) => {
   const [inputValues, setInputValues] = useState({});
@@ -11,13 +10,52 @@ const UserNew = ({ title }) => {
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
   const [options, setOptions] = useState([]);
   const [roptions, setRoptions] = useState([]);
-  const [selectedRoles, setSelectedRoles] = useState([ ]);
-
-  let [token] = useState(localStorage.getItem("token"));
+  const [selectedRoles, setSelectedRoles] = useState([]);
+  const token = localStorage.getItem("token");
+  const slug = localStorage.getItem("slugs");
+  const UserNewSlug = "User-New";
+  const Checking = slug.includes(UserNewSlug);
 
   const redirectToLogin = () => {
     alert("Please Login first, then you can access this page...");
-    window.location.href = '/'; // Replace "/login" with the actual login page path
+    window.location.href = '/'; // Redirect to login page
+  };
+  const redirectToLoginduetonotaccess = () => {
+    // alert("You can't this page......");
+    window.location.href = '/'; // Redirect to login page
+  };
+
+  useEffect(() => {
+    center_name();
+    roles();
+  }, []);
+
+  const roles = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/role_ids");
+      if (!response.ok) {
+        throw new Error("Failed to fetch data from the API");
+      }
+      const data = await response.json();
+      const namelist = data.data.map(({ id, name }) => ({ value: id, label: name }));
+      setRoptions(namelist);
+    } catch (error) {
+      console.error("Error fetching roles data:", error);
+    }
+  };
+
+  const center_name = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/center_id");
+      if (!response.ok) {
+        throw new Error("Failed to fetch data from the API");
+      }
+      const data = await response.json();
+      const namelist = data.data.map(({ id, name }) => ({ value: id, label: name }));
+      setOptions(namelist);
+    } catch (error) {
+      console.error("Error fetching center data:", error);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -30,8 +68,7 @@ const UserNew = ({ title }) => {
   const handleRoleSelectChange = (selectedOptions) => {
     setSelectedRoles(selectedOptions);
   };
-  
-  
+
   const handleCenterSelectChange = (selectedOption) => {
     setInputValues({
       ...inputValues,
@@ -39,61 +76,8 @@ const UserNew = ({ title }) => {
     });
   };
 
-  useEffect(() => {
-    center_name();
-  }, []); // Empty dependency array means it runs once when the component mounts
-
-  useEffect(() => {
-    roles();
-  }, []);
-
-  const roles = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:5000/role_ids");
-      if (!response.ok) {
-        throw new Error("Failed to fetch data from the API");
-      }
-      const data = await response.json();
-      console.log(data.data.length);
-      const namelist = [];
-      for (let i = 0; i < data.data.length; i++) {
-        const name = data.data[i].name;
-        console.log(name);
-        const id = data.data[i].id; // Access the "name" property
-        namelist.push({ value: id, label: name });
-      }
-      console.log(namelist);
-      setRoptions(namelist);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  } 
-
-  const center_name = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:5000/center_id");
-      if (!response.ok) {
-        throw new Error("Failed to fetch data from the API");
-      }
-      const data = await response.json();
-      console.log(data.data.length);
-      const namelist = [];
-      for (let i = 0; i < data.data.length; i++) {
-        const name = data.data[i].name;
-        console.log(name);
-        const id = data.data[i].id; // Access the "name" property
-        namelist.push({ value: id, label: name });
-      }
-      console.log(namelist);
-      setOptions(namelist);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
-  
   const handleSubmit = async (e) => {
-    e.preventDefault();    
-
+    e.preventDefault();
     const roleValues = selectedRoles.map((option) => option.value);
         const formData = new FormData();
         formData.append("center_id",localStorage.getItem('center_id'));
@@ -138,62 +122,69 @@ const UserNew = ({ title }) => {
   
     return (
       <>
-        {!token && redirectToLogin()}
-        {token && (
-          <div className="new">
-            <Sidebar />
-            <div className="newContainer">
-              <Navbar />
-              <div className="top">
-                <h1>{title}</h1>
-              </div>
-              <div className="bottom">
-                <div className="right">
-                  <form onSubmit={handleSubmit}>
-                    {cooInputsn.map((input) => (
-                      <div className="formInput" key={input.id}>
-                        <label>{input.label}</label>
-                        {input.fieldName === "role_id" ? (
+        {Checking ? (
+          <>
+            {!token && redirectToLogin()}
+            {token && (
+              <div className="new">
+                <Sidebar />
+                <div className="newContainer">
+                  <Navbar />
+                  <div className="top">
+                    <h1>{title}</h1>
+                  </div>
+                  <div className="bottom">
+                    <div className="right">
+                      <form onSubmit={handleSubmit}>
+                        {cooInputsn.map((input) => (
+                          <div className="formInput" key={input.id}>
+                            <label>{input.label}</label>
+                            {input.fieldName === "role_id" ? (
                               <Select
-                              options={roptions}
-                              name={input.fieldName}
-                              isMulti // Enable multiple selection
-                              value={selectedRoles}
-                              onChange={handleRoleSelectChange}
-                              required
-                            />
-                        ): input.fieldName === "center_id" ? (
-                            <Select
-                              options={options}
-                              name={input.fieldName}
-                              onChange={handleCenterSelectChange}
-                              required
-                            />
-                          ) : (
-                          <input
-                            type={input.type}
-                            placeholder={input.placeholder}
-                            name={input.fieldName}
-                            onChange={handleInputChange}
-                            required={input.fieldName !== "status"}
-                          />
-                        )}
-                      </div>
-                    ))}
+                                options={roptions}
+                                name={input.fieldName}
+                                isMulti
+                                value={selectedRoles}
+                                onChange={handleRoleSelectChange}
+                                required
+                              />
+                            ) : input.fieldName === "center_id" ? (
+                              <Select
+                                options={options}
+                                name={input.fieldName}
+                                onChange={handleCenterSelectChange}
+                                required
+                              />
+                            ) : (
+                              <input
+                                type={input.type}
+                                placeholder={input.placeholder}
+                                name={input.fieldName}
+                                onChange={handleInputChange}
+                                required={input.fieldName !== "status"}
+                              />
+                            )}
+                          </div>
+                        ))}
   
-                    <div style={{ clear: "both" }} className="formSubmit">
-                      <button type="submit" style={{ float: "right" }}>Send</button>
+                        <div style={{ clear: "both" }} className="formSubmit">
+                          <button type="submit" style={{ float: "right" }}>Send</button>
+                        </div>
+                      </form>
+                      {isNotificationVisible && (
+                        <div className="notification">
+                          {notification}
+                        </div>
+                      )}
                     </div>
-                  </form>
-                  {isNotificationVisible && (
-                    <div className="notification">
-                      {notification}
-                    </div>
-                  )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            )}
+          </>
+        ) : (
+          // Redirecting to login page when Checking is false
+          redirectToLoginduetonotaccess()
         )}
       </>
     );

@@ -23,7 +23,7 @@ const  GroupUpdate = ({ title }) => {
 
     // Extracting groupId using regular expressions
     const location = useLocation();
-    const groupId = location.pathname.match(/\/upd_group\/(\d+)/)?.[1];
+    const groupId = location.pathname.match(/\/update-group\/(\d+)/)?.[1];
     const center_id = localStorage.getItem('center_id');
     // Initializing state
     // const [file, setFile] = useState(null);

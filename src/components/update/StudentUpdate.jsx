@@ -35,7 +35,7 @@ const  StudentUpdate = ({ title }) => {
 
     // Extracting studentId using regular expressions
     const location = useLocation();
-    const studentId = location.pathname.match(/\/upd_student\/(\d+)/)?.[1];
+    const studentId = location.pathname.match(/\/update-student\/(\d+)/)?.[1];
 
     // Initializing state
     const [file, setFile] = useState(null);

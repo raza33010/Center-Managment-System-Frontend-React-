@@ -50,11 +50,7 @@ const ClassSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/class/upd_class/${classId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                               
                                 <h1 className="title">Class Information</h1>
                                     <div className="details">
                                         {/* <h1 className="itemTitle">{class?.data.name}</h1> */}

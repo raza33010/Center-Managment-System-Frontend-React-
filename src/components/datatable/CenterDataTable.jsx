@@ -1,5 +1,5 @@
 import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { centerColumns, centerRows, fetchCenterRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 const CenterDatatable = () => {
     const [data, setData] = useState(centerRows);
     const [loading, setLoading] = useState(false);
+    const slugs = localStorage.getItem("slugs");
+    
 
     useEffect(() => {
         const getData = async () => {
@@ -38,7 +40,9 @@ const CenterDatatable = () => {
             console.error('There was a problem with the fetch operation:', error);
           });
       };
-      
+      const viewLinkString = "Center-Single";
+      const editLinkString = "Center-Edit";
+      const newLinkString = "Center-New";
 
     const actionColumn = [
         {
@@ -48,9 +52,15 @@ const CenterDatatable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
+                         {slugs && slugs.includes(viewLinkString) && (
                         <Link to={`/center/${params.row.id}`} style={{ textDecoration: "none" }}>
-                            <div className="viewButton">View</div>
-                        </Link>
+                        <div className="viewButton">View</div>
+                        </Link>)}
+                        {slugs && slugs.includes(editLinkString) && (
+                        <Link to={`/center/update-center/${params.row.id}`} style={{ textDecoration: "none" }}>
+                            <div className="editButton">Edit</div>
+                        </Link>)}
+            
                         <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
@@ -66,9 +76,10 @@ const CenterDatatable = () => {
         <div className="datatable">
             <div className="datatableTitle">
                 Center
+                {slugs && slugs.includes(newLinkString) && (
                 <Link to="/center/new" className="link">
                     Add New
-                </Link>
+                </Link>)}
             </div>
             {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
@@ -77,6 +88,9 @@ const CenterDatatable = () => {
                     columns={centerColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
+                    components={{
+                        Toolbar: GridToolbar, // Include the GridToolbar in the Toolbar slot
+                    }}
                     // checkboxSelection
                 />}
         </div>

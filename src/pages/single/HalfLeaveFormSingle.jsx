@@ -5,13 +5,13 @@ import Sidebar from '../../components/sidebar/Sidebar';
 import Navbar from '../../components/navbar/Navbar';
 import { Link } from "react-router-dom";
 
-const TimeTableSingle = () => {
-    // Extracting timetableId using regular expressions
+const HalfLeaveFormSingle = () => {
+    // Extracting leaveformId using regular expressions
     const location = useLocation();
-    // const timetableId = location.pathname.match(/\/class\/(\d+)/);
-    const timetableId = location.pathname.match(/\/time-table\/(\d+)/)?.[1];
+    // const leaveformId = location.pathname.match(/\/class\/(\d+)/);
+    const leaveformId = location.pathname.match(/\/half-leave-form\/(\d+)/)?.[1];
 
-    const [timetable, setTimetable] = useState(null);
+    const [leaveform, setleaveform] = useState(null);
     let [token] = useState(localStorage.getItem("token"));
 
     const redirectToLogin = () => {
@@ -20,14 +20,14 @@ const TimeTableSingle = () => {
     };
 
 
-    const fetchTimeTable = async () => {
+    const fetchClass = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:5000/timetable/${timetableId}`);
+            const response = await fetch(`http://127.0.0.1:5000/student/leave_form/${leaveformId}`);
             // if (!response.ok) {
             //     throw new Error('Failed to fetch class');
             // }
             const data = await response.json();
-            setTimetable(data);
+            setleaveform(data);
             localStorage.setItem("lformData", JSON.stringify(data));
         } catch (error) {
             console.error(error);
@@ -35,10 +35,10 @@ const TimeTableSingle = () => {
     };
 
     useEffect(() => {
-        if (timetableId) {
-            fetchTimeTable();
+        if (leaveformId) {
+            fetchClass();
         }
-    }, [timetableId]);
+    }, [leaveformId]);
 
     return (
         <>
@@ -51,45 +51,50 @@ const TimeTableSingle = () => {
                         <div className="top">
                             <div className="left">
                                 
-                                <h1 className="title">Slot Details</h1>
+                                <h1 className="title">Leave Form Details</h1>
+                                <div className="item">
+                                    leave:
+                                    <img src={
+                                        leaveform?.data.leave_file
+                                    }
+                                        alt=""
+                                        className="itemImg"
+                                    />
                                     <div className="details">
-                                        <h1 className="itemTitle">{timetable?.data.day}</h1>
+                                        <h1 className="itemTitle">{leaveform?.data.student_names}</h1>
                                         {/* <div className="detailItem">
                                             <span className="itemKey">Id: </span>
-                                            <span className="itemValue">{timetable?.data.id}</span>
+                                            <span className="itemValue">{leaveform?.data.id}</span>
                                         </div> */}
                                         {/* <div className="detailItem">
                                             <span className="itemKey">Center Id: </span>
-                                            <span className="itemValue">{timetable?.data.center_id}</span>
+                                            <span className="itemValue">{leaveform?.data.center_id}</span>
                                         </div> */}
                                         <div className="detailItem">
-                                            <span className="itemKey">Teacher: </span>
-                                            <span className="itemValue">{timetable?.data.user_names}</span>
+                                            <span className="itemKey">User: </span>
+                                            <span className="itemValue">{leaveform?.data.user_names}</span>
                                         </div>
                                         <div className="detailItem">
-                                            <span className="itemKey">Subject: </span>
-                                            <span className="itemValue">{timetable?.data.subject_names}</span>
+                                            <span className="itemKey">From Date: </span>
+                                            <span className="itemValue">{leaveform?.data.start_date_time}</span>
                                         </div>
                                         <div className="detailItem">
-                                            <span className="itemKey">Class: </span>
-                                            <span className="itemValue">{timetable?.data.class_names}</span>
+                                            <span className="itemKey">To Date: </span>
+                                            <span className="itemValue">{leaveform?.data.end_date_time}</span>
                                         </div>
                                         {/* <div className="detailItem">
                                             <span className="itemKey">Time: </span>
-                                            <span className="itemValue">{timetable?.data.time}</span>
+                                            <span className="itemValue">{leaveform?.data.time}</span>
                                         </div> */}
                                         <div className="detailItem">
-                                            <span className="itemKey">Start Time: </span>
-                                            <span className="itemValue">{timetable?.data.start_slot_time}</span>
-                                        </div>
-                                        <div className="detailItem">
-                                            <span className="itemKey">End Time: </span>
-                                            <span className="itemValue">{timetable?.data.end_slot_time}</span>
+                                            <span className="itemKey">Reason for Leave: </span>
+                                            <span className="itemValue">{leaveform?.data.reason}</span>
                                         </div>
                                         {/* <div className="detailItem">
                                             <span className="itemKey">Status: </span>
-                                            <span className="itemValue">{timetable?.data.status}</span>
+                                            <span className="itemValue">{leaveform?.data.status}</span>
                                         </div> */}
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -109,4 +114,4 @@ const TimeTableSingle = () => {
     );
 };
 
-export default TimeTableSingle;
+export default HalfLeaveFormSingle;

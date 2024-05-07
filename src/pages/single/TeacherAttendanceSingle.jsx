@@ -9,7 +9,7 @@ const TeacherAttendanceSingle = () => {
     // Extracting teacher_attendanceId using regular expressions
     const location = useLocation();
     // const teacher_attendanceId = location.pathname.match(/\/class\/(\d+)/);
-    const teacher_attendanceId = location.pathname.match(/\/teacher_attendance\/(\d+)/)?.[1];
+    const teacher_attendanceId = location.pathname.match(/\/teacher-attendance\/(\d+)/)?.[1];
 
     const [teacher_attendance, setTeacher_attendance] = useState(null);
     let [token] = useState(localStorage.getItem("token"));
@@ -50,11 +50,7 @@ const TeacherAttendanceSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/teacher_attendance/upd_teacher_attendance/${teacher_attendanceId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                            
                                 <h1 className="title">Teacher Slot Details</h1>
                                     <div className="details">
                                         <h1 className="itemTitle">{teacher_attendance?.data.date}</h1>

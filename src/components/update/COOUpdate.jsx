@@ -12,7 +12,7 @@ const  COOUpdate = ({ title }) => {
 
     // Extracting cooId using regular expressions
     const location = useLocation();
-    const cooId = location.pathname.match(/\/upd_coo\/(\d+)/)?.[1];
+    const cooId = location.pathname.match(/\/update-coo\/(\d+)/)?.[1];
 
     // Initializing state
     // const [file, setFile] = useState(null);

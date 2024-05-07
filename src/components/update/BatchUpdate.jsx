@@ -23,7 +23,7 @@ const  BatchUpdate = ({ title }) => {
 
     // Extracting batchId using regular expressions
     const location = useLocation();
-    const batchId = location.pathname.match(/\/upd_batch\/(\d+)/)?.[1];
+    const batchId = location.pathname.match(/\/update-batch\/(\d+)/)?.[1];
 
     // Initializing state
     // const [file, setFile] = useState(null);

@@ -50,11 +50,7 @@ const GroupSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/group/upd_group/${groupId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                                
                                 <h1 className="title">Group Details</h1>
                                     <div className="details">
                                         <h1 className="itemTitle">{group?.data.name}</h1>

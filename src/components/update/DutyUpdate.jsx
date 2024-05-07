@@ -16,7 +16,7 @@ const  DutyUpdate = ({ title }) => {
 
     // Extracting dutyId using regular expressions
     const location = useLocation();
-    const dutyId = location.pathname.match(/\/upd_duty\/(\d+)/)?.[1];
+    const dutyId = location.pathname.match(/\/update-duty\/(\d+)/)?.[1];
     const center_id = localStorage.getItem('center_id');
     // Initializing state
     // const [file, setFile] = useState(null);

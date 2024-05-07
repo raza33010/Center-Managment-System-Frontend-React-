@@ -36,7 +36,7 @@ const TeacherAttendanceUpdate = ({ title }) => {
     const [Classoptions, setClassoptions] = useState([]);
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
     const center_id = localStorage.getItem('center_id');
-    const teacher_attendanceId = location.pathname.match(/\/upd_teacher_attendance\/(\d+)/)?.[1];
+    const teacher_attendanceId = location.pathname.match(/\/update-teacher-attendance\/(\d+)/)?.[1];
     console.log(teacher_attendanceId);
 
     let [token] = useState(localStorage.getItem("token"));

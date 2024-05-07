@@ -19,6 +19,7 @@ import TimeTableList from "./pages/list/TimeTableList";
 import TeacherAttendanceList from "./pages/list/TeacherAttendanceList";
 import SAwardList from "./pages/list/SAwardList";
 import LeaveFormList from "./pages/list/LeaveFormList";
+import HalfLeaveFormList from "./pages/list/HalfLeaveFormList";
 import AbsentFormList from "./pages/list/AbsentFormList";
 import DutyList from "./pages/list/DutyList";
 import GroupList from "./pages/list/GroupList";
@@ -61,6 +62,7 @@ import LateFormSingle from "./pages/single/LateFormSingle";
 import TimeTableSingle from "./pages/single/TimeTableSingle";
 import TeacherAttendanceSingle from "./pages/single/TeacherAttendanceSingle";
 import LeaveFormSingle from "./pages/single/LeaveFormSingle";
+import HalfLeaveFormSingle from "./pages/single/HalfLeaveFormSingle";
 import AbsentFormSingle from "./pages/single/AbsentFormSingle"; 
 import SubjectSingle from "./pages/single/SubjectSingle";
 import TeacherSingle from "./pages/single/TeacherSingle";
@@ -89,6 +91,7 @@ import LateFormNew from "./pages/new/LateFormNew";
 import TimeTableNew from "./pages/new/TimeTableNew";
 import TeacherAttendanceNew from "./pages/new/TeacherAttendanceNew";
 import LeaveFormNew from "./pages/new/LeaveFormNew";
+import HalfLeaveFormNew from "./pages/new/HalfLeaveFormNew";
 import AbsentFormNew from "./pages/new/AbsentFormNew";
 import SubjectNew from "./pages/new/SubjectNew";
 import TeacherNew from "./pages/new/TeacherNew";
@@ -117,13 +120,14 @@ import LateFormUpdate from "./components/update/LateFormUpdate";
 import TimeTableUpdate from "./components/update/TimeTableUpdate";
 import TeacherAttendanceUpdate from "./components/update/TeacherAttendanceUpdate";
 import LeaveFormUpdate from "./components/update/LeaveFormUpdate";
+import HalfLeaveFormUpdate from "./components/update/HalfLeaveFormUpdate";
 import AbsentFormUpdate from "./components/update/AbsentFormUpdate";
 import SubjectUpdate from "./components/update/SubjectUpdate";
 import TeacherUpdate from "./components/update/TeacherUpdate";
 import ResultUpdate from "./components/update/ResultUpdate";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { expenseInputs, quizInputs, studentInputs, lateformInputs, timetableInputs, teacher_attendanceInputs, leaveformInputs, absentformInputs, resultInputs, roleInputs, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, cchapterInputs, unitInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
+import { expenseInputs, quizInputs, studentInputs, lateformInputs, timetableInputs, teacher_attendanceInputs, leaveformInputs, halfleaveformInputs, absentformInputs, resultInputs, roleInputs, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, cchapterInputs, unitInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -153,7 +157,7 @@ function App() {
             <Route path="center">
               <Route index element={<CenterList />} />
               <Route path=":centerId" element={<CenterSingle />} />
-              <Route path="upd_center/:centerId" element={<CenterUpdate inputs={centerInputs} title="Update Center" />} />
+              <Route path="update-center/:centerId" element={<CenterUpdate inputs={centerInputs} title="Update Center" />} />
               <Route
                 path="new"
                 element={<CenterNew inputs={centerInputs} title="Add New Center" />}
@@ -163,7 +167,7 @@ function App() {
             <Route path="account">
               <Route index element={<AccountList />} />
               <Route path=":accountId" element={<AccountSingle />} />
-              <Route path="upd_account/:accountId" element={<AccountUpdate inputs={accountInputs} title="Update Account" />} />
+              <Route path="update-account/:accountId" element={<AccountUpdate inputs={accountInputs} title="Update Account" />} />
               <Route
                 path="new"
                 element={<AccountNew inputs={accountInputs} title="Add New Account" />}
@@ -173,7 +177,7 @@ function App() {
             <Route path="expense">
               <Route index element={<ExpenseList />} />
               <Route path=":expenseId" element={<ExpenseSingle />} />
-              <Route path="upd_expense/:expenseId" element={<ExpenseUpdate inputs={expenseInputs} title="Update Expense" />} />
+              <Route path="update-expense/:expenseId" element={<ExpenseUpdate inputs={expenseInputs} title="Update Expense" />} />
               <Route
                 path="new"
                 element={<ExpenseNew inputs={expenseInputs} title="Add New Expense" />}
@@ -183,7 +187,7 @@ function App() {
             <Route path="user">
               <Route index element={<UserList />} />
               <Route path=":userId" element={<UserSingle />} />
-              <Route path="upd_user/:userId" element={<UserUpdate inputs={userInputs} title="Update user" />} />
+              <Route path="update-user/:userId" element={<UserUpdate inputs={userInputs} title="Update user" />} />
               <Route
                 path="new"
                 element={<UserNew inputs={userInputs} title="Add New user" />}
@@ -193,7 +197,7 @@ function App() {
             <Route path="coo">
               <Route index element={<COOList />} />
               <Route path=":cooId" element={<COOSingle />} />
-              <Route path="upd_coo/:cooId" element={<COOUpdate inputs={cooInputs} title="Update COO" />} />
+              <Route path="update-coo/:cooId" element={<COOUpdate inputs={cooInputs} title="Update COO" />} />
               <Route
                 path="new"
                 element={<COONew inputs={cooInputsn} title="Add New COO" />}
@@ -203,7 +207,7 @@ function App() {
             <Route path="batch">
               <Route index element={<BatchList />} />
               <Route path=":batchId" element={<BatchSingle />} />
-              <Route path="upd_batch/:batchId" element={<BatchUpdate inputs={batchInputs} title="Update batch" />} />
+              <Route path="update-batch/:batchId" element={<BatchUpdate inputs={batchInputs} title="Update batch" />} />
               <Route
                 path="new"
                 element={<BatchNew inputs={batchInputs} title="Add New batch" />}
@@ -213,7 +217,7 @@ function App() {
             <Route path="class">
               <Route index element={<ClassList />} />
               <Route path=":classId" element={<ClassSingle />} />
-              <Route path="upd_class/:classId" element={<ClassUpdate inputs={classInputs} title="Update Class" />} />
+              <Route path="update-class/:classId" element={<ClassUpdate inputs={classInputs} title="Update Class" />} />
               <Route
                 path="new"
                 element={<ClassNew inputs={nclassInputs} title="Add New Class" />}
@@ -223,7 +227,7 @@ function App() {
             <Route path="duty">
               <Route index element={<DutyList />} />
               <Route path=":dutyId" element={<DutySingle />} />
-              <Route path="upd_duty/:dutyId" element={<DutyUpdate inputs={dutyInputs} title="Update Duty" />} />
+              <Route path="update-duty/:dutyId" element={<DutyUpdate inputs={dutyInputs} title="Update Duty" />} />
               <Route
                 path="new"
                 element={<DutyNew inputs={dutyInputs} title="Add New Duty" />}
@@ -232,39 +236,29 @@ function App() {
             <Route path="group">
               <Route index element={<GroupList />} />
               <Route path=":groupId" element={<GroupSingle />} />
-              <Route path="upd_group/:groupId" element={<GroupUpdate inputs={groupInputs} title="Update Group" />} />
+              <Route path="update-group/:groupId" element={<GroupUpdate inputs={groupInputs} title="Update Group" />} />
               <Route
                 path="new"
                 element={<GroupNew inputs={groupInputs} title="Add New Group" />}
               />
             </Route>
 
-            <Route path="account">
-              <Route index element={<AccountList />} />
-              <Route path=":accountId" element={<AccountSingle />} />
-              <Route path="upd_account/:accountId" element={<AccountUpdate inputs={accountInputs} title="Update Account" />} />
-              <Route
-                path="new"
-                element={<AccountNew inputs={accountInputs} title="Add New Account" />}
-              />
-            </Route>
-
-            <Route path="timetable">
+            <Route path="time-table">
                 <Route index element={<TimeTableList />} />
-                <Route path=":timetabletId" element={<TimeTableSingle />} />
-                <Route path="upd_timetable/:timetableId" element={<TimeTableUpdate inputs={timetableInputs} title="Update Slot" />} />
+                <Route path=":time-tabletId" element={<TimeTableSingle />} />
+                <Route path="update-time-table/:time-tableId" element={<TimeTableUpdate inputs={timetableInputs} title="Update Slot" />} />
                 <Route
                   path="new"
                   element={<TimeTableNew inputs={timetableInputs} title="Add New Slot" />}
                 />
               </Route>
 
-              <Route path="teacher_attendance">
+              <Route path="teacher-attendance">
                 <Route index element={<TeacherAttendanceList />} />
-                <Route path=":teacher_attendanceId" element={<TeacherAttendanceSingle />} />
-                <Route path="upd_teacher_attendance/:teacher_attendanceId" element={<TeacherAttendanceUpdate inputs={teacher_attendanceInputs} title="Update Slot" />} />
+                <Route path=":teacherattendanceId" element={<TeacherAttendanceSingle />} />
+                <Route path="update-teacher-attendance/:teacherattendanceId" element={<TeacherAttendanceUpdate inputs={teacher_attendanceInputs} title="Update Slot" />} />
                 <Route
-                  path="new/:teacher_attendanceId"
+                  path="new/:teacher-attendanceId"
                   element={<TeacherAttendanceNew inputs={teacher_attendanceInputs} title="Add Teacher Attendance" />}
                 />
               </Route>
@@ -283,34 +277,43 @@ function App() {
             <Route path="student">
               <Route index element={<StudentList />} />
               <Route path=":studentId" element={<StudentSingle />} />
-              <Route path="lform">
+              <Route path="late-form">
                 <Route index element={<LateFormList />} />
-                <Route path=":lformtId" element={<LateFormSingle />} />
-                <Route path="upd_lform/:lformId" element={<LateFormUpdate inputs={lateformInputs} title="Update Late Form" />} />
+                <Route path=":lateformtId" element={<LateFormSingle />} />
+                <Route path="update-late-form/:lateformId" element={<LateFormUpdate inputs={lateformInputs} title="Update Late Form" />} />
                 <Route
                   path="new"
                   element={<LateFormNew inputs={lateformInputs} title="Add New Late Form" />}
                 />
               </Route>
-              <Route path="leaveform">
+              <Route path="leave-form">
                 <Route index element={<LeaveFormList />} />
                 <Route path=":leaveformtId" element={<LeaveFormSingle />} />
-                <Route path="upd_leaveform/:leaveformId" element={<LeaveFormUpdate inputs={leaveformInputs} title="Update Leave Form" />} />
+                <Route path="update-leave-form/:leaveformId" element={<LeaveFormUpdate inputs={leaveformInputs} title="Update Leave Form" />} />
                 <Route
                   path="new"
                   element={<LeaveFormNew inputs={leaveformInputs} title="Add New Leave" />}
                 />
               </Route>
-              <Route path="absentform">
+              <Route path="half-leave-form">
+                <Route index element={<HalfLeaveFormList />} />
+                <Route path=":halfleaveformtId" element={<HalfLeaveFormSingle />} />
+                <Route path="update-half-leave-form/:halfleaveformId" element={<HalfLeaveFormUpdate inputs={halfleaveformInputs} title="Update Half Leave Form" />} />
+                <Route
+                  path="new"
+                  element={<HalfLeaveFormNew inputs={halfleaveformInputs} title="Add New Half Leave" />}
+                />
+              </Route>
+              <Route path="absent-form">
                 <Route index element={<AbsentFormList />} />
                 <Route path=":absentformId" element={<AbsentFormSingle />} />
-                <Route path="upd_absentform/:absentformId" element={<AbsentFormUpdate inputs={absentformInputs} title="Update Leave Form" />} />
+                <Route path="update-absent-form/:absentformId" element={<AbsentFormUpdate inputs={absentformInputs} title="Update Leave Form" />} />
                 <Route
                   path="new"
                   element={<AbsentFormNew inputs={absentformInputs} title="Add New Absent Form" />}
                 />
               </Route>
-              <Route path="upd_student/:studentId" element={<StudentUpdate inputs={studentInputs} title="Update Student" />} />
+              <Route path="update-student/:studentId" element={<StudentUpdate inputs={studentInputs} title="Update Student" />} />
               <Route
                 path="new"
                 element={<StudentNew inputs={studentInputs} title="Add New Student" />}

@@ -11,7 +11,7 @@ const  CenterUpdate = ({ title }) => {
 
     // Extracting centerId using regular expressions
     const location = useLocation();
-    const centerId = location.pathname.match(/\/upd_center\/(\d+)/)?.[1];
+    const centerId = location.pathname.match(/\/update-center\/(\d+)/)?.[1];
 
     // Initializing state
     const [file, setFile] = useState(null);
@@ -61,34 +61,38 @@ const  CenterUpdate = ({ title }) => {
     const handleUpdate = async (e) => {
         e.preventDefault();
 
-        const formData = {
-            id: centerId,
-            name: inputValues.name,
-            address: inputValues.address,
-            phone_no: inputValues.phone_no,
-            logo: file || "",
-            status: parseInt(inputValues.status),
-        };
+        // const formData = {
+        //     id: centerId,
+        //     name: inputValues.name,
+        //     address: inputValues.address,
+        //     phone_no: inputValues.phone_no,
+        //     logo: file || "",
+        //     status: parseInt(inputValues.status),
+        // };
+        const formData = new FormData();
 
+        formData.append("name", inputValues.name);
+        formData.append("address", inputValues.address);
+        formData.append("reason", inputValues.reason);
+        formData.append('logo', file || "");
+        formData.append('status', inputValues.status || 1);
         // Send formData to the server using an HTTP request to update
-        fetch('http://127.0.0.1:5000/upd_center/', {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData), // Pass the object as the body
-        })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                console.log("Response from API", data);
-                // Navigate to the desired page after API response
-                navigate(`/center/${centerId}`);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+                // Send formData to the server using an HTTP request to update
+                fetch(`http://127.0.0.1:5000/upd_center/${centerId}`, {
+                    method: "PUT",
+                    body: formData, // Pass the object as the body
+                })
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((data) => {
+                        console.log("Response from API", data);
+                        // Navigate to the desired page after API response
+                        navigate(`/center`);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
     };
 
 
@@ -152,7 +156,7 @@ const  CenterUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/center/${centerId}`)}
+                                            onClick={() => navigate(`/center`)}
                                         >
                                             Cancel
                                         </button>
