@@ -184,7 +184,7 @@ const  UserUpdate = ({ title }) => {
                 console.log('abbas1',formData)
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/user/${cooId}`);
+                navigate(`/user`);
             })
             .catch((error) => {
                 console.log(error);
@@ -259,7 +259,7 @@ const  UserUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/user/${cooId}`)}
+                                            onClick={() => navigate(`/user`)}
                                         >
                                             Cancel
                                         </button>

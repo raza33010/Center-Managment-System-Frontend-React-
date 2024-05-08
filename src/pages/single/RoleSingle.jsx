@@ -50,11 +50,7 @@ const RoleSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/role/upd_role/${roleId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                               
                                 <h1 className="title">User Role Information</h1>
                                     <div className="details">
                                         {/* <h1 className="itemTitle">{role?.data.name}</h1> */}

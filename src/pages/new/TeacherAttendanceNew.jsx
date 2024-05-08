@@ -296,7 +296,7 @@ const TeacherAttendanceNew = ({ title }) => {
             // Reset the form
             setInputValues({});
             showNotification("Slot has been added successfully!");
-            navigate('/timetable');
+            navigate('/teacher-attendance');
             
         } catch (error) {
           console.log(error);

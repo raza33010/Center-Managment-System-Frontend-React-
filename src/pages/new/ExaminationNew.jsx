@@ -5,6 +5,7 @@ import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState,useEffect } from "react";
 import { examinationInputs } from "../../formSource";
+import { useNavigate } from "react-router-dom";
 
 const PaperOptions = [
     { value: 'Monthly', label: 'Monthly' },
@@ -36,7 +37,7 @@ const ExaminationNew = ({ title }) => {
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
     const center_id = localStorage.getItem('center_id');
     let [token] = useState(localStorage.getItem("token"));
-
+const navigate = useNavigate
     const redirectToLogin = () => {
         alert("Plaese Login first then you can access this page...");
         window.location.href = '/'; // Replace "/login" with the actual login page path
@@ -208,6 +209,7 @@ const ExaminationNew = ({ title }) => {
             // setFile(""); // Clear the file
             setInputValues({});
             showNotification("Examination has been added successfully!");
+            navigate("/examination");
         } catch (error) {
           console.log(error);
         }

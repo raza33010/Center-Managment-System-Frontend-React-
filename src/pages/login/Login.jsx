@@ -4,9 +4,11 @@ import './login.scss';
 import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { data } from 'jquery';
+import { useSlug } from '../../SlugContext';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setSlugs } = useSlug()
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -59,7 +61,7 @@ const Login = () => {
           localStorage.setItem("email",admindata.email);
           localStorage.setItem("user_id",admindata.id);
           localStorage.setItem("role_id",admindata.role_id);
-          localStorage.setItem("slugs",admindata.slugs);
+          setSlugs(admindata.slugs);
           const admindataString = JSON.stringify(admindata);
 
           localStorage.setItem("admindata", admindataString);

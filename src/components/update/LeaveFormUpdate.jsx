@@ -114,7 +114,7 @@ const  LeaveFormUpdate = ({ title }) => {
             .then((data) => {
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/student/leaveform/${LeaveformId}`);
+                navigate(`/student/leave-form`);
             })
             .catch((error) => {
                 console.log(error);
@@ -182,7 +182,7 @@ const  LeaveFormUpdate = ({ title }) => {
                                     <div style={{ clear: "both" }} className="formUpdate">
                                         <button
                                             style={{ float: "right" }}
-                                        // onClick={() => navigate(`/categories/${LeaveformId}`)}
+                                        // onClick={() => navigate(`/categories`)}
                                         >
                                             Update
                                         </button>
@@ -191,7 +191,7 @@ const  LeaveFormUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/student/lform/${LeaveformId}`)}
+                                            onClick={() => navigate(`/student/leave-form`)}
                                         >
                                             Cancel
                                         </button>

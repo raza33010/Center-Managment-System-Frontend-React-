@@ -22,10 +22,12 @@ import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutli
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
+import { useSlug } from "../../SlugContext";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
-  const slugs = localStorage.getItem("slugs");
+   const { slugs } = useSlug();
+  console.log("slugs abbas",slugs)
   const linkStrings = {
     "/user": "User-Listing",
     "/coo": "Coo-Listing",
@@ -41,8 +43,8 @@ const Sidebar = () => {
     "/student": "Student-Listing",
     "/subject": "Subject-Listing",
     "/teacher": "Teacher-Listing",   
-    "/role": "User Role-Listing",
-    "/role-screen": "Role Screen-Listing",
+    "/role": "Userrole-Listing",
+    "/role-screen": "Rolescreen-Listing",
     "/examination": "Examination-Listing",
   };
   
@@ -164,7 +166,7 @@ const Sidebar = () => {
             </li>
           </Link>     
             <Link to="/role" style={{ textDecoration: "none" }}>
-            <li >
+            <li style={{ display: isLinkEnabled("/role") ? "block" : "none" }} >
               <RocketLaunchOutlinedIcon className="icon" />
               <span>User Role</span>
             </li>
@@ -177,7 +179,7 @@ const Sidebar = () => {
             </li>
           </Link>
           <Link to="/role-screen" style={{ textDecoration: "none" }}>
-            <li >
+            <li style={{ display: isLinkEnabled("/role-screen") ? "block" : "none" }} >
               <ScreenLockLandscapeOutlinedIcon  className="icon" />
               <span>Role Screen</span>
             </li>

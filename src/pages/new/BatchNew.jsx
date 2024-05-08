@@ -4,6 +4,7 @@ import Navbar from "../../components/navbar/Navbar";
 import { useState } from "react";
 import { batchInputs } from "../../formSource";
 import Select from 'react-select';
+import { useNavigate } from 'react-router-dom';
 
 const BatchOptions = [
     { value: 'Computer', label: 'Computer' },
@@ -13,6 +14,7 @@ const BatchOptions = [
   ];
 
 const BatchNew = ({ title }) => {
+    const navigate = useNavigate();
     // const [file, setFile] = useState("");
     const [inputValues, setInputValues] = useState({});
     const [notification, setNotification] = useState("");
@@ -65,6 +67,7 @@ const BatchNew = ({ title }) => {
             // setFile(""); // Clear the file
             setInputValues({});
             showNotification("Batch has been added successfully!");
+            navigate('/batch');
         } catch (error) {
           console.log(error);
         }

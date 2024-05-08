@@ -16,7 +16,7 @@ const  SubjectUpdate = ({ title }) => {
 
     // Extracting subId using regular expressions
     const location = useLocation();
-    const subId = location.pathname.match(/\/upd_subject\/(\d+)/)?.[1];
+    const subId = location.pathname.match(/\/update-subject\/(\d+)/)?.[1];
 
     // Initializing state
     // const [file, setFile] = useState(null);
@@ -174,7 +174,7 @@ const  SubjectUpdate = ({ title }) => {
                 console.log('abbas1',formData)
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/subject/${subId}`);
+                navigate(`/subject`);
             })
             .catch((error) => {
                 console.log(error);
@@ -239,7 +239,7 @@ const  SubjectUpdate = ({ title }) => {
                                     <div style={{ clear: "both" }} className="formUpdate">
                                         <button
                                             style={{ float: "right" }}
-                                        // onClick={() => navigate(`/categories/${subId}`)}
+                                        // onClick={() => navigate(`/categories`)}
                                         >
                                             Update
                                         </button>
@@ -248,7 +248,7 @@ const  SubjectUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/subject/${subId}`)}
+                                            onClick={() => navigate(`/subject`)}
                                         >
                                             Cancel
                                         </button>

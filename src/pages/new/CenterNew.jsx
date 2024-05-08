@@ -57,7 +57,7 @@ const CenterNew = ({ title }) => {
             setFile(""); // Clear the file
             setInputValues({});
             showNotification("Center has been added successfully!");
-            navigate('/student/absent-form');
+            navigate('/center');
         } catch (error) {
           console.log(error);
         }

@@ -155,7 +155,7 @@ const  DutyUpdate = ({ title }) => {
             .then((data) => {
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/duty/${dutyId}`);
+                navigate(`/duty`);
             })
             .catch((error) => {
                 console.log(error);
@@ -221,7 +221,7 @@ const  DutyUpdate = ({ title }) => {
                                     <div style={{ clear: "both" }} className="formUpdate">
                                         <button
                                             style={{ float: "right" }}
-                                        // onClick={() => navigate(`/class/${dutyId}`)}
+                                        // onClick={() => navigate(`/class`)}
                                         >
                                             Update
                                         </button>
@@ -230,7 +230,7 @@ const  DutyUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/duty/${dutyId}`)}
+                                            onClick={() => navigate(`/duty`)}
                                         >
                                             Cancel
                                         </button>

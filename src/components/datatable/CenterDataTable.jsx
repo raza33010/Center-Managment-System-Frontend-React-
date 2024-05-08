@@ -1,15 +1,16 @@
 import "./datatable.scss";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid"
 import { centerColumns, centerRows, fetchCenterRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSlug } from "../../SlugContext";
 
 const CenterDatatable = () => {
     const [data, setData] = useState(centerRows);
     const [loading, setLoading] = useState(false);
-    const slugs = localStorage.getItem("slugs");
-    
-
+    // const slugs = localStorage.getItem("slugs");
+    const { slugs } = useSlug();
+    console.log("slugs abbas",slugs)
     useEffect(() => {
         const getData = async () => {
             setLoading(true);

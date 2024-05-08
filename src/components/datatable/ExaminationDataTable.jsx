@@ -1,13 +1,14 @@
 import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid,GridToolbar } from "@mui/x-data-grid";
 import { examinationColumns, examinationRows, fetchExaminationRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSlug } from "../../SlugContext";
 
 const ExaminationDataTable = () => {
     const [data, setData] = useState(examinationRows);
     const [loading, setLoading] = useState(false);
-
+    const { slugs } = useSlug();
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
@@ -45,22 +46,32 @@ const ExaminationDataTable = () => {
             console.error('There was a problem with the fetch operation:', error);
           });
       };
+      const listingLinkString = "Awardlist-Listing";
+      const viewLinkString = "Examination-Single";
+      const editLinkString = "Examination-Edit";
+      const newLinkString = "Examination-New";
 
     const actionColumn = [
         {
             field: "action",
             headerName: "Action",
-            width: 200,
+            width: 300,
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
+                        {slugs && slugs.includes(listingLinkString) && (
                          <Link to={`/awardlist`} style={{ textDecoration: "none" }}>
                             <div className="viewButton" 
                             onClick={() => handleSaveID(params.row.id,params.row.class_id,params.row.total_marks)}>Award List</div>
-                        </Link>
+                        </Link>)}
+                        {slugs && slugs.includes(viewLinkString) && (
                         <Link to={`/examination/${params.row.id}`} style={{ textDecoration: "none" }}>
-                            <div className="viewButton">View</div>
-                        </Link>
+                        <div className="viewButton">View</div>
+                        </Link>)}
+                        {slugs && slugs.includes(editLinkString) && (
+                        <Link to={`/examination/update-examination/${params.row.id}`} style={{ textDecoration: "none" }}>
+                            <div className="editButton">Edit</div>
+                        </Link>)}
                         <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
@@ -76,9 +87,10 @@ const ExaminationDataTable = () => {
         <div className="datatable">
             <div className="datatableTitle">
                 Examination Details
+                {slugs && slugs.includes(newLinkString) && (
                 <Link to="/examination/new" className="link">
-                    Add New Exam
-                </Link>
+                    Add New
+                </Link>)}
             </div>
             {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
@@ -87,7 +99,9 @@ const ExaminationDataTable = () => {
                     columns={examinationColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
-                    // checkboxSelection
+                    components={{
+                        Toolbar: GridToolbar, // Include the GridToolbar in the Toolbar slot
+                    }}
                 />}
         </div>
     );

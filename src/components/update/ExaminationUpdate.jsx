@@ -34,7 +34,7 @@ const  ExaminationUpdate = ({ title }) => {
 
     // Extracting examinationId using regular expressions
     const location = useLocation();
-    const examinationId = location.pathname.match(/\/upd_examination\/(\d+)/)?.[1];
+    const examinationId = location.pathname.match(/\/update-examination\/(\d+)/)?.[1];
 
     // Initializing state
     const [file, setFile] = useState(null);
@@ -339,7 +339,7 @@ const  ExaminationUpdate = ({ title }) => {
             .then((data) => {
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/examination/${examinationId}`);
+                navigate(`/examination`);
             })
             .catch((error) => {
                 console.log(error);
@@ -455,7 +455,7 @@ const  ExaminationUpdate = ({ title }) => {
                                     <div style={{ clear: "both" }} className="formUpdate">
                                         <button
                                             style={{ float: "right" }}
-                                        // onClick={() => navigate(`/categories/${examinationId}`)}
+                                        // onClick={() => navigate(`/categories`)}
                                         >
                                             Update
                                         </button>
@@ -464,7 +464,7 @@ const  ExaminationUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/examination/${examinationId}`)}
+                                            onClick={() => navigate(`/examination`)}
                                         >
                                             Cancel
                                         </button>

@@ -63,7 +63,7 @@ const LateFormNew = ({ title }) => {
             // Reset the form
             setInputValues({});
             showNotification("Late Form has been added successfully!");
-            navigate('/student/lform');
+            navigate('/student/late-form');
             
         } catch (error) {
           console.log(error);

@@ -242,7 +242,7 @@ console.log(selectedAccount);
             .then((data) => {
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/expense/${expenseId}`);
+                navigate(`/expense`);
             })
             .catch((error) => {
                 console.log(error);
@@ -332,7 +332,7 @@ console.log(selectedAccount);
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/expense/${expenseId}`)}
+                                            onClick={() => navigate(`/expense`)}
                                         >
                                             Cancel
                                         </button>

@@ -3,9 +3,11 @@ import Select from 'react-select';
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { cooInputsn } from "../../formSource";
+import { useNavigate } from 'react-router-dom';
 
 
 const COONew = ({ title }) => {
+  const navigate = useNavigate();
   const [inputValues, setInputValues] = useState({});
   const [notification, setNotification] = useState("");
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
@@ -124,6 +126,7 @@ const COONew = ({ title }) => {
             // setFile(""); // Clear the file
             setInputValues({});
             showNotification("COO has been added successfully!");
+            navigate('/coo');
         } catch (error) {
           console.log(error);
         }

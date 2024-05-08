@@ -50,11 +50,7 @@ const SubjectSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/subject/upd_subject/${subjectId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                               
                                 <h1 className="title">Subject Information</h1>
                                     <div className="details">
                                         {/* <h1 className="itemTitle">{subject?.data.name}</h1> */}

@@ -3,11 +3,12 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { groupColumns, groupRows, fetchGroupRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSlug } from "../../SlugContext";
 
 const GroupDataTable = () => {
     const [data, setData] = useState(groupRows);
     const [loading, setLoading] = useState(false);
-    const slugs = localStorage.getItem("slugs");
+    const { slugs } = useSlug();
 
     useEffect(() => {
         const getData = async () => {

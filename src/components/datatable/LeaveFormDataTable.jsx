@@ -3,12 +3,13 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { leaveformColumns, leaveformRows, fetchLeaveformRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSlug } from "../../SlugContext";
 
 const LeaveFormDataTable = () => {
     const [data, setData] = useState(leaveformRows);
     const [loading, setLoading] = useState(false);
     const studentName = localStorage.getItem('student_name');
-    const slugs = localStorage.getItem("slugs");
+    const { slugs } = useSlug();
     useEffect(() => {
         const getData = async () => {
             setLoading(true);

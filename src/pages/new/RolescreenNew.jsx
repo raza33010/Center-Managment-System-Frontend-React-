@@ -54,7 +54,7 @@ const RolescreenNew = ({ title }) => {
             // setFile(""); // Clear the file
             setInputValues({});
             showNotification("Role Screen has been added successfully!");
-            navigate(`/rscreen`);
+            navigate(`/role-screen`);
         } catch (error) {
           console.log(error);
         }

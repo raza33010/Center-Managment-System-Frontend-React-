@@ -50,11 +50,7 @@ const TeacherSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/teacher/upd_teacher/${teacherId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                               
                                 <h1 className="title">Teacher Information</h1>
                                     <div className="details">
                                         {/* <h1 className="itemTitle">{teacher?.data.name}</h1> */}

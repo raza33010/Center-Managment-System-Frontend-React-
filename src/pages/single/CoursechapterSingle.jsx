@@ -9,7 +9,7 @@ const CourseChapterSingle = () => {
     // Extracting cchapter_id using regular expressions
     const location = useLocation();
     // const cchapter_id = location.pathname.match(/\/class\/(\d+)/);
-    const cchapter_id = location.pathname.match(/\/cchapter\/(\d+)/)?.[1];
+    const cchapter_id = location.pathname.match(/\/course-chapter\/(\d+)/)?.[1];
 
     const [cchapter, setCchapter] = useState(null);
     let [token] = useState(localStorage.getItem("token"));

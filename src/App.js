@@ -131,11 +131,13 @@ import { expenseInputs, quizInputs, studentInputs, lateformInputs, timetableInpu
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
+import { SlugProvider } from "./SlugContext";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
   return (
     <div className={darkMode ? "app dark" : "app"}>
+       <SlugProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/">
@@ -322,16 +324,16 @@ function App() {
 
             <Route path="subject">
               <Route index element={<SubjectList />} />
-              <Route path=":studentId" element={<SubjectSingle />} />
-              <Route path="upd_subject/:subjectId" element={<SubjectUpdate inputs={subjectInputs} title="Update Subject" />} />
+              <Route path=":subjectId" element={<SubjectSingle />} />
+              <Route path="update-subject/:subjectId" element={<SubjectUpdate inputs={subjectInputs} title="Update Subject" />} />
               <Route
                 path="new"
                 element={<SubjectNew inputs={nsubjectInputs} title="Add New Subject" />}
               />
-              <Route path="cchapter">
+              <Route path="course-chapter">
               <Route index element={<CoursechapterList />} />
-              <Route path=":cchapterId" element={<CourseChapterSingle />} />
-              <Route path="upd_cchapter/:cchapterId" element={<CourseChapterUpdate inputs={cchapterInputs} title="Update Chapter" />} />
+              <Route path=":coursechapterId" element={<CourseChapterSingle />} />
+              <Route path="update-course-chapter/:coursechapterId" element={<CourseChapterUpdate inputs={cchapterInputs} title="Update Chapter" />} />
               <Route
                 path="new"
                 element={<CourseChapterNew inputs={cchapterInputs} title="Add New Chapter" />}
@@ -339,7 +341,7 @@ function App() {
               <Route path="unit">
               <Route index element={<UnitList />} />
               <Route path=":unitId" element={<UnitSingle />} />
-              <Route path="upd_unit/:unitId" element={<UnitUpdate inputs={unitInputs}  title="Update Unit" />} />
+              <Route path="update-unit/:unitId" element={<UnitUpdate inputs={unitInputs}  title="Update Unit" />} />
               <Route
                 path="new"
                 element={<UnitNew inputs={unitInputs} title="Add New Unit" />}
@@ -351,7 +353,7 @@ function App() {
             <Route path="teacher">
               <Route index element={<TeacherList />} />
               <Route path=":teacherId" element={<TeacherSingle />} />
-              <Route path="upd_teacher/:teacherId" element={<TeacherUpdate inputs={teacherInputs} title="Update Teacher" />} />
+              <Route path="update-teacher/:teacherId" element={<TeacherUpdate inputs={teacherInputs} title="Update Teacher" />} />
               <Route
                 path="new"
                 element={<TeacherNew inputs={teacherInputs} title="Add New Teacher" />}
@@ -371,7 +373,7 @@ function App() {
             <Route path="role">
               <Route index element={<RoleList />} />
               <Route path=":roleId" element={<RoleSingle />} />
-              <Route path="upd_role/:roleId" element={< RoleUpdate inputs={roleInputs} title="Update User Role" />} />
+              <Route path="update-role/:roleId" element={< RoleUpdate inputs={roleInputs} title="Update User Role" />} />
               <Route
                 path="new"
                 element={<RoleNew inputs={roleInputs} title="Add New Role" />}
@@ -388,10 +390,10 @@ function App() {
               />
             </Route>
 
-            <Route path="rscreen">
+            <Route path="role-screen">
               <Route index element={<RolescreenList />} />
               <Route path=":rscreenId" element={<RolescreenSingle />} />
-              <Route path="upd_rscreen/:rscreenId" element={<RolescreenUpdate inputs={rolescreenInputs} title="Update Role Screen" />} />
+              <Route path="update-role-screen/:rscreenId" element={<RolescreenUpdate inputs={rolescreenInputs} title="Update Role Screen" />} />
               <Route
                 path="new"
                 element={<RolescreenNew inputs={rolescreenInputs} title="Add New Role Screen" />}
@@ -401,7 +403,7 @@ function App() {
             <Route path="examination">
               <Route index element={<ExaminationList />} />
               <Route path=":examinationId" element={<ExaminationSingle />} />
-              <Route path="upd_examination/:examinationId" element={<ExaminationUpdate inputs={examinationInputs} title="Update Exam" />} />
+              <Route path="update-examination/:examinationId" element={<ExaminationUpdate inputs={examinationInputs} title="Update Exam" />} />
               <Route
                 path="new"
                 element={<ExaminationNew inputs={examinationInputs} title="Add New Exam" />}
@@ -450,7 +452,9 @@ function App() {
 
           </Route>
         </Routes>
+        
       </BrowserRouter>
+          </SlugProvider>
     </div>
   );
 }

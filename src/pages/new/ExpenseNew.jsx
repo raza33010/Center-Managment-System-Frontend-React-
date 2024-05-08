@@ -2,25 +2,14 @@ import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Select from 'react-select';
 import Navbar from "../../components/navbar/Navbar";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
+import { useNavigate } from 'react-router-dom';
 import { useState,useEffect } from "react";
 import { expenseInputs } from "../../formSource";
 
-const PaperOptions = [
-    { value: 'Monthly', label: 'Monthly' },
-    { value: 'Module-1', label: 'Module-1' },
-    { value: 'Module-2', label: 'Module-2' },
-    { value: 'Module-3', label: 'Module-3' },
-    { value: 'Mock', label: 'Mock' },
-    { value: 'Preliam', label: 'Preliam' },
-  ];
 
-  const CheckingOptions = [
-    { value: 'Done', label: 'Done' },
-    { value: 'Not Done', label: 'Not Done' },
-  ];
 
 const ExpenseNew = ({ title }) => {
+  const navigate = useNavigate();
     // const [file, setFile] = useState("");
     const [inputValues, setInputValues] = useState({});
     const [notification, setNotification] = useState("");
@@ -187,6 +176,7 @@ const ExpenseNew = ({ title }) => {
             // setFile(""); // Clear the file
             setInputValues({});
             showNotification("Examination has been added successfully!");
+            navigate('/expense');
         } catch (error) {
           console.log(error);
         }
@@ -260,20 +250,6 @@ const ExpenseNew = ({ title }) => {
                                                 options={useroptions}
                                                 name={input.fieldName}
                                                 onChange={handleUserSelectChange}
-                                                required
-                                                />
-                                            ) : input.fieldName === "checking_status" ? (
-                                                <Select
-                                                options={CheckingOptions}
-                                                name={input.fieldName}
-                                                onChange={handleCheckSelectChange}
-                                                required
-                                                />
-                                            ) :input.fieldName === "type" ? (
-                                                <Select
-                                                options={PaperOptions}
-                                                name={input.fieldName}
-                                                onChange={handlePaperSelectChange}
                                                 required
                                                 />
                                             ) : (

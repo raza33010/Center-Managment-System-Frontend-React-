@@ -4,10 +4,12 @@ import Navbar from "../../components/navbar/Navbar";
 import { useState,useEffect } from "react";
 import Select from 'react-select';
 import { nsubjectInputs } from "../../formSource";
+import { useNavigate } from "react-router-dom";
 
 
 const SubjectNew = ({ title }) => {
-    // const [file, setFile] = useState("");
+    // const [file, setFile] = useState("");\\
+    const navigate = useNavigate();
     const [inputValues, setInputValues] = useState({});
     const [notification, setNotification] = useState("");
     const [roptions, setRoptions] = useState([]);
@@ -143,6 +145,7 @@ const SubjectNew = ({ title }) => {
             // setFile(""); // Clear the file
             setInputValues({});
             showNotification("Subject has been added successfully!");
+            navigate('/subject');
         } catch (error) {
           console.log(error);
         }

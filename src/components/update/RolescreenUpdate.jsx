@@ -15,7 +15,7 @@ const  RolescreenUpdate = ({ title }) => {
 
     // Extracting rolescreenId using regular expressions
     const location = useLocation();
-    const rolescreenId = location.pathname.match(/\/upd_rscreen\/(\d+)/)?.[1];
+    const rolescreenId = location.pathname.match(/\/update-role-screen\/(\d+)/)?.[1];
 
     // Initializing state
     // const [file, setFile] = useState(null);
@@ -98,7 +98,7 @@ const  RolescreenUpdate = ({ title }) => {
                 console.log('abbas1',formData)
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/rscreen/${rolescreenId}`);
+                navigate(`/role-screen`);
             })
             .catch((error) => {
                 console.log(error);
@@ -156,7 +156,7 @@ const  RolescreenUpdate = ({ title }) => {
                                     <div style={{ clear: "both" }} className="formUpdate">
                                         <button
                                             style={{ float: "right" }}
-                                        // onClick={() => navigate(`/categories/${rolescreenId}`)}
+                                        // onClick={() => navigate(`/cateole-gories`)}
                                         >
                                             Update
                                         </button>
@@ -165,7 +165,7 @@ const  RolescreenUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/rscreen/${rolescreenId}`)}
+                                            onClick={() => navigate(`/role-screen`)}
                                         >
                                             Cancel
                                         </button>

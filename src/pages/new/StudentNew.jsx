@@ -5,6 +5,8 @@ import Select from 'react-select';
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState,useEffect } from "react";
 import { studentInputs } from "../../formSource";
+import { useNavigate } from 'react-router-dom';
+
 
 const PaperOptions = [
     { value: 'A+', label: 'A+' },
@@ -33,6 +35,7 @@ const StudentNew = ({ title }) => {
     const [batchoptions, setBatchoptions] = useState([]);
     const [groupoptions, setGroupoptions] = useState([]);
     const center_id = localStorage.getItem('center_id');
+    const navigate = useNavigate();
     let [token] = useState(localStorage.getItem("token"));
 
     const redirectToLogin = () => {
@@ -209,6 +212,7 @@ const StudentNew = ({ title }) => {
             setFile_2("")
             setInputValues({});
             showNotification("Student has been added successfully!");
+            navigate('/student');
         } catch (error) {
           console.log(error);
         }

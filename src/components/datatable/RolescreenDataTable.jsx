@@ -1,13 +1,14 @@
 import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid,GridToolbar } from "@mui/x-data-grid";
 import { rolescreenColumns, rolescreenRows, fetchRolescreenRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSlug } from "../../SlugContext";
 
 const RolescreenDataTable = () => {
     const [data, setData] = useState(rolescreenRows);
     const [loading, setLoading] = useState(false);
-
+    const { slugs } = useSlug();
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
@@ -38,7 +39,9 @@ const RolescreenDataTable = () => {
             console.error('There was a problem with the fetch operation:', error);
           });
       };
-
+      const viewLinkString = "Rolescreen-Single";
+      const editLinkString = "Rolescreen-Edit";
+      const newLinkString = "Rolescreen-New";
     const actionColumn = [
         {
             field: "action",
@@ -47,9 +50,14 @@ const RolescreenDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to={`/rscreen/${params.row.id}`} style={{ textDecoration: "none" }}>
-                            <div className="viewButton">View</div>
-                        </Link>
+                         {slugs && slugs.includes(viewLinkString) && (
+                        <Link to={`/role-screen/${params.row.id}`} style={{ textDecoration: "none" }}>
+                        <div className="viewButton">View</div>
+                        </Link>)}
+                        {slugs && slugs.includes(editLinkString) && (
+                        <Link to={`/role-screen/update-role-screen/${params.row.id}`} style={{ textDecoration: "none" }}>
+                            <div className="editButton">Edit</div>
+                        </Link>)}
                         <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
@@ -64,10 +72,11 @@ const RolescreenDataTable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New Role Screen
-                <Link to="/rscreen/new" className="link">
+                Role Screens
+                {slugs && slugs.includes(newLinkString) && (
+                <Link to="/role-screen/new" className="link">
                     Add New
-                </Link>
+                </Link>)}
             </div>
             {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
@@ -76,7 +85,9 @@ const RolescreenDataTable = () => {
                     columns={rolescreenColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
-                    // checkboxSelection
+                    components={{
+                        Toolbar: GridToolbar, // Include the GridToolbar in the Toolbar slot
+                    }}
                 />}
         </div>
     );

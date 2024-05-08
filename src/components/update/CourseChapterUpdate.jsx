@@ -17,7 +17,7 @@ const  CourseChapterUpdate = ({ title }) => {
 
     // Extracting cchapterId using regular expressions
     const location = useLocation();
-    const cchapterId = location.pathname.match(/\/upd_cchapter\/(\d+)/)?.[1];
+    const cchapterId = location.pathname.match(/\/update-course-chapter\/(\d+)/)?.[1];
 
     // Initializing state
     // const [file, setFile] = useState(null);
@@ -107,7 +107,7 @@ const  CourseChapterUpdate = ({ title }) => {
                 console.log('abbas1',formData)
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/subject/cchapter/${cchapterId}`);
+                navigate(`/subject/course-chapter`);
             })
             .catch((error) => {
                 console.log(error);
@@ -164,7 +164,7 @@ const  CourseChapterUpdate = ({ title }) => {
                                     <div style={{ clear: "both" }} className="formUpdate">
                                         <button
                                             style={{ float: "right" }}
-                                        // onClick={() => navigate(`/class/${cchapterId}`)}
+                                        // onClick={() => navigatecourse-`/class`)}
                                         >
                                             Update
                                         </button>
@@ -173,7 +173,7 @@ const  CourseChapterUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/subject/cchapter/${cchapterId}`)}
+                                            onClick={() => navigate(`/subject/course-chapter`)}
                                         >
                                             Cancel
                                         </button>

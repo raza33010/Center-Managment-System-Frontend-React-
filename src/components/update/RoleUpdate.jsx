@@ -15,7 +15,7 @@ const  RoleUpdate = ({ title }) => {
 
     // Extracting roleId using regular expressions
     const location = useLocation();
-    const roleId = location.pathname.match(/\/upd_role\/(\d+)/)?.[1];
+    const roleId = location.pathname.match(/\/update-role\/(\d+)/)?.[1];
     const [selectedSubject, setSelectedSubject] = useState([]);
     const [subjectoptions, setSubjectoptions] = useState([]);
     const [selectedStatus, setSelectedStatus] = useState(null);
@@ -150,7 +150,7 @@ const  RoleUpdate = ({ title }) => {
             .then((data) => {
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/role/${roleId}`);
+                navigate(`/role`);
             })
             .catch((error) => {
                 console.log(error);
@@ -216,7 +216,7 @@ const  RoleUpdate = ({ title }) => {
                                     <div style={{ clear: "both" }} className="formUpdate">
                                         <button
                                             style={{ float: "right" }}
-                                        // onClick={() => navigate(`/categories/${roleId}`)}
+                                        // onClick={() => navigate(`/categories`)}
                                         >
                                             Update
                                         </button>
@@ -225,7 +225,7 @@ const  RoleUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/role/${roleId}`)}
+                                            onClick={() => navigate(`/role`)}
                                         >
                                             Cancel
                                         </button>

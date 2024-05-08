@@ -4,6 +4,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useState, useEffect } from "react";
 import { nclassInputs } from "../../formSource";
+import { useNavigate } from 'react-router-dom';
 const classOptions = [
     { value: 'IX', label: 'IX' },
     { value: 'X', label: 'X' },
@@ -13,6 +14,7 @@ const classOptions = [
 
 const ClassNew = ({ title }) => {
     // const [file, setFile] = useState("");
+    const navigate = useNavigate();
     const [inputValues, setInputValues] = useState({});
     const [soptions, setSoptions] = useState([]);
     const [notification, setNotification] = useState("");
@@ -117,6 +119,7 @@ const ClassNew = ({ title }) => {
             // setFile(""); // Clear the file
             setInputValues({});
             showNotification("Class has been added successfully!");
+            navigate('/class');
         } catch (error) {
           console.log(error);
         }

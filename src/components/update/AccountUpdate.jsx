@@ -61,21 +61,20 @@ const  AccountUpdate = ({ title }) => {
     const handleUpdate = async (e) => {
         e.preventDefault();
 
-        const formData = {
-            id: accountId,
-            center_id: inputValues.center_id,
-            user_id: inputValues.user_id,
-            description: inputValues.description,
-            bank_id: inputValues.bank_id,
-            amount: inputValues.amount,
-            transaction_id: inputValues.transaction_id,
-            transaction_type: inputValues.transaction_type,
-            status: parseInt(inputValues.status),
-        };
-        console.log("Abbas",formData)
+        const formData = new FormData();
+
+        formData.append("center_id", inputValues.center_id);
+        formData.append("user_id", inputValues.user_id);
+        formData.append("description", inputValues.description);
+        formData.append("bank_id", inputValues.bank_id);
+        formData.append("amount", inputValues.amount);
+        formData.append("address", inputValues.address);
+        formData.append("transaction_id", inputValues.transaction_id);
+        formData.append("transaction_type", inputValues.transaction_type);
+        formData.append('status', inputValues.status || 1);
 
         // Send formData to the server using an HTTP request to update
-        fetch('http://127.0.0.1:5000/upd_account/', {
+        fetch(`http://127.0.0.1:5000/upd_account/${accountId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -88,7 +87,7 @@ const  AccountUpdate = ({ title }) => {
             .then((data) => {
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/account/${accountId}`);
+                navigate(`/account`);
             })
             .catch((error) => {
                 console.log(error);
@@ -145,7 +144,7 @@ const  AccountUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/account/${accountId}`)}
+                                            onClick={() => navigate(`/account`)}
                                         >
                                             Cancel
                                         </button>

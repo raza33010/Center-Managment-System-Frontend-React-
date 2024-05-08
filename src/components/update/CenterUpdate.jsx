@@ -60,15 +60,6 @@ const  CenterUpdate = ({ title }) => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-
-        // const formData = {
-        //     id: centerId,
-        //     name: inputValues.name,
-        //     address: inputValues.address,
-        //     phone_no: inputValues.phone_no,
-        //     logo: file || "",
-        //     status: parseInt(inputValues.status),
-        // };
         const formData = new FormData();
 
         formData.append("name", inputValues.name);

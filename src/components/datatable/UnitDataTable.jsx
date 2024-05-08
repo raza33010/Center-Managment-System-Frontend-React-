@@ -1,13 +1,14 @@
 import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { unitColumns, unitRows, fetchUnitRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSlug } from "../../SlugContext";
 
 const UnitDataTable = () => {
     const [data, setData] = useState(unitRows);
     const [loading, setLoading] = useState(false);
-
+    const { slugs } = useSlug();
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
@@ -21,7 +22,7 @@ const UnitDataTable = () => {
 
     const handleDelete = (id) => {
         // Make a DELETE request to the Flask API endpoint
-        fetch(`http://127.0.0.1:5000/del_cchapter/${id}`, {
+        fetch(`http://127.0.0.1:5000/del_unit/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -38,7 +39,9 @@ const UnitDataTable = () => {
             console.error('There was a problem with the fetch operation:', error);
           });
       };
-
+      const viewLinkString = "Unit-Single";
+      const editLinkString = "Unit-Edit";
+      const newLinkString = "Unit-New";
       const actionColumn = [
         {
             field: "action",
@@ -47,9 +50,14 @@ const UnitDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to={`/subject/cchapter/unit/${params.row.id}`} style={{ textDecoration: "none" }}>
-                            <div className="viewButton">View</div>
-                        </Link>
+                        {slugs && slugs.includes(viewLinkString) && (
+                        <Link to={`/subject/course-chapter/unit/${params.row.id}`} style={{ textDecoration: "none" }}>
+                        <div className="viewButton">View</div>
+                        </Link>)}
+                        {slugs && slugs.includes(editLinkString) && (
+                        <Link to={`/subject/course-chapter/unit/update-unit/${params.row.id}`} style={{ textDecoration: "none" }}>
+                            <div className="editButton">Edit</div>
+                        </Link>)}
                         <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
@@ -65,9 +73,10 @@ const UnitDataTable = () => {
         <div className="datatable">
             <div className="datatableTitle">
                 Units
-                <Link to="/subject/cchapter/unit/new" className="link">
-                    Add New Unit
-                </Link>
+                {slugs && slugs.includes(newLinkString) && (
+                <Link to="/subject/course-chapter/unit/new" className="link">
+                    Add New
+                </Link>)}
             </div>
             {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
@@ -76,7 +85,9 @@ const UnitDataTable = () => {
                     columns={unitColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
-                    // checkboxSelection
+                    components={{
+                        Toolbar: GridToolbar, // Include the GridToolbar in the Toolbar slot
+                    }}
                 />}
         </div>
     );

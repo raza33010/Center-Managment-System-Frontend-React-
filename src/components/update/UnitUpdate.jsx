@@ -17,7 +17,7 @@ const  UnitUpdate = ({ title }) => {
 
     // Extracting unitId using regular expressions
     const location = useLocation();
-    const unitId = location.pathname.match(/\/upd_unit\/(\d+)/)?.[1];
+    const unitId = location.pathname.match(/\/update-unit\/(\d+)/)?.[1];
 
     // Initializing state
     // const [file, setFile] = useState(null);
@@ -102,7 +102,7 @@ const  UnitUpdate = ({ title }) => {
                 console.log('abbas1',formData)
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/subject/cchapter/unit/${unitId}`);
+                navigate(`/subject/course-chapter/unit`);
             })
             .catch((error) => {
                 console.log(error);
@@ -159,7 +159,7 @@ const  UnitUpdate = ({ title }) => {
                                     <div style={{ clear: "both" }} className="formUpdate">
                                         <button
                                             style={{ float: "right" }}
-                                        // onClick={() => navigate(`/class/${unitId}`)}
+                                        // onClick={() => navigate(`/class`)}
                                         >
                                             Update
                                         </button>
@@ -168,7 +168,7 @@ const  UnitUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/subject/cchapter/${unitId}`)}
+                                            onClick={() => navigate(`/subject/course-chapter/unit`)}
                                         >
                                             Cancel
                                         </button>

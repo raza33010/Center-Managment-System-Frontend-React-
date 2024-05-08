@@ -2,7 +2,7 @@ import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Select from 'react-select';
 import Navbar from "../../components/navbar/Navbar";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
+import { useNavigate } from 'react-router-dom';
 import { useState,useEffect } from "react";
 import { dutyInputs } from "../../formSource";
 
@@ -15,6 +15,7 @@ const JobOptions = [
 
 const DutyNew = ({ title }) => {
     // const [file, setFile] = useState("");
+    const navigate = useNavigate();
     const [inputValues, setInputValues] = useState({});
     const [notification, setNotification] = useState("");
     const [useroptions, setUseroptions] = useState([]);
@@ -106,6 +107,7 @@ const DutyNew = ({ title }) => {
             // setFile(""); // Clear the file
             setInputValues({});
             showNotification("Duty has been added successfully!");
+            navigate('/duty');
         } catch (error) {
           console.log(error);
         }

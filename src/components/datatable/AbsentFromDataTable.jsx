@@ -3,12 +3,13 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { absentformColumns, absentformRows, fetchAbsentformRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSlug } from "../../SlugContext";
 
 const AbsentFormDataTable = () => {
     const [data, setData] = useState(absentformRows);
     const [loading, setLoading] = useState(false);
     const studentName = localStorage.getItem('student_name');
-    const slugs = localStorage.getItem("slugs");
+    const { slugs } = useSlug();
     useEffect(() => {
         const getData = async () => {
             setLoading(true);

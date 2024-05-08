@@ -3,11 +3,12 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { batchColumns, batchRows, fetchBatchRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSlug } from "../../SlugContext";
 
 const BatchDataTable = () => {
     const [data, setData] = useState(batchRows);
     const [loading, setLoading] = useState(false);
-    const slugs = localStorage.getItem("slugs");
+    const { slugs } = useSlug();
 
     useEffect(() => {
         const getData = async () => {

@@ -1,16 +1,16 @@
 import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid,GridToolbar } from "@mui/x-data-grid";
 import { sawardlistColumns, sawardlistRows, fetchSAwardlistRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-
+import { useSlug } from "../../SlugContext";
 
 
 
 const SAwardlistDataTable = () => {
     const [data, setData] = useState(sawardlistRows);
     const [loading, setLoading] = useState(false);
-    const studentName = localStorage.getItem('student_name')
+    const { slugs } = useSlug();
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
@@ -47,7 +47,7 @@ const SAwardlistDataTable = () => {
             console.error('There was a problem with the fetch operation:', error);
           });
       };
-      
+      const viewLinkString = "Awardlist-Addnumber";
 
     const actionColumn = [
         {
@@ -57,13 +57,14 @@ const SAwardlistDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
+                         {slugs && slugs.includes(viewLinkString) && (
                         <Link
                             to={`/awardlist/by_id`}
                             style={{ textDecoration: "none" }}
                             onClick={() => handleAddNumber(params.row.id, params.row.name)}
                         >
                             <div className="viewButton">+ Add Number</div>
-                        </Link>
+                        </Link>)}
                         {/* <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
@@ -90,7 +91,9 @@ const SAwardlistDataTable = () => {
                     columns={sawardlistColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
-                    // checkboxSelection
+                    components={{
+                        Toolbar: GridToolbar, // Include the GridToolbar in the Toolbar slot
+                    }}
                 />}
         </div>
     );

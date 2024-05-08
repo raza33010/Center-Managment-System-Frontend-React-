@@ -59,7 +59,7 @@ const UnitNew = ({ title }) => {
             // setFile(""); // Clear the file
             setInputValues({});
             showNotification("Unit has been added successfully!");
-            navigate(`/subject/cchapter/unit`);
+            navigate(`/subject/course-chapter/unit`);
         } catch (error) {
           console.log(error);
         }

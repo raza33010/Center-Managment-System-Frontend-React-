@@ -1,13 +1,15 @@
 import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
+import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import { accountInputs } from "../../formSource";
 
 
 const AccountNew = ({ title }) => {
     // const [file, setFile] = useState("");
+    
+    const navigate = useNavigate();
     const [inputValues, setInputValues] = useState({});
     const [notification, setNotification] = useState("");
     const [isNotificationVisible, setIsNotificationVisible] = useState(false);
@@ -59,6 +61,7 @@ const AccountNew = ({ title }) => {
             // setFile(""); // Clear the file
             setInputValues({});
             showNotification("Account has been added successfully!");
+             navigate('/account');
         } catch (error) {
           console.log(error);
         }

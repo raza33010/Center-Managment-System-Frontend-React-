@@ -3,11 +3,12 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { classColumns, classRows, fetchClassRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSlug } from "../../SlugContext";
 
 const ClassDataTable = () => {
     const [data, setData] = useState(classRows);
     const [loading, setLoading] = useState(false);
-    const slugs = localStorage.getItem("slugs");
+    const { slugs } = useSlug();
 
     useEffect(() => {
         const getData = async () => {

@@ -25,7 +25,7 @@ const  TeacherUpdate = ({ title }) => {
 
     // Extracting teacherId using regular expressions
     const location = useLocation();
-    const teacherId = location.pathname.match(/\/upd_teacher\/(\d+)/)?.[1];
+    const teacherId = location.pathname.match(/\/update-teacher\/(\d+)/)?.[1];
     const center_id = localStorage.getItem('center_id');
     // Initializing state
     const [selectedStatus, setSelectedStatus] = useState(null);
@@ -246,7 +246,7 @@ const  TeacherUpdate = ({ title }) => {
             .then((data) => {
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/teacher/${teacherId}`);
+                navigate(`/teacher`);
             })
             .catch((error) => {
                 console.log(error);
@@ -317,7 +317,7 @@ const  TeacherUpdate = ({ title }) => {
                                     <div style={{ clear: "both" }} className="formUpdate">
                                         <button
                                             style={{ float: "right" }}
-                                        // onClick={() => navigate(`/categories/${teacherId}`)}
+                                        // onClick={() => navigate(`/categories`)}
                                         >
                                             Update
                                         </button>
@@ -326,7 +326,7 @@ const  TeacherUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/student/lform/${teacherId}`)}
+                                            onClick={() => navigate(`/teacher`)}
                                         >
                                             Cancel
                                         </button>

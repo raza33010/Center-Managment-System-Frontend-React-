@@ -269,7 +269,7 @@ const  GroupUpdate = ({ title }) => {
             .then((data) => {
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/group/${groupId}`);
+                navigate(`/group`);
             })
             .catch((error) => {
                 console.log(error);
@@ -359,7 +359,7 @@ const  GroupUpdate = ({ title }) => {
                                     <div style={{ clear: "both" }} className="formUpdate">
                                         <button
                                             style={{ float: "right" }}
-                                        // onClick={() => navigate(`/class/${groupId}`)}
+                                        // onClick={() => navigate(`/class`)}
                                         >
                                             Update
                                         </button>
@@ -368,7 +368,7 @@ const  GroupUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/group/${groupId}`)}
+                                            onClick={() => navigate(`/group`)}
                                         >
                                             Cancel
                                         </button>

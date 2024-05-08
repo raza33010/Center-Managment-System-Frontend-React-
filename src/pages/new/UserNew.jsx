@@ -3,8 +3,10 @@ import Select from 'react-select';
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { cooInputsn } from "../../formSource";
+import { useNavigate } from 'react-router-dom';
 
 const UserNew = ({ title }) => {
+  const navigate = useNavigate();
   const [inputValues, setInputValues] = useState({});
   const [notification, setNotification] = useState("");
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
@@ -105,6 +107,7 @@ const UserNew = ({ title }) => {
             // setFile(""); // Clear the file
             setInputValues({});
             showNotification("User has been added successfully!");
+            navigate('/user');
         } catch (error) {
           console.log(error);
         }

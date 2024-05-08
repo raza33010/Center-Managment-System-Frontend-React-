@@ -57,7 +57,7 @@ const CourseChapterNew = ({ title }) => {
             // setFile(""); // Clear the file
             setInputValues({});
             showNotification("Course Chapter has been added successfully!");
-            navigate(`/subject/cchapter`);
+            navigate(`/subject/course-chapter`);
         } catch (error) {
           console.log(error);
         }

@@ -5,6 +5,7 @@ import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState,useEffect } from "react";
 import { groupInputs } from "../../formSource";
+import { useNavigate } from 'react-router-dom';
 
 const NameOptions = [
     { value: 'Biology', label: 'Biology' },
@@ -16,6 +17,7 @@ const NameOptions = [
 
 const GroupNew = ({ title }) => {
     // const [file, setFile] = useState("");
+    const navigate = useNavigate();
     const [inputValues, setInputValues] = useState({});
     const [notification, setNotification] = useState("");
     const [subjectoptions, setUseroptions] = useState([]);
@@ -173,6 +175,7 @@ const GroupNew = ({ title }) => {
             // setFile(""); // Clear the file
             setInputValues({});
             showNotification("Duty has been added successfully!");
+            navigate('/group');
         } catch (error) {
           console.log(error);
         }

@@ -67,7 +67,7 @@ const LeaveFormNew = ({ title }) => {
             setFile("");
             setInputValues({});
             showNotification("Late Form has been added successfully!");
-            navigate('/student/leaveform');
+            navigate('/student/leave-form');
             
         } catch (error) {
           console.log(error);

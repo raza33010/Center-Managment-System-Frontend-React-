@@ -296,7 +296,7 @@ const TeacherAttendanceUpdate = ({ title }) => {
             // Reset the form
             setInputValues({});
             showNotification("Slot has been added successfully!");
-            navigate('/teacher_attendance');
+            navigate('/teacher-attendance');
             
         } catch (error) {
           console.log(error);

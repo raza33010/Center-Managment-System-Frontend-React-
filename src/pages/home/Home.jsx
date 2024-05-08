@@ -9,15 +9,15 @@ import { useState } from "react";
 const Home = () => {
   let [token] = useState(localStorage.getItem("token"));
 
-  // const redirectToLogin = () => {
-    // alert("Plaese Login first then you can access this page...");
-    // window.location.href = '/'; // Replace "/login" with the actual login page path
-  // };
+  const redirectToLogin = () => {
+    alert("Plaese Login first then you can access this page...");
+    window.location.href = '/'; // Replace "/login" with the actual login page path
+  };
 
   return (
     <>
-      {/* {!token && redirectToLogin()} */}
-      {/* {token && ( */}
+      {!token && redirectToLogin()}
+      {token && (
         <div className="home">
           <Sidebar />
           <div className="homeContainer">
@@ -38,8 +38,8 @@ const Home = () => {
             </div> */}
           </div>
         </div>
-        {/* )
-      } */}
+         )
+      }
     </>
   );
 };

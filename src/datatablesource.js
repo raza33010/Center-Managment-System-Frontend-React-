@@ -1108,6 +1108,8 @@ export const timetableColumns = [
 export const fetchTimetableRows = async () => {
   const formData = {
     center_id: localStorage.getItem("center_id"),
+    user_id: localStorage.getItem("user_id"),
+    role_id: localStorage.getItem("role_id"),
     // role: 'coo',
     // role_id: '2',
   };
@@ -2175,6 +2177,7 @@ export const fetchExaminationRows = async () => {
   const formData = {
     center_id: localStorage.getItem("center_id"),
     role: 'user',
+    user_id: localStorage.getItem("user_id"),
     role_id: localStorage.getItem("role_id"),
   };
   console.log("abbas",formData);

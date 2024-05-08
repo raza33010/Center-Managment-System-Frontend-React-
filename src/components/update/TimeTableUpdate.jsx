@@ -300,7 +300,7 @@ const  TimeTableUpdate = ({ title }) => {
             .then((data) => {
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/timetable/${timetableId}`);
+                navigate(`/time-table`);
             })
             .catch((error) => {
                 console.log(error);
@@ -379,7 +379,7 @@ const  TimeTableUpdate = ({ title }) => {
                                     <div style={{ clear: "both" }} className="formUpdate">
                                         <button
                                             style={{ float: "right" }}
-                                        // onClick={() => navigate(`/categories/${timetableId}`)}
+                                        // onClick={() => navigate(`/categ-ories`)}
                                         >
                                             Update
                                         </button>
@@ -388,7 +388,7 @@ const  TimeTableUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/student/lform/${timetableId}`)}
+                                            onClick={() => navigate(`/time-table`)}
                                         >
                                             Cancel
                                         </button>

@@ -9,7 +9,7 @@ const RolescreenSingle = () => {
     // Extracting rolescreenId using regular expressions
     const location = useLocation();
     // const rolescreenId = location.pathname.match(/\/rscreen\/(\d+)/);
-    const rolescreenId = location.pathname.match(/\/rscreen\/(\d+)/)?.[1];
+    const rolescreenId = location.pathname.match(/\/role-screen\/(\d+)/)?.[1];
 
     const [rscreen, setRolescreen] = useState(null);
     let [token] = useState(localStorage.getItem("token"));
@@ -50,11 +50,7 @@ const RolescreenSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/rscreen/upd_rscreen/${rolescreenId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                              
                                 <h1 className="title">Role Screen Information</h1>
                                     <div className="details">
                                         {/* <h1 className="itemTitle">{rscreen?.data.name}</h1> */}

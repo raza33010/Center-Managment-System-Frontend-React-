@@ -154,7 +154,7 @@ const  COOUpdate = ({ title }) => {
             .then((data) => {
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/coo/${cooId}`);
+                navigate(`/coo`);
             })
             .catch((error) => {
                 console.log(error);
@@ -228,7 +228,7 @@ const  COOUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/coo/${cooId}`)}
+                                            onClick={() => navigate(`/coo`)}
                                         >
                                             Cancel
                                         </button>

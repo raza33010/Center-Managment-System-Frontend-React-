@@ -110,7 +110,7 @@ const  LateFormUpdate = ({ title }) => {
             .then((data) => {
                 console.log("Response from API", data);
                 // Navigate to the desired page after API response
-                navigate(`/student/lform/${LFId}`);
+                navigate(`/student/late-form`);
             })
             .catch((error) => {
                 console.log(error);
@@ -167,7 +167,7 @@ const  LateFormUpdate = ({ title }) => {
                                         <button
                                             type="button"
                                             style={{ float: "right" }}
-                                            onClick={() => navigate(`/student/lform/${LFId}`)}
+                                            onClick={() => navigate(`/student/late-form`)}
                                         >
                                             Cancel
                                         </button>

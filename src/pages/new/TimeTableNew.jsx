@@ -193,7 +193,7 @@ const TimeTableNew = ({ title }) => {
         // Reset the form
         setInputValues({});
         showNotification("Slot has been added successfully!");
-        navigate('/timetable');
+        navigate('/time-table');
         
     } catch (error) {
       console.log(error);

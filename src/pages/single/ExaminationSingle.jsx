@@ -50,11 +50,7 @@ const ExaminationSingle = () => {
                         <Navbar />
                         <div className="top">
                             <div className="left">
-                                <div className="editButton">
-                                    <Link to={`/examination/upd_examination/${examinationId}`} className=" link">
-                                        Edit
-                                    </Link>
-                                </div>
+                               
                                 <h1 className="title">Exam Information</h1>
                                 <div className="item">
                                     <img src={
