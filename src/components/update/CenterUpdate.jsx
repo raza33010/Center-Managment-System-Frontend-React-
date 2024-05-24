@@ -64,7 +64,7 @@ const  CenterUpdate = ({ title }) => {
 
         formData.append("name", inputValues.name);
         formData.append("address", inputValues.address);
-        formData.append("reason", inputValues.reason);
+        formData.append("phone_no", inputValues.phone_no);
         formData.append('logo', file || "");
         formData.append('status', inputValues.status || 1);
         // Send formData to the server using an HTTP request to update

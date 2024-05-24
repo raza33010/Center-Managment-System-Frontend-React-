@@ -192,6 +192,14 @@ const StudentSingle = () => {
                                        Leave Form
                                     </Link>)}
                                 </div>
+                                <div className="feesButton">
+                            {/* {slugs && slugs.includes(AbsentformLinkString) && ( */}
+                                    <Link to={`/student/fees-form`} className=" link">
+                                    <EventBusyIcon className="icon" />
+                                       Fees Form
+                                    </Link>
+                                    {/* )} */}
+                                </div>
                             {/* <div className="right">
                     <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />
                 </div> */}

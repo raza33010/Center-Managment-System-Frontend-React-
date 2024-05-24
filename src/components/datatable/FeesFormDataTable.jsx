@@ -1,19 +1,19 @@
 import "./datatable.scss";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { expenseColumns, expenseRows, fetchExpenseRows } from "../../datatablesource";
+import { feesformColumns, feesformRows, fetchFeesformRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSlug } from "../../SlugContext";
 
-const ExpenseDataTable = () => {
-    const [data, setData] = useState(expenseRows);
+const FeesFormDataTable = () => {
+    const [data, setData] = useState(feesformRows);
     const [loading, setLoading] = useState(false);
+    const studentName = localStorage.getItem('student_name');
     const { slugs } = useSlug();
-
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
-            const rows = await fetchExpenseRows();
+            const rows = await fetchFeesformRows();
             console.log("jawad",rows)
             setLoading(false);
             setData(Array.from(rows.data));
@@ -23,7 +23,7 @@ const ExpenseDataTable = () => {
 
     const handleDelete = (id) => {
         // Make a DELETE request to the Flask API endpoint
-        fetch(`http://127.0.0.1:5000/del_expense${id}`, {
+        fetch(`http://127.0.0.1:5000/student/del_feesform/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -40,10 +40,9 @@ const ExpenseDataTable = () => {
             console.error('There was a problem with the fetch operation:', error);
           });
       };
-
-      const viewLinkString = "Expense-Single";
-      const editLinkString = "Expense-Edit";
-      const newLinkString = "Expense-New";
+      const viewLinkString = "Feesform-Single";
+      const editLinkString = "Feesform-Edit";
+      const newLinkString = "Feesform-New";
 
     const actionColumn = [
         {
@@ -53,14 +52,16 @@ const ExpenseDataTable = () => {
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                         {slugs && slugs.includes(viewLinkString) && (
-                        <Link to={`/expense/${params.row.id}`} style={{ textDecoration: "none" }}>
+                         {/* {slugs && slugs.includes(viewLinkString) && ( */}
+                        <Link to={`/student/fees-form/${params.row.id}`} style={{ textDecoration: "none" }}>
                         <div className="viewButton">View</div>
-                        </Link>)}
-                        {slugs && slugs.includes(editLinkString) && (
-                        <Link to={`/expense/update-expense/${params.row.id}`} style={{ textDecoration: "none" }}>
+                        </Link>
+                        {/* )} */}
+                        {/* {slugs && slugs.includes(editLinkString) && ( */}
+                        <Link to={`/student/fees-form/update-fees-form/${params.row.id}`} style={{ textDecoration: "none" }}>
                             <div className="editButton">Edit</div>
-                        </Link>)}
+                        </Link>
+                        {/* )} */}
                         <div
                             className="deleteButton"
                             onClick={() => handleDelete(params.row.id)}
@@ -75,26 +76,26 @@ const ExpenseDataTable = () => {
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Expense
-                {slugs && slugs.includes(newLinkString) && (
-                <Link to="/expense/new" className="link">
+                {studentName}'s Fees Form
+                {/* {slugs && slugs.includes(newLinkString) && ( */}
+                <Link to="/student/fees-form/new" className="link">
                     Add New
-                </Link>)}
+                </Link>
+                {/* )} */}
             </div>
-            {loading ? <h1 style={{ textAlign: "center", paddingTop: "20%" }}>loading...</h1> :
+            {loading ? <h1 style={{ textAlign: "student", paddingTop: "20%" }}>loading...</h1> :
                 <DataGrid
                     className="datagrid"
                     rows={data}
-                    columns={expenseColumns.concat(actionColumn)}
+                    columns={feesformColumns.concat(actionColumn)}
                     pageSize={9}
                     rowsPerPageOptions={[9]}
                     components={{
                         Toolbar: GridToolbar, // Include the GridToolbar in the Toolbar slot
                     }}
-                    // checkboxSelection
                 />}
         </div>
     );
 };
 
-export default ExpenseDataTable;
+export default FeesFormDataTable;

@@ -1052,6 +1052,50 @@ export const categoryInputs = [
     },
   ];
 
+  export const feesformInputs = [
+    // {
+    //   fieldName: "reason",
+    //   id: 2,
+    //   label: "Reason For Absent",
+    //   type: "text",
+    //   placeholder: "E.g any....",
+    // },
+    {
+      fieldName: "date",
+      id: 3,
+      label: "Date",
+      type: "date",
+      placeholder: "E.g ",
+    },
+    {
+      fieldName: "amount",
+      id: 4,
+      label: "Amount",
+      type: "text",
+      placeholder: "E.g ",
+    },
+    {
+      fieldName: "amount_type",
+      id: 5,
+      label: "Amount Type",
+      type: "text",
+      placeholder: "E.g ",
+    },
+    {
+      fieldName: "description",
+      id: 6,
+      label: "Description",
+      type: "text",
+      placeholder: "E.g ",
+    },
+    {
+      fieldName: "status",
+      id: 11,
+      label: "Status",
+      type: "number",
+      placeholder: "E.g: 1 or 0",
+    },
+  ];
 
 
   export const subjectInputs = [
@@ -1206,6 +1250,45 @@ export const categoryInputs = [
       placeholder: "E.g: 1 or 0",
     },
   ];  
+
+  export const resultgenerationInputs = [
+    {
+      fieldName: "result_type",
+      id: 1,
+      label: "Result For",
+      type: "text",
+      placeholder: "E.g: 1",
+    },
+    {
+      fieldName: "class_id",
+      id: 2,
+      label: "Class Name",
+      type: "text",
+      placeholder: "E.g: 1",
+    },
+    {
+      fieldName: "student_id",
+      id: 3,
+      label: "Student Name",
+      type: "text",
+      placeholder: "E.g: 1",
+    },
+    {
+      fieldName: "type",
+      id:4,
+      label: "Result for a/the",
+      type: "text",
+      placeholder: "E.g: Enter Marks",
+    },
+    {
+      fieldName: "month",
+      id: 5,
+      label: "Month",
+      type: "month",
+      placeholder: "E.g: 1 or 0",
+    },
+  ];  
+
 
   export const roleInputs = [
     // {

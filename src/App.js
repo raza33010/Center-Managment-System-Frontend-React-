@@ -21,6 +21,7 @@ import SAwardList from "./pages/list/SAwardList";
 import LeaveFormList from "./pages/list/LeaveFormList";
 import HalfLeaveFormList from "./pages/list/HalfLeaveFormList";
 import AbsentFormList from "./pages/list/AbsentFormList";
+import FeesFormList from "./pages/list/FeesFormList";
 import DutyList from "./pages/list/DutyList";
 import GroupList from "./pages/list/GroupList";
 import CenterList from "./pages/list/CenterList";
@@ -63,7 +64,8 @@ import TimeTableSingle from "./pages/single/TimeTableSingle";
 import TeacherAttendanceSingle from "./pages/single/TeacherAttendanceSingle";
 import LeaveFormSingle from "./pages/single/LeaveFormSingle";
 import HalfLeaveFormSingle from "./pages/single/HalfLeaveFormSingle";
-import AbsentFormSingle from "./pages/single/AbsentFormSingle"; 
+import AbsentFormSingle from "./pages/single/AbsentFormSingle";
+import FeesFormSingle from "./pages/single/FeesFormSingle"; 
 import SubjectSingle from "./pages/single/SubjectSingle";
 import TeacherSingle from "./pages/single/TeacherSingle";
 import ResultSingle from "./pages/single/ResultSingle";
@@ -93,6 +95,7 @@ import TeacherAttendanceNew from "./pages/new/TeacherAttendanceNew";
 import LeaveFormNew from "./pages/new/LeaveFormNew";
 import HalfLeaveFormNew from "./pages/new/HalfLeaveFormNew";
 import AbsentFormNew from "./pages/new/AbsentFormNew";
+import FeesFormNew from "./pages/new/FeesFormNew";
 import SubjectNew from "./pages/new/SubjectNew";
 import TeacherNew from "./pages/new/TeacherNew";
 import ResultNew from "./pages/new/ResultNew";
@@ -122,12 +125,13 @@ import TeacherAttendanceUpdate from "./components/update/TeacherAttendanceUpdate
 import LeaveFormUpdate from "./components/update/LeaveFormUpdate";
 import HalfLeaveFormUpdate from "./components/update/HalfLeaveFormUpdate";
 import AbsentFormUpdate from "./components/update/AbsentFormUpdate";
+import FeesFormUpdate from "./components/update/FeesFormUpdate";
 import SubjectUpdate from "./components/update/SubjectUpdate";
 import TeacherUpdate from "./components/update/TeacherUpdate";
 import ResultUpdate from "./components/update/ResultUpdate";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { expenseInputs, quizInputs, studentInputs, lateformInputs, timetableInputs, teacher_attendanceInputs, leaveformInputs, halfleaveformInputs, absentformInputs, resultInputs, roleInputs, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, cchapterInputs, unitInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
+import { expenseInputs, quizInputs, studentInputs, lateformInputs, timetableInputs, teacher_attendanceInputs, leaveformInputs, halfleaveformInputs, feesformInputs, absentformInputs, resultgenerationInputs, resultInputs, roleInputs, teacherInputs, subjectInputs, nsubjectInputs,examinationInputs, rolescreenInputs, cooInputsn, cooInputs, userInputs, questionInputs, studentrecordInputs, centerInputs, accountInputs, batchInputs, nclassInputs, cchapterInputs, unitInputs, classInputs, dutyInputs, groupInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -309,10 +313,19 @@ function App() {
               <Route path="absent-form">
                 <Route index element={<AbsentFormList />} />
                 <Route path=":absentformId" element={<AbsentFormSingle />} />
-                <Route path="update-absent-form/:absentformId" element={<AbsentFormUpdate inputs={absentformInputs} title="Update Leave Form" />} />
+                <Route path="update-absent-form/:absentformId" element={<AbsentFormUpdate inputs={absentformInputs} title="Update Absent Form" />} />
                 <Route
                   path="new"
                   element={<AbsentFormNew inputs={absentformInputs} title="Add New Absent Form" />}
+                />
+              </Route>
+              <Route path="fees-form">
+                <Route index element={<FeesFormList />} />
+                <Route path=":feesformId" element={<FeesFormSingle />} />
+                <Route path="update-fees-form/:feesformId" element={<FeesFormUpdate inputs={feesformInputs} title="Update Fees Form" />} />
+                <Route
+                  path="new"
+                  element={<FeesFormNew inputs={feesformInputs} title="Add New Fees Form" />}
                 />
               </Route>
               <Route path="update-student/:studentId" element={<StudentUpdate inputs={studentInputs} title="Update Student" />} />
@@ -366,7 +379,7 @@ function App() {
               <Route path="upd_result/:resultId" element={<ResultUpdate inputs={resultInputs} title="Update Subject Result" />} />
               <Route
                 path="new"
-                element={<ResultNew inputs={resultInputs} title="Add New Subject Result" />}
+                element={<ResultNew inputs={resultgenerationInputs} title="Result" />}
               />
             </Route>
 

@@ -49,7 +49,8 @@
       .aformButton:hover {
       background-color: rgb(101, 101, 249);
       color: #fff;
-    }
+    } 
+
     .lformButton {
       position: absolute;
       bottom: 0;
@@ -98,6 +99,23 @@
   border: 1px dotted rgba(0, 0, 139, 0.596);
 }
 .leformButton:hover {
+background-color: rgb(101, 101, 249);
+color: #fff;
+}
+.feesButton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 5px;
+  font-size: 12px;
+  color: darkblue;
+  background-color: #7551f818;
+  cursor: pointer;
+  border-radius: 0px 0px 0px 5px;
+  padding: 2px 5px;
+  border: 1px dotted rgba(0, 0, 139, 0.596);
+}
+.feesButton:hover {
 background-color: rgb(101, 101, 249);
 color: #fff;
 }

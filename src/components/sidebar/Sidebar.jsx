@@ -159,7 +159,7 @@ const Sidebar = () => {
               <span>Teacher</span>
             </li>
           </Link>
-          <Link to="/result" style={{ textDecoration: "none" }}>
+          <Link to="/result/new" style={{ textDecoration: "none" }}>
             <li >
               <PercentOutlinedIcon className="icon" />
               <span>Subject Result</span>
